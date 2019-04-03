@@ -1,0 +1,9 @@
+{
+  "model": "workflows.category",
+  "fields": {
+    "name": "Words",
+    "parent": null,
+    "order": 1,
+    "uid": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f"
+  }
+}

@@ -1,0 +1,104 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Word2Vec",
+      "action": "text_embeddings_word2vec",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "",
+      "variable": "lang",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "en",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "47033ade-bc8a-4f2a-935e-a2b9a27c3369"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "String",
+      "short_name": "str",
+      "description": "",
+      "variable": "string",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "71a917e2-b408-4f2f-8f45-a8a7d362236a"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Dataset",
+      "short_name": "dts",
+      "description": "",
+      "variable": "data",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "order": 1,
+      "uid": "6f66ebbb-8b65-4439-981b-048428bc457f"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Words",
+      "short_name": "wrd",
+      "description": "",
+      "variable": "words",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "order": 1,
+      "uid": "b87c4160-0f92-4aa9-acec-c96cba5fb0ba"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "Spanish",
+      "value": "es",
+      "uid": "6bc24d17-7cae-493a-bd09-e012a4052aba"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "English",
+      "value": "en",
+      "uid": "f3c91e50-495d-4085-9dd2-cca631faab56"
+    }
+  }
+]
