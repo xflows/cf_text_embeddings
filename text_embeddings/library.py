@@ -50,3 +50,20 @@ def text_embeddings_word2vec(input_dict):
 
     words, embeddings = text_embeddings_words_to_embeddings(model, string)
     return {'words': words, 'data': embeddings}
+
+
+def text_embeddings_glove(input_dict):
+    lang = input_dict['lang']
+    string = input_dict['string'] or ''
+
+    model = None
+    if lang == 'en':
+        model = text_embeddings_load_gensim_model('GloVe', 'glove.6B.300d.wv.bin')
+    elif lang == 'es':
+        model = None
+
+    if model is None:
+        raise Exception('GloVe model for %s language is not supported' % lang)
+
+    words, embeddings = text_embeddings_words_to_embeddings(model, string)
+    return {'words': words, 'data': embeddings}
