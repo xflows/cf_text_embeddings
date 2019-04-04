@@ -12,12 +12,12 @@ def text_embeddings_models_folder_path():
     return path.join(text_embeddings_package_folder_path(), 'models')
 
 
-def text_embeddings_model_path(model_name):
-    return path.join(text_embeddings_models_folder_path(), model_name)
+def text_embeddings_model_path(model_type, model_name):
+    return path.join(text_embeddings_models_folder_path(), model_type, model_name)
 
 
-def text_embeddings_load_word2vec_model(model_name):
-    path_ = text_embeddings_model_path(model_name)
+def text_embeddings_load_word2vec_model(model_type, model_name):
+    path_ = text_embeddings_model_path(model_type, model_name)
     return KeyedVectors.load(path_, mmap='r')
 
 
@@ -27,7 +27,8 @@ def text_embeddings_word2vec(input_dict):
 
     model = None
     if lang == 'en':
-        model = text_embeddings_load_word2vec_model('GoogleNews-vectors-negative300.wv.bin')
+        model = text_embeddings_load_word2vec_model('word2vec',
+                                                    'GoogleNews-vectors-negative300.wv.bin')
     elif lang == 'es':
         model = None
 
