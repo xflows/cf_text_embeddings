@@ -45,16 +45,16 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "String",
-      "short_name": "str",
+      "name": "Annotated Document Corpus",
+      "short_name": "adc",
       "description": "",
-      "variable": "string",
+      "variable": "adc",
       "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
-      "required": false,
+      "required": true,
       "parameter": false,
       "multi": false,
       "default": "",
-      "parameter_type": null,
+      "parameter_type": "textarea",
       "order": 1,
       "uid": "71a917e2-b408-4f2f-8f45-a8a7d362236a"
     }

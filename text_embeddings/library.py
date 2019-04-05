@@ -22,15 +22,14 @@ def text_embeddings_load_gensim_model(model_type, model_name):
     return KeyedVectors.load(path_, mmap='r')
 
 
-def text_embeddings_words_to_embeddings(model, string):
+def text_embeddings_tokens_to_embeddings(model, tokens):
     unknown_word_embedding = np.zeros(model.vector_size)
     embeddings = []
-    words = string.split()
-    for word in words:
-        if word not in model.wv.vocab:
+    for token in tokens:
+        if token not in model.wv.vocab:
             embeddings.append(unknown_word_embedding)
             continue
-        embedding = model.wv[word]
+        embedding = model.wv[token]
         embeddings.append(embedding)
     return np.array(embeddings)
 
@@ -39,15 +38,25 @@ def text_embeddings_words_to_orange_domain(n_features):
     return Domain([ContinuousVariable.make('Feature %d' % i) for i in range(n_features)])
 
 
-def text_embeddings_apply_gensim_model(model, string):
-    embeddings = text_embeddings_words_to_embeddings(model, string)
+def text_embeddings_extract_tokens(documents, selector='Token'):
+    tokens = []
+    for document in documents:
+        annotations_with_text = document.get_annotations_with_text(selector)
+        tokens.extend([ann[1] for ann in annotations_with_text])
+    return tokens
+
+
+def text_embeddings_apply_gensim_model(model, documents):
+    tokens = text_embeddings_extract_tokens(documents)
+    embeddings = text_embeddings_tokens_to_embeddings(model, tokens)
     domain = text_embeddings_words_to_orange_domain(embeddings.shape[1])
     return Table(domain, embeddings)
 
 
 def text_embeddings_word2vec(input_dict):
     lang = input_dict['lang']
-    string = input_dict['string'] or ''
+    adc = input_dict['adc']
+    documents = adc.documents
 
     model = None
     if lang == 'en':
@@ -59,13 +68,14 @@ def text_embeddings_word2vec(input_dict):
     if model is None:
         raise Exception('word2vec model for %s language is not supported' % lang)
 
-    bow_dataset = text_embeddings_apply_gensim_model(model, string)
+    bow_dataset = text_embeddings_apply_gensim_model(model, documents)
     return {'bow_dataset': bow_dataset}
 
 
 def text_embeddings_glove(input_dict):
     lang = input_dict['lang']
-    string = input_dict['string'] or ''
+    adc = input_dict['adc']
+    documents = adc.documents
 
     model = None
     if lang == 'en':
@@ -76,5 +86,5 @@ def text_embeddings_glove(input_dict):
     if model is None:
         raise Exception('GloVe model for %s language is not supported' % lang)
 
-    bow_dataset = text_embeddings_apply_gensim_model(model, string)
+    bow_dataset = text_embeddings_apply_gensim_model(model, documents)
     return {'bow_dataset': bow_dataset}
