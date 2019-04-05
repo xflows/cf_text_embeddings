@@ -2,6 +2,7 @@ from os import path
 
 import numpy as np
 from gensim.models import KeyedVectors
+from Orange.data import ContinuousVariable, Domain, Table
 
 
 def text_embeddings_package_folder_path():
@@ -31,7 +32,17 @@ def text_embeddings_words_to_embeddings(model, string):
             continue
         embedding = model.wv[word]
         embeddings.append(embedding)
-    return words, np.array(embeddings)
+    return np.array(embeddings)
+
+
+def text_embeddings_words_to_orange_domain(n_features):
+    return Domain([ContinuousVariable.make('Feature %d' % i) for i in range(n_features)])
+
+
+def text_embeddings_apply_gensim_model(model, string):
+    embeddings = text_embeddings_words_to_embeddings(model, string)
+    domain = text_embeddings_words_to_orange_domain(embeddings.shape[1])
+    return Table(domain, embeddings)
 
 
 def text_embeddings_word2vec(input_dict):
@@ -48,8 +59,8 @@ def text_embeddings_word2vec(input_dict):
     if model is None:
         raise Exception('word2vec model for %s language is not supported' % lang)
 
-    words, embeddings = text_embeddings_words_to_embeddings(model, string)
-    return {'words': words, 'data': embeddings}
+    bow_dataset = text_embeddings_apply_gensim_model(model, string)
+    return {'bow_dataset': bow_dataset}
 
 
 def text_embeddings_glove(input_dict):
@@ -65,5 +76,5 @@ def text_embeddings_glove(input_dict):
     if model is None:
         raise Exception('GloVe model for %s language is not supported' % lang)
 
-    words, embeddings = text_embeddings_words_to_embeddings(model, string)
-    return {'words': words, 'data': embeddings}
+    bow_dataset = text_embeddings_apply_gensim_model(model, string)
+    return {'bow_dataset': bow_dataset}

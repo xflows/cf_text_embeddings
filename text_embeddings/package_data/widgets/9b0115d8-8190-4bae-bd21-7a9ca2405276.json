@@ -62,22 +62,10 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Dataset",
-      "short_name": "dts",
-      "description": "",
-      "variable": "data",
-      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
-      "order": 1,
-      "uid": "6f66ebbb-8b65-4439-981b-048428bc457f"
-    }
-  },
-  {
-    "model": "workflows.abstractoutput",
-    "fields": {
-      "name": "Words",
-      "short_name": "wrd",
-      "description": "",
-      "variable": "words",
+      "name": "BOW Model Dataset",
+      "short_name": "ds",
+      "description": "Sparse BOW feature vectors.",
+      "variable": "bow_dataset",
       "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
       "order": 1,
       "uid": "b87c4160-0f92-4aa9-acec-c96cba5fb0ba"
