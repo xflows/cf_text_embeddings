@@ -1,0 +1,92 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Doc2Vec",
+      "action": "text_embeddings_doc2vec",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "64066a04-05fe-4d9a-b380-f2627846a232",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Annotated Document Corpus",
+      "short_name": "adc",
+      "description": "",
+      "variable": "adc",
+      "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": "textarea",
+      "order": 1,
+      "uid": "9693d071-4562-4daf-b9bd-fcddfbaf9dae"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "",
+      "variable": "lang",
+      "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "en",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "bb5b8eb2-a932-46c7-999a-e73edb6cb172"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "BOW Model Dataset",
+      "short_name": "ds",
+      "description": "Sparse BOW feature vectors.",
+      "variable": "bow_dataset",
+      "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
+      "order": 1,
+      "uid": "abc0d6b5-b7e8-4ddf-821e-352a132ee825"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "bb5b8eb2-a932-46c7-999a-e73edb6cb172",
+      "name": "English",
+      "value": "en",
+      "uid": "05e7c3e8-b9fe-419d-8b92-44b679db9632"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "bb5b8eb2-a932-46c7-999a-e73edb6cb172",
+      "name": "Spanish",
+      "value": "es",
+      "uid": "51ef0001-e351-49c0-93d3-7b889f8c7cd6"
+    }
+  }
+]
