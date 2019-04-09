@@ -12,6 +12,7 @@ class ModelType(Enum):
     word2vec = 'word2vec'
     glove = 'glove'
     doc2vec = 'doc2vec'
+    fasttext = 'fasttext'
 
 
 def text_embeddings_package_folder_path():
@@ -30,8 +31,10 @@ def text_embeddings_load_gensim_model(model_type, model_name):
     path_ = text_embeddings_model_path(model_type.value, model_name)
     if model_type == ModelType.doc2vec:
         return Doc2Vec.load(path_, mmap='r')
+    if model_type == ModelType.fasttext:
+        return FastTextKeyedVectors.load(path_, mmap='r')
     if model_type in {ModelType.word2vec, ModelType.glove}:
-        return KeyedVectors.load(path_, mmap='r')
+        return Word2VecKeyedVectors.load(path_, mmap='r')
     raise Exception('%s model not supported' % model_type)
 
 
@@ -104,6 +107,24 @@ def text_embeddings_glove(input_dict):
 
     if model is None:
         raise Exception('%s model for %s language is not supported' % (ModelType.glove, lang))
+
+    bow_dataset = text_embeddings_apply_gensim_model(model, documents, selector='Token')
+    return {'bow_dataset': bow_dataset}
+
+
+def text_embeddings_fasttext(input_dict):
+    lang = input_dict['lang']
+    adc = input_dict['adc']
+    documents = adc.documents
+
+    model = None
+    if lang == 'en':
+        model = text_embeddings_load_gensim_model(ModelType.fasttext, 'fasttext-small.bin')
+    elif lang == 'es':
+        model = None
+
+    if model is None:
+        raise Exception('%s model for %s language is not supported' % (ModelType.fasttext, lang))
 
     bow_dataset = text_embeddings_apply_gensim_model(model, documents, selector='Token')
     return {'bow_dataset': bow_dataset}
