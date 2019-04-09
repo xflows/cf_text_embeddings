@@ -119,6 +119,7 @@ def text_embeddings_fasttext(input_dict):
 
     model = None
     if lang == 'en':
+        # TODO include real english fasttext model
         model = text_embeddings_load_gensim_model(ModelType.fasttext, 'fasttext-small.bin')
     elif lang == 'es':
         model = None
