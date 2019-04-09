@@ -2,8 +2,9 @@ from enum import Enum
 from os import path
 
 import numpy as np
-from gensim.models import KeyedVectors
 from gensim.models.doc2vec import Doc2Vec
+from gensim.models.keyedvectors import (FastTextKeyedVectors,
+                                        Word2VecKeyedVectors)
 from Orange.data import ContinuousVariable, Domain, Table
 
 
@@ -41,8 +42,7 @@ def text_embeddings_tokens_to_embeddings(model, tokens):
         if model.__class__ == Doc2Vec:
             sub_tokens = token.split(' ')  # TextBlock to list of strings
             embedding = model.infer_vector(sub_tokens)
-        elif model.__class__ == KeyedVectors:
-            # Word2Vec model
+        elif model.__class__ in {Word2VecKeyedVectors, FastTextKeyedVectors}:
             if token not in model.wv.vocab:
                 embeddings.append(unknown_word_embedding)
                 continue
