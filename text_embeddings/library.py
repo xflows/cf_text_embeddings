@@ -83,16 +83,16 @@ def text_embeddings_word2vec(input_dict):
     lang = input_dict['lang']
     adc = input_dict['adc']
     documents = adc.documents
+    model_type = ModelType.word2vec
 
     model = None
     if lang == 'en':
-        model = text_embeddings_load_model(ModelType.word2vec,
-                                           'GoogleNews-vectors-negative300.wv.bin')
+        model = text_embeddings_load_model(model_type, 'GoogleNews-vectors-negative300.wv.bin')
     elif lang == 'es':
-        model = text_embeddings_load_model(ModelType.word2vec, 'SBW-vectors-300-min5.wv.bin')
+        model = text_embeddings_load_model(model_type, 'SBW-vectors-300-min5.wv.bin')
 
     if model is None:
-        raise Exception('%s model for %s language is not supported' % (ModelType.word2vec, lang))
+        raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
     bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
                                               selector='Token')
@@ -103,15 +103,16 @@ def text_embeddings_glove(input_dict):
     lang = input_dict['lang']
     adc = input_dict['adc']
     documents = adc.documents
+    model_type = ModelType.glove
 
     model = None
     if lang == 'en':
-        model = text_embeddings_load_model(ModelType.glove, 'glove.6B.300d.wv.bin')
+        model = text_embeddings_load_model(model_type, 'glove.6B.300d.wv.bin')
     elif lang == 'es':
         model = None
 
     if model is None:
-        raise Exception('%s model for %s language is not supported' % (ModelType.glove, lang))
+        raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
     bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
                                               selector='Token')
@@ -122,16 +123,17 @@ def text_embeddings_fasttext(input_dict):
     lang = input_dict['lang']
     adc = input_dict['adc']
     documents = adc.documents
+    model_type = ModelType.fasttext
 
     model = None
     if lang == 'en':
         # TODO include real english fasttext model
-        model = text_embeddings_load_model(ModelType.fasttext, 'fasttext-small.bin')
+        model = text_embeddings_load_model(model_type, 'fasttext-small.bin')
     elif lang == 'es':
         model = None
 
     if model is None:
-        raise Exception('%s model for %s language is not supported' % (ModelType.fasttext, lang))
+        raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
     bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
                                               selector='Token')
@@ -142,15 +144,16 @@ def text_embeddings_doc2vec(input_dict):
     lang = input_dict['lang']
     adc = input_dict['adc']
     documents = adc.documents
+    model_type = ModelType.doc2vec
 
     model = None
     if lang == 'en':
-        model = text_embeddings_load_model(ModelType.doc2vec, 'doc2vec.bin')
+        model = text_embeddings_load_model(model_type, 'doc2vec.bin')
     elif lang == 'es':
         model = None
 
     if model is None:
-        raise Exception('%s model for %s language is not supported' % (ModelType.doc2vec, lang))
+        raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
     bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
                                               selector='TextBlock')
