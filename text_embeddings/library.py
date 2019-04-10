@@ -7,6 +7,10 @@ from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
 from Orange.data import ContinuousVariable, Domain, Table
 
+class EmbeddingsLibrary(Enum):
+    gensim = 'gensim'
+    tensorflow = 'tensorflow'
+
 
 class ModelType(Enum):
     word2vec = 'word2vec'
@@ -27,7 +31,7 @@ def text_embeddings_model_path(model_type, model_name):
     return path.join(text_embeddings_models_folder_path(), model_type, model_name)
 
 
-def text_embeddings_load_gensim_model(model_type, model_name):
+def text_embeddings_load_model(model_type, model_name):
     path_ = text_embeddings_model_path(model_type.value, model_name)
     if model_type == ModelType.doc2vec:
         return Doc2Vec.load(path_, mmap='r')
@@ -68,7 +72,7 @@ def text_embeddings_extract_tokens(documents, selector):
     return tokens
 
 
-def text_embeddings_apply_gensim_model(model, documents, selector):
+def text_embeddings_apply_model(embeddings_library, model, documents, selector):
     tokens = text_embeddings_extract_tokens(documents, selector=selector)
     embeddings = text_embeddings_tokens_to_embeddings(model, tokens)
     domain = text_embeddings_words_to_orange_domain(embeddings.shape[1])
@@ -82,15 +86,16 @@ def text_embeddings_word2vec(input_dict):
 
     model = None
     if lang == 'en':
-        model = text_embeddings_load_gensim_model(ModelType.word2vec,
-                                                  'GoogleNews-vectors-negative300.wv.bin')
+        model = text_embeddings_load_model(ModelType.word2vec,
+                                           'GoogleNews-vectors-negative300.wv.bin')
     elif lang == 'es':
-        model = text_embeddings_load_gensim_model(ModelType.word2vec, 'SBW-vectors-300-min5.wv.bin')
+        model = text_embeddings_load_model(ModelType.word2vec, 'SBW-vectors-300-min5.wv.bin')
 
     if model is None:
         raise Exception('%s model for %s language is not supported' % (ModelType.word2vec, lang))
 
-    bow_dataset = text_embeddings_apply_gensim_model(model, documents, selector='Token')
+    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+                                              selector='Token')
     return {'bow_dataset': bow_dataset}
 
 
@@ -101,14 +106,15 @@ def text_embeddings_glove(input_dict):
 
     model = None
     if lang == 'en':
-        model = text_embeddings_load_gensim_model(ModelType.glove, 'glove.6B.300d.wv.bin')
+        model = text_embeddings_load_model(ModelType.glove, 'glove.6B.300d.wv.bin')
     elif lang == 'es':
         model = None
 
     if model is None:
         raise Exception('%s model for %s language is not supported' % (ModelType.glove, lang))
 
-    bow_dataset = text_embeddings_apply_gensim_model(model, documents, selector='Token')
+    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+                                              selector='Token')
     return {'bow_dataset': bow_dataset}
 
 
@@ -120,14 +126,15 @@ def text_embeddings_fasttext(input_dict):
     model = None
     if lang == 'en':
         # TODO include real english fasttext model
-        model = text_embeddings_load_gensim_model(ModelType.fasttext, 'fasttext-small.bin')
+        model = text_embeddings_load_model(ModelType.fasttext, 'fasttext-small.bin')
     elif lang == 'es':
         model = None
 
     if model is None:
         raise Exception('%s model for %s language is not supported' % (ModelType.fasttext, lang))
 
-    bow_dataset = text_embeddings_apply_gensim_model(model, documents, selector='Token')
+    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+                                              selector='Token')
     return {'bow_dataset': bow_dataset}
 
 
@@ -138,12 +145,13 @@ def text_embeddings_doc2vec(input_dict):
 
     model = None
     if lang == 'en':
-        model = text_embeddings_load_gensim_model(ModelType.doc2vec, 'doc2vec.bin')
+        model = text_embeddings_load_model(ModelType.doc2vec, 'doc2vec.bin')
     elif lang == 'es':
         model = None
 
     if model is None:
         raise Exception('%s model for %s language is not supported' % (ModelType.doc2vec, lang))
 
-    bow_dataset = text_embeddings_apply_gensim_model(model, documents, selector='TextBlock')
+    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+                                              selector='TextBlock')
     return {'bow_dataset': bow_dataset}
