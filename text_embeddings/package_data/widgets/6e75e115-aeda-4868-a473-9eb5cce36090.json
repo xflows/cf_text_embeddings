@@ -30,7 +30,7 @@
     "fields": {
       "name": "Annotated Document Corpus",
       "short_name": "adc",
-      "description": "",
+      "description": "Annotated Document Corpus (workflows.textflows.DocumentCorpus)",
       "variable": "adc",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "required": true,
@@ -45,9 +45,26 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Token Annotation",
+      "short_name": "str",
+      "description": "This is the type of Annotation instances, which mark parts of the document (e.g., words, sentences or a terms), which will be used for generating the vocabulary and the dataset.",
+      "variable": "token_annotation",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "Sentence",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "5ba48927-9388-41be-8a85-bdb8e45b6334"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "",
+      "description": "Language of the embeddings model",
       "variable": "lang",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "required": true,
