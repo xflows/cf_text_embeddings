@@ -2,10 +2,13 @@ from enum import Enum
 from os import path
 
 import numpy as np
+import tensorflow as tf
+import tensorflow_hub as hub
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
 from Orange.data import ContinuousVariable, Domain, Table
+
 
 class EmbeddingsLibrary(Enum):
     gensim = 'gensim'
@@ -17,6 +20,7 @@ class ModelType(Enum):
     glove = 'glove'
     doc2vec = 'doc2vec'
     fasttext = 'fasttext'
+    universal_sentence_encoder = 'universal_sentence_encoder'
 
 
 def text_embeddings_package_folder_path():
@@ -39,10 +43,12 @@ def text_embeddings_load_model(model_type, model_name):
         return FastTextKeyedVectors.load(path_, mmap='r')
     if model_type in {ModelType.word2vec, ModelType.glove}:
         return Word2VecKeyedVectors.load(path_, mmap='r')
+    if model_type == ModelType.universal_sentence_encoder:
+        return hub.Module(path_)
     raise Exception('%s model not supported' % model_type)
 
 
-def text_embeddings_tokens_to_embeddings(model, tokens):
+def text_embeddings_tokens_to_embeddings_gensim(model, tokens):
     unknown_word_embedding = np.zeros(model.vector_size)
     embeddings = []
     for token in tokens:
@@ -60,6 +66,16 @@ def text_embeddings_tokens_to_embeddings(model, tokens):
     return np.array(embeddings)
 
 
+def text_embeddings_tokens_to_embeddings_tensorflow(model, tokens):
+    tf_embeddings = model(tokens)
+
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        sess.run(tf.tables_initializer())
+        embeddings = sess.run(tf_embeddings)
+    return embeddings
+
+
 def text_embeddings_words_to_orange_domain(n_features):
     return Domain([ContinuousVariable.make('Feature %d' % i) for i in range(n_features)])
 
@@ -74,7 +90,14 @@ def text_embeddings_extract_tokens(documents, selector):
 
 def text_embeddings_apply_model(embeddings_library, model, documents, selector):
     tokens = text_embeddings_extract_tokens(documents, selector=selector)
-    embeddings = text_embeddings_tokens_to_embeddings(model, tokens)
+
+    if embeddings_library == EmbeddingsLibrary.gensim:
+        embeddings = text_embeddings_tokens_to_embeddings_gensim(model, tokens)
+    elif embeddings_library == EmbeddingsLibrary.tensorflow:
+        embeddings = text_embeddings_tokens_to_embeddings_tensorflow(model, tokens)
+    else:
+        raise Exception('%s embeddings library is not supported' % embeddings_library.value)
+
     domain = text_embeddings_words_to_orange_domain(embeddings.shape[1])
     return Table(domain, embeddings)
 
@@ -137,6 +160,26 @@ def text_embeddings_fasttext(input_dict):
 
     bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
                                               selector='Token')
+    return {'bow_dataset': bow_dataset}
+
+
+def text_embeddings_universal_sentence_encoder(input_dict):
+    lang = input_dict['lang']
+    adc = input_dict['adc']
+    documents = adc.documents
+    model_type = ModelType.universal_sentence_encoder
+
+    model = None
+    if lang == 'en':
+        model = text_embeddings_load_model(model_type, 'english')
+    elif lang == 'es':
+        model = None
+
+    if model is None:
+        raise Exception('%s model for %s language is not supported' % (model_type, lang))
+
+    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.tensorflow, model, documents,
+                                              selector='Sentence')
     return {'bow_dataset': bow_dataset}
 
 

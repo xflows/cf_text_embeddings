@@ -106,3 +106,8 @@ venv.bak/
 # word2vec models
 *.bin
 *.npy
+ 
+# universal_sentence_encoder models
+*.pb
+*.data-00000-of-00001
+*.index

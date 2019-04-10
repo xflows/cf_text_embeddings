@@ -1,0 +1,92 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Universal Sentence Encoder",
+      "action": "text_embeddings_universal_sentence_encoder",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "c15657c5-4927-4ea6-b48f-e6a26c011a7c",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Annotated Document Corpus",
+      "short_name": "adc",
+      "description": "",
+      "variable": "adc",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": "textarea",
+      "order": 1,
+      "uid": "2c32c6ea-5531-4d85-9145-bec4a155236d"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "",
+      "variable": "lang",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "en",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "d681c0df-d743-4a20-959c-220af63bdc52"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "BOW Model Dataset",
+      "short_name": "ds",
+      "description": "Sparse BOW feature vectors.",
+      "variable": "bow_dataset",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "order": 1,
+      "uid": "a2c3b7d7-0959-4402-84cb-1762934b9422"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
+      "name": "Spanish",
+      "value": "es",
+      "uid": "a43f3d35-bf12-4da7-9fcd-b03debc57da4"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
+      "name": "English",
+      "value": "en",
+      "uid": "f376f80a-6d3d-4016-9d62-75a98a87bb66"
+    }
+  }
+]
