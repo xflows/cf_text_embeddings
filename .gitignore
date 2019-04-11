@@ -107,7 +107,8 @@ venv.bak/
 *.bin
 *.npy
  
-# universal_sentence_encoder models
+# tensorflow models
 *.pb
 *.data-00000-of-00001
 *.index
+*.descriptor.txt
