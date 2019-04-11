@@ -16,6 +16,7 @@ class ModelType(Enum):
     doc2vec = 'doc2vec'
     fasttext = 'fasttext'
     universal_sentence_encoder = 'universal_sentence_encoder'
+    elmo = 'elmo'
 
 
 GENSIM_MODELS = {ModelType.word2vec, ModelType.glove, ModelType.doc2vec, ModelType.fasttext}
@@ -42,7 +43,7 @@ def text_embeddings_load_model(model_type, model_name):
         return FastTextKeyedVectors.load(path_, mmap='r')
     if model_type in {ModelType.word2vec, ModelType.glove}:
         return Word2VecKeyedVectors.load(path_, mmap='r')
-    if model_type == ModelType.universal_sentence_encoder:
+    if model_type in {ModelType.universal_sentence_encoder, ModelType.elmo}:
         return hub.Module(path_)
     raise Exception('%s model not supported' % model_type)
 
@@ -220,4 +221,27 @@ def text_embeddings_doc2vec(input_dict):
 
     bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
                                               token_annotation=token_annotation)
+    return {'bow_dataset': bow_dataset}
+
+
+def text_embeddings_elmo(input_dict):
+    lang = input_dict['lang']
+    adc = input_dict['adc']
+    token_annotation = input_dict['token_annotation'] or 'TextBlock'
+    documents = adc.documents
+    model_type = ModelType.elmo
+    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
+
+    model = None
+    if lang == 'en':
+        model = text_embeddings_load_model(model_type, 'english')
+    elif lang == 'es':
+        model = None
+
+    if model is None:
+        raise Exception('%s model for %s language is not supported' % (model_type, lang))
+
+    bow_dataset = text_embeddings_apply_model(
+        embeddings_function, model, documents, token_annotation=token_annotation,
+        model_output='elmo', signature="default", as_dict=True)
     return {'bow_dataset': bow_dataset}
