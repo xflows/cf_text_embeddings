@@ -66,12 +66,22 @@ def text_embeddings_tokens_to_embeddings_gensim(model, tokens):
 
 
 def text_embeddings_tokens_to_embeddings_tensorflow(model, tokens, **kwargs):
+    model_output = None
+    if 'model_output' in kwargs:
+        model_output = kwargs.pop('model_output')
+
     tf_embeddings = model(tokens, **kwargs)
+    if model_output is not None:
+        tf_embeddings = tf_embeddings[model_output]
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         sess.run(tf.tables_initializer())
         embeddings = sess.run(tf_embeddings)
+
+    if len(embeddings.shape) > 2:
+        # convert elmo's arrays shape from (n, 1, m) to (n, m)
+        embeddings = embeddings.squeeze()
     return embeddings
 
 
