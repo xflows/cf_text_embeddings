@@ -10,17 +10,16 @@ from gensim.models.keyedvectors import (FastTextKeyedVectors,
 from Orange.data import ContinuousVariable, Domain, Table
 
 
-class EmbeddingsLibrary(Enum):
-    gensim = 'gensim'
-    tensorflow = 'tensorflow'
-
-
 class ModelType(Enum):
     word2vec = 'word2vec'
     glove = 'glove'
     doc2vec = 'doc2vec'
     fasttext = 'fasttext'
     universal_sentence_encoder = 'universal_sentence_encoder'
+
+
+GENSIM_MODELS = {ModelType.word2vec, ModelType.glove, ModelType.doc2vec, ModelType.fasttext}
+TENSORFLOW_MODELS = {ModelType.universal_sentence_encoder, ModelType.elmo}
 
 
 def text_embeddings_package_folder_path():
@@ -66,14 +65,22 @@ def text_embeddings_tokens_to_embeddings_gensim(model, tokens):
     return np.array(embeddings)
 
 
-def text_embeddings_tokens_to_embeddings_tensorflow(model, tokens):
-    tf_embeddings = model(tokens)
+def text_embeddings_tokens_to_embeddings_tensorflow(model, tokens, **kwargs):
+    tf_embeddings = model(tokens, **kwargs)
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         sess.run(tf.tables_initializer())
         embeddings = sess.run(tf_embeddings)
     return embeddings
+
+
+def text_embeddings_assign_embeddings_function(model_type):
+    if model_type in GENSIM_MODELS:
+        return text_embeddings_tokens_to_embeddings_gensim
+    if model_type in TENSORFLOW_MODELS:
+        return text_embeddings_tokens_to_embeddings_tensorflow
+    raise Exception('%s model is not supported' % model_type.value)
 
 
 def text_embeddings_words_to_orange_domain(n_features):
@@ -88,16 +95,9 @@ def text_embeddings_extract_tokens(documents, token_annotation):
     return tokens
 
 
-def text_embeddings_apply_model(embeddings_library, model, documents, token_annotation):
+def text_embeddings_apply_model(embeddings_function, model, documents, token_annotation, **kwargs):
     tokens = text_embeddings_extract_tokens(documents, token_annotation=token_annotation)
-
-    if embeddings_library == EmbeddingsLibrary.gensim:
-        embeddings = text_embeddings_tokens_to_embeddings_gensim(model, tokens)
-    elif embeddings_library == EmbeddingsLibrary.tensorflow:
-        embeddings = text_embeddings_tokens_to_embeddings_tensorflow(model, tokens)
-    else:
-        raise Exception('%s embeddings library is not supported' % embeddings_library.value)
-
+    embeddings = embeddings_function(model, tokens, **kwargs)
     domain = text_embeddings_words_to_orange_domain(embeddings.shape[1])
     return Table(domain, embeddings)
 
@@ -108,6 +108,7 @@ def text_embeddings_word2vec(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Token'
     documents = adc.documents
     model_type = ModelType.word2vec
+    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -118,7 +119,7 @@ def text_embeddings_word2vec(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -129,6 +130,7 @@ def text_embeddings_glove(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Token'
     documents = adc.documents
     model_type = ModelType.glove
+    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -139,7 +141,7 @@ def text_embeddings_glove(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -150,6 +152,7 @@ def text_embeddings_fasttext(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Token'
     documents = adc.documents
     model_type = ModelType.fasttext
+    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -161,7 +164,7 @@ def text_embeddings_fasttext(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -172,6 +175,7 @@ def text_embeddings_universal_sentence_encoder(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Sentence'
     documents = adc.documents
     model_type = ModelType.universal_sentence_encoder
+    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -182,7 +186,7 @@ def text_embeddings_universal_sentence_encoder(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.tensorflow, model, documents,
+    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -193,6 +197,7 @@ def text_embeddings_doc2vec(input_dict):
     token_annotation = input_dict['token_annotation'] or 'TextBlock'
     documents = adc.documents
     model_type = ModelType.doc2vec
+    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -203,6 +208,6 @@ def text_embeddings_doc2vec(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(EmbeddingsLibrary.gensim, model, documents,
+    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
