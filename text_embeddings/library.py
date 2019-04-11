@@ -165,8 +165,9 @@ def text_embeddings_fasttext(input_dict):
 
     model = None
     if lang == 'en':
-        # TODO include real english fasttext model
-        model = text_embeddings_load_model(model_type, 'fasttext-small.bin')
+        # model downloaded and converted with gensim:
+        # https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip
+        model = text_embeddings_load_model(model_type, 'wiki-news-300d-1M.bin')
     elif lang == 'es':
         model = None
 
