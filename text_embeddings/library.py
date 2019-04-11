@@ -106,8 +106,9 @@ def text_embeddings_extract_tokens(documents, token_annotation):
     return tokens
 
 
-def text_embeddings_apply_model(embeddings_function, model, documents, token_annotation, **kwargs):
+def text_embeddings_apply_model(model_type, model, documents, token_annotation, **kwargs):
     tokens = text_embeddings_extract_tokens(documents, token_annotation=token_annotation)
+    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
     embeddings = embeddings_function(model, tokens, **kwargs)
     domain = text_embeddings_words_to_orange_domain(embeddings.shape[1])
     return Table(domain, embeddings)
@@ -119,7 +120,6 @@ def text_embeddings_word2vec(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Token'
     documents = adc.documents
     model_type = ModelType.word2vec
-    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -130,7 +130,7 @@ def text_embeddings_word2vec(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
+    bow_dataset = text_embeddings_apply_model(model_type, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -141,7 +141,6 @@ def text_embeddings_glove(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Token'
     documents = adc.documents
     model_type = ModelType.glove
-    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -152,7 +151,7 @@ def text_embeddings_glove(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
+    bow_dataset = text_embeddings_apply_model(model_type, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -163,7 +162,6 @@ def text_embeddings_fasttext(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Token'
     documents = adc.documents
     model_type = ModelType.fasttext
-    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -175,7 +173,7 @@ def text_embeddings_fasttext(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
+    bow_dataset = text_embeddings_apply_model(model_type, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -186,7 +184,6 @@ def text_embeddings_universal_sentence_encoder(input_dict):
     token_annotation = input_dict['token_annotation'] or 'Sentence'
     documents = adc.documents
     model_type = ModelType.universal_sentence_encoder
-    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -197,7 +194,7 @@ def text_embeddings_universal_sentence_encoder(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
+    bow_dataset = text_embeddings_apply_model(model_type, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -208,7 +205,6 @@ def text_embeddings_doc2vec(input_dict):
     token_annotation = input_dict['token_annotation'] or 'TextBlock'
     documents = adc.documents
     model_type = ModelType.doc2vec
-    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -219,7 +215,7 @@ def text_embeddings_doc2vec(input_dict):
     if model is None:
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
-    bow_dataset = text_embeddings_apply_model(embeddings_function, model, documents,
+    bow_dataset = text_embeddings_apply_model(model_type, model, documents,
                                               token_annotation=token_annotation)
     return {'bow_dataset': bow_dataset}
 
@@ -230,7 +226,6 @@ def text_embeddings_elmo(input_dict):
     token_annotation = input_dict['token_annotation'] or 'TextBlock'
     documents = adc.documents
     model_type = ModelType.elmo
-    embeddings_function = text_embeddings_assign_embeddings_function(model_type)
 
     model = None
     if lang == 'en':
@@ -242,6 +237,6 @@ def text_embeddings_elmo(input_dict):
         raise Exception('%s model for %s language is not supported' % (model_type, lang))
 
     bow_dataset = text_embeddings_apply_model(
-        embeddings_function, model, documents, token_annotation=token_annotation,
-        model_output='elmo', signature="default", as_dict=True)
+        model_type, model, documents, token_annotation=token_annotation, model_output='elmo',
+        signature="default", as_dict=True)
     return {'bow_dataset': bow_dataset}
