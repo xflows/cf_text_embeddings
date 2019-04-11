@@ -1,3 +1,0 @@
-Module: https://tfhub.dev/google/universal-sentence-encoder/2
-Download Time: 2019-04-09 14:35:14.597961
-Downloader Hostname: Romans-MacBook-Pro-2.local (PID:84927)
