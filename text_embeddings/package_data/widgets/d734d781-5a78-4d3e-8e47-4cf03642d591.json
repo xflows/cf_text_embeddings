@@ -1,0 +1,91 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Embeddings Hub",
+      "action": "text_embeddings_embeddings_hub",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "d734d781-5a78-4d3e-8e47-4cf03642d591",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Token Annotation",
+      "short_name": "str",
+      "description": "This is the type of Annotation instances, which mark parts of the document (e.g., words, sentences or a terms), which will be used for generating the vocabulary and the dataset.",
+      "variable": "token_annotation",
+      "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "Token",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "3f36c9b7-e7dd-43f4-a9ab-d2782258cf8d"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Annotated Document Corpus",
+      "short_name": "adc",
+      "description": "Annotated Document Corpus (workflows.textflows.DocumentCorpus)",
+      "variable": "adc",
+      "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": "textarea",
+      "order": 1,
+      "uid": "ac95d6d5-fe80-4d99-bf93-08122dc52045"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Embeddings Model",
+      "short_name": "ebm",
+      "description": "Embeddings Model",
+      "variable": "embeddings_model",
+      "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "b7dca9a2-e2d5-4003-a6c7-c7d59bff60ae"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "BOW Model Dataset",
+      "short_name": "ds",
+      "description": "Sparse BOW feature vectors.",
+      "variable": "bow_dataset",
+      "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
+      "order": 1,
+      "uid": "f3d87e70-92e0-40e1-947d-6a3ae7c8acd0"
+    }
+  }
+]

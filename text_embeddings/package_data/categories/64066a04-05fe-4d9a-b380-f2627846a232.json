@@ -1,8 +1,8 @@
 {
   "model": "workflows.category",
   "fields": {
-    "name": "Documents",
-    "parent": null,
+    "name": "Document based",
+    "parent": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
     "order": 1,
     "uid": "64066a04-05fe-4d9a-b380-f2627846a232"
   }

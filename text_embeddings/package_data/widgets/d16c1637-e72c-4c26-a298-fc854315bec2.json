@@ -7,7 +7,7 @@
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
-      "category": "64066a04-05fe-4d9a-b380-f2627846a232",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
       "visualization_view": "",
       "streaming_visualization_view": "",
       "interactive": false,
@@ -28,23 +28,6 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Token Annotation",
-      "short_name": "str",
-      "description": "This is the type of Annotation instances, which mark parts of the document (e.g., words, sentences or a terms), which will be used for generating the vocabulary and the dataset.",
-      "variable": "token_annotation",
-      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
-      "required": true,
-      "parameter": true,
-      "multi": false,
-      "default": "TextBlock",
-      "parameter_type": "text",
-      "order": 1,
-      "uid": "0c1fbd14-f42c-4ee0-9f05-3ac26412d1e5"
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
       "name": "Language",
       "short_name": "lan",
       "description": "Language of the embeddings model",
@@ -60,29 +43,12 @@
     }
   },
   {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "Annotated Document Corpus",
-      "short_name": "adc",
-      "description": "Annotated Document Corpus (workflows.textflows.DocumentCorpus)",
-      "variable": "adc",
-      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
-      "required": true,
-      "parameter": false,
-      "multi": false,
-      "default": "",
-      "parameter_type": "textarea",
-      "order": 1,
-      "uid": "75e3476e-754e-422b-8591-2e619315ce66"
-    }
-  },
-  {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "BOW Model Dataset",
-      "short_name": "ds",
-      "description": "Sparse BOW feature vectors.",
-      "variable": "bow_dataset",
+      "name": "Embeddings Model",
+      "short_name": "ebm",
+      "description": "Embeddings Model",
+      "variable": "embeddings_model",
       "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
       "order": 1,
       "uid": "4d4d9e86-175e-4ae6-9e24-48eb24b590c8"

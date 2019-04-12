@@ -1,0 +1,9 @@
+{
+  "model": "workflows.category",
+  "fields": {
+    "name": "Text Embeddings",
+    "parent": null,
+    "order": 1,
+    "uid": "9efeb445-5e78-4a98-af9b-3b1f8120728b"
+  }
+}

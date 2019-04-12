@@ -28,23 +28,6 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Token Annotation",
-      "short_name": "str",
-      "description": "This is the type of Annotation instances, which mark parts of the document (e.g., words, sentences or a terms), which will be used for generating the vocabulary and the dataset.",
-      "variable": "token_annotation",
-      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
-      "required": true,
-      "parameter": true,
-      "multi": false,
-      "default": "Token",
-      "parameter_type": "text",
-      "order": 1,
-      "uid": "0441233c-992b-42a4-92dc-1dfd4534d4c4"
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
       "name": "Language",
       "short_name": "lan",
       "description": "Language of the embeddings model",
@@ -60,29 +43,12 @@
     }
   },
   {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "Annotated Document Corpus",
-      "short_name": "adc",
-      "description": "Annotated Document Corpus (workflows.textflows.DocumentCorpus)",
-      "variable": "adc",
-      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
-      "required": true,
-      "parameter": false,
-      "multi": false,
-      "default": "",
-      "parameter_type": "textarea",
-      "order": 1,
-      "uid": "71a917e2-b408-4f2f-8f45-a8a7d362236a"
-    }
-  },
-  {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "BOW Model Dataset",
-      "short_name": "ds",
-      "description": "Sparse BOW feature vectors.",
-      "variable": "bow_dataset",
+      "name": "Embeddings model",
+      "short_name": "ebm",
+      "description": "Embeddings model",
+      "variable": "embeddings_model",
       "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
       "order": 1,
       "uid": "b87c4160-0f92-4aa9-acec-c96cba5fb0ba"

@@ -1,8 +1,8 @@
 {
   "model": "workflows.category",
   "fields": {
-    "name": "Sentences",
-    "parent": null,
+    "name": "Sentence based",
+    "parent": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
     "order": 1,
     "uid": "c15657c5-4927-4ea6-b48f-e6a26c011a7c"
   }
