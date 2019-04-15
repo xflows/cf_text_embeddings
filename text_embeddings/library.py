@@ -1,66 +1,73 @@
-from text_embeddings.embeddings_model import EmbeddingsModel, ModelType
+from text_embeddings.embeddings_model import (EmbeddingsModelDoc2Vec,
+                                              EmbeddingsModelElmo,
+                                              EmbeddingsModelFastText,
+                                              EmbeddingsModelGloVe,
+                                              EmbeddingsModelUniversalSentenceEncoder,
+                                              EmbeddingsModelWord2Vec)
 
 
-def text_embeddings_common(input_dict, model_type, languages, **kwargs):
+def text_embeddings_extract_model_name(input_dict, languages):
     lang = input_dict['lang']
     model_name = languages.get(lang)
     if model_name is None:
-        raise Exception('%s model for %s language is not supported' % (model_type, lang))
-    return {'embeddings_model': EmbeddingsModel(model_type, model_name, **kwargs)}
+        raise Exception('Model for %s language is not supported' % lang)
+    return model_name
 
 
 def text_embeddings_word2vec(input_dict):
-    model_type = ModelType.word2vec
     languages = {
         'en': 'GoogleNews-vectors-negative300.wv.bin',
         'es': 'SBW-vectors-300-min5.wv.bin',
     }
-    return text_embeddings_common(input_dict, model_type, languages)
+    model_name = text_embeddings_extract_model_name(input_dict, languages)
+    return {'embeddings_model': EmbeddingsModelWord2Vec(model_name)}
 
 
 def text_embeddings_glove(input_dict):
-    model_type = ModelType.glove
     languages = {
         'en': 'glove.6B.300d.wv.bin',
     }
-    return text_embeddings_common(input_dict, model_type, languages)
+    model_name = text_embeddings_extract_model_name(input_dict, languages)
+    return {'embeddings_model': EmbeddingsModelGloVe(model_name)}
 
 
 def text_embeddings_fasttext(input_dict):
-    model_type = ModelType.fasttext
     languages = {
         # model downloaded and converted with gensim:
         # https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip
         'en': 'wiki-news-300d-1M.bin',
     }
-    return text_embeddings_common(input_dict, model_type, languages)
+    model_name = text_embeddings_extract_model_name(input_dict, languages)
+    return {'embeddings_model': EmbeddingsModelFastText(model_name)}
 
 
 def text_embeddings_universal_sentence_encoder(input_dict):
-    model_type = ModelType.universal_sentence_encoder
     languages = {
         # https://tfhub.dev/google/universal-sentence-encoder/2
-        'en': 'english',
+        'en': 'universal_sentence_encoder_english',
     }
-    return text_embeddings_common(input_dict, model_type, languages)
+    model_name = text_embeddings_extract_model_name(input_dict, languages)
+    return {'embeddings_model': EmbeddingsModelUniversalSentenceEncoder(model_name)}
 
 
 def text_embeddings_doc2vec(input_dict):
-    model_type = ModelType.doc2vec
     languages = {
         'en': 'doc2vec.bin',
     }
-    return text_embeddings_common(input_dict, model_type, languages)
+    model_name = text_embeddings_extract_model_name(input_dict, languages)
+    return {'embeddings_model': EmbeddingsModelDoc2Vec(model_name)}
 
 
 def text_embeddings_elmo(input_dict):
-    model_type = ModelType.elmo
     languages = {
         # https://tfhub.dev/google/elmo/2
-        'en': 'english',
+        'en': 'elmo_english',
     }
-    return text_embeddings_common(input_dict, model_type, languages, model_output='elmo',
-                                  signature="default", as_dict=True)
+    model_name = text_embeddings_extract_model_name(input_dict, languages)
+    return {
+        'embeddings_model':
+        EmbeddingsModelElmo(model_name, model_output='elmo', signature="default", as_dict=True)
+    }
 
 
 def text_embeddings_embeddings_hub(input_dict):
