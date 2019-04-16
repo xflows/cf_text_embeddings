@@ -6,7 +6,7 @@ import tensorflow_hub as hub
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
-from Orange.data import ContinuousVariable, Domain, Table
+from Orange.data import ContinuousVariable, DiscreteVariable, Domain, Table
 
 
 def text_embeddings_package_folder_path():
@@ -21,45 +21,59 @@ def text_embeddings_model_path(model_name):
     return path.join(text_embeddings_models_folder_path(), model_name)
 
 
-def text_embeddings_words_to_orange_domain(n_features):
-    return Domain([ContinuousVariable.make('Feature %d' % i) for i in range(n_features)])
-
-
 class EmbeddingsModelBase:
     def __init__(self, model_name):
-        self.model_name = model_name
-        self.path_ = text_embeddings_model_path(self.model_name)
+        self._model_name = model_name
+        self._path = text_embeddings_model_path(self._model_name)
         self._model = None
+        self._token_annotation = None
 
     def _load_model(self):
-        return Word2VecKeyedVectors.load(self.path_, mmap='r')
+        return Word2VecKeyedVectors.load(self._path, mmap='r')
 
     @staticmethod
     def _extract_tokens(documents, token_annotation):
-        tokens = []
+        documents_tokens = []
         for document in documents:
             annotations_with_text = document.get_annotations_with_text(token_annotation)
-            tokens.extend([ann[1] for ann in annotations_with_text])
-        return tokens
+            document_tokens = [ann[1] for ann in annotations_with_text]
+            documents_tokens.append(document_tokens)
+        return documents_tokens
 
     @staticmethod
-    def _tokens_to_embeddings(model, tokens):
-        unknown_word_embedding = np.zeros(model.vector_size)
+    def _extract_labels(documents, binary=False):
+        document_labels = [document.get_first_label() for document in documents]
+        uniq_labels = list(set(document_labels))
+        if binary:
+            return [uniq_labels.index(r) for r in document_labels], uniq_labels
+        return document_labels, uniq_labels
+
+    @staticmethod
+    def _tokens_to_embeddings(model, documents_tokens):
         embeddings = []
-        for token in tokens:
-            if token not in model.wv.vocab:
-                embeddings.append(unknown_word_embedding)
-                continue
-            embedding = model.wv[token]
-            embeddings.append(embedding)
+        for document_tokens in documents_tokens:
+            document_embedding = np.zeros((len(document_tokens), model.vector_size))
+            for i, token in enumerate(document_tokens):
+                if token not in model.wv.vocab:
+                    continue
+                document_embedding[i] = model.wv[token]
+            embeddings.append(np.average(document_embedding, axis=0))
         return np.array(embeddings)
 
+    @staticmethod
+    def _orange_domain(n_features, unique_labels):
+        return Domain([ContinuousVariable.make('Feature %d' % i) for i in range(n_features)],
+                      DiscreteVariable('class', values=unique_labels))
+
     def apply(self, documents, token_annotation):
+        self._token_annotation = token_annotation
         self._model = self._load_model()
-        tokens = self._extract_tokens(documents, token_annotation=token_annotation)
-        embeddings = self._tokens_to_embeddings(self._model, tokens)
-        domain = text_embeddings_words_to_orange_domain(embeddings.shape[1])
-        return Table(domain, embeddings)
+        documents_tokens = self._extract_tokens(documents, token_annotation=token_annotation)
+        Y, unique_labels = self._extract_labels(documents, binary=True)
+        embeddings = self._tokens_to_embeddings(self._model, documents_tokens)
+        domain = self._orange_domain(embeddings.shape[1], unique_labels)
+        table = Table(domain, embeddings, Y=Y)
+        return table
 
 
 class EmbeddingsModelWord2Vec(EmbeddingsModelBase):
@@ -72,29 +86,30 @@ class EmbeddingsModelGloVe(EmbeddingsModelBase):
 
 class EmbeddingsModelFastText(EmbeddingsModelBase):
     def _load_model(self):
-        return FastTextKeyedVectors.load(self.path_, mmap='r')
+        return FastTextKeyedVectors.load(self._path, mmap='r')
 
 
 class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
     def _load_model(self):
-        return Doc2Vec.load(self.path_, mmap='r')
+        return Doc2Vec.load(self._path, mmap='r')
 
-    def _tokens_to_embeddings(self, model, tokens):
+    def _tokens_to_embeddings(self, model, documents_tokens):
         embeddings = []
-        for token in tokens:
-            sub_tokens = token.split(' ')  # TextBlock to list of strings
-            embedding = model.infer_vector(sub_tokens)
+        for document_tokens in documents_tokens:
+            if self._token_annotation == 'TextBlock':
+                document_tokens = document_tokens[0].split(' ')  # TextBlock to list of strings
+            embedding = model.infer_vector(document_tokens)
             embeddings.append(embedding)
         return np.array(embeddings)
 
 
 class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
     def _load_model(self):
-        path_ = text_embeddings_model_path(self.model_name)
+        path_ = text_embeddings_model_path(self._model_name)
         return hub.Module(path_)
 
-    def _tokens_to_embeddings(self, model, tokens):
-        tf_embeddings = model(tokens)
+    @staticmethod
+    def _extract_embeddings(tf_embeddings):
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
             sess.run(tf.tables_initializer())
@@ -103,7 +118,18 @@ class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
 
 
 class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
-    pass
+    @staticmethod
+    def _extract_tensors(model, documents_tokens):
+        tf_embeddings = model(documents_tokens)
+        return tf_embeddings
+
+    def _tokens_to_embeddings(self, model, documents_tokens):
+        embeddings = []
+        for document_tokens in documents_tokens:
+            tf_embeddings = self._extract_tensors(model, document_tokens)
+            document_embedding = self._extract_embeddings(tf_embeddings)
+            embeddings.append(np.average(document_embedding, axis=0))
+        return np.array(embeddings)
 
 
 class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
@@ -113,16 +139,31 @@ class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
         self.signature = signature
         self.as_dict = as_dict
 
-    def _tokens_to_embeddings(self, model, tokens):
-        tf_embeddings = model(tokens, signature=self.signature,
-                              as_dict=self.as_dict)[self.model_output]
+    @staticmethod
+    def _calculate_sequence_len(documents_tokens):
+        return [len(document_tokens) for document_tokens in documents_tokens]
 
-        with tf.Session() as sess:
-            sess.run(tf.global_variables_initializer())
-            sess.run(tf.tables_initializer())
-            embeddings = sess.run(tf_embeddings)
+    @staticmethod
+    def _pad_tokens(documents_tokens, max_len):
+        for document_tokens in documents_tokens:
+            n_pad = max_len - len(document_tokens)
+            if n_pad == 0:
+                continue
+            for _ in range(n_pad):
+                document_tokens.append('')
+        return documents_tokens
 
-        if len(embeddings.shape) > 2:
-            # convert elmo's arrays shape from (n, 1, m) to (n, m)
-            embeddings = embeddings.squeeze()
+    def _tokens_to_embeddings(self, model, documents_tokens):
+        tf_embeddings = self._extract_tensors(model, documents_tokens)
+        embeddings = self._extract_embeddings(tf_embeddings)
         return embeddings
+
+    def _extract_tensors(self, model, documents_tokens):
+        sequence_len = self._calculate_sequence_len(documents_tokens)
+        max_len = max(sequence_len)
+        documents_tokens = self._pad_tokens(documents_tokens, max_len)
+        tf_embeddings = model(inputs={
+            "tokens": documents_tokens,
+            "sequence_len": sequence_len
+        }, signature=self.signature, as_dict=self.as_dict)[self.model_output]
+        return tf_embeddings

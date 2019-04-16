@@ -66,7 +66,7 @@ def text_embeddings_elmo(input_dict):
     model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {
         'embeddings_model':
-        EmbeddingsModelElmo(model_name, model_output='elmo', signature="default", as_dict=True)
+        EmbeddingsModelElmo(model_name, model_output='default', signature="tokens", as_dict=True)
     }
 
 
@@ -75,6 +75,5 @@ def text_embeddings_embeddings_hub(input_dict):
     adc = input_dict['adc']
     token_annotation = input_dict['token_annotation'] or 'TextBlock'
     documents = adc.documents
-
     bow_dataset = embeddings_model.apply(documents, token_annotation)
     return {'bow_dataset': bow_dataset}
