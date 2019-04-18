@@ -75,6 +75,16 @@ class EmbeddingsModelBase:
         table = Table(domain, embeddings, Y=Y)
         return table
 
+    def __getstate__(self):
+        state = self.__dict__
+        state.pop('_model')
+        return state
+
+    def __setstate__(self, state):
+        # pylint: disable=W0201
+        state['_model'] = None
+        self.__dict__ = state
+
 
 class EmbeddingsModelWord2Vec(EmbeddingsModelBase):
     pass
