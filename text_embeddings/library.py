@@ -47,7 +47,10 @@ def text_embeddings_universal_sentence_encoder(input_dict):
         'en': 'universal_sentence_encoder_english',
     }
     model_name = text_embeddings_extract_model_name(input_dict, languages)
-    return {'embeddings_model': EmbeddingsModelUniversalSentenceEncoder(model_name)}
+    return {
+        'embeddings_model':
+        EmbeddingsModelUniversalSentenceEncoder(model_name, default_token_annotation='Sentence')
+    }
 
 
 def text_embeddings_doc2vec(input_dict):
@@ -55,7 +58,9 @@ def text_embeddings_doc2vec(input_dict):
         'en': 'doc2vec.bin',
     }
     model_name = text_embeddings_extract_model_name(input_dict, languages)
-    return {'embeddings_model': EmbeddingsModelDoc2Vec(model_name)}
+    return {
+        'embeddings_model': EmbeddingsModelDoc2Vec(model_name, default_token_annotation='TextBlock')
+    }
 
 
 def text_embeddings_elmo(input_dict):
@@ -72,8 +77,9 @@ def text_embeddings_elmo(input_dict):
 
 def text_embeddings_embeddings_hub(input_dict):
     embeddings_model = input_dict['embeddings_model']
+    default_token_annotation = embeddings_model.default_token_annotation
     adc = input_dict['adc']
-    token_annotation = input_dict['token_annotation'] or 'TextBlock'
+    token_annotation = input_dict['token_annotation'] or default_token_annotation or 'Token'
     documents = adc.documents
     bow_dataset = embeddings_model.apply(documents, token_annotation)
     return {'bow_dataset': bow_dataset}

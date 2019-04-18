@@ -30,7 +30,7 @@
     "fields": {
       "name": "Token Annotation",
       "short_name": "str",
-      "description": "This is the type of Annotation instances, which mark parts of the document (e.g., words, sentences or a terms), which will be used for generating the vocabulary and the dataset.",
+      "description": "This is the type of Annotation instances, which mark parts of the document (e.g., words, sentences or a terms), which will be used for generating the vocabulary and the dataset. If empty, default widget annotation will be used.",
       "variable": "token_annotation",
       "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
       "required": true,
