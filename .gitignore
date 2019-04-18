@@ -112,3 +112,6 @@ venv.bak/
 *.data-00000-of-00001
 *.index
 *.descriptor.txt
+
+# Include small word2vec model
+!word2vec_test_model.bin
