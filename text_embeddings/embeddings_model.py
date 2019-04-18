@@ -55,9 +55,9 @@ class EmbeddingsModelBase:
         for document_tokens in documents_tokens:
             document_embedding = np.zeros((len(document_tokens), model.vector_size))
             for i, token in enumerate(document_tokens):
-                if token not in model.wv.vocab:
+                if token not in model.vocab:
                     continue
-                document_embedding[i] = model.wv[token]
+                document_embedding[i] = model[token]
             embeddings.append(np.average(document_embedding, axis=0))
         return np.array(embeddings)
 
