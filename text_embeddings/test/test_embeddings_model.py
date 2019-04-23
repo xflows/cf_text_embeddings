@@ -47,3 +47,11 @@ class EmbeddingsModelTest(unittest.TestCase):
         expected_Y = np.array([1., 0.])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
         self.assertEqual(True, np.array_equal(expected_Y, actual_Y))
+
+    def test_word2vec_with_empty_annotations(self):
+        adc = create_adc()
+        documents = adc.documents
+        embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
+        embeddings = embeddings_model.apply(documents, 'NonExistent')
+        actual_X = embeddings.X
+        self.assertEqual(False, np.any(actual_X))
