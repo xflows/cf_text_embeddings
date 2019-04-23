@@ -53,7 +53,8 @@ class EmbeddingsModelBase:
     def _tokens_to_embeddings(model, documents_tokens):
         embeddings = []
         for document_tokens in documents_tokens:
-            document_embedding = np.zeros((len(document_tokens), model.vector_size))
+            n_document_tokens = len(document_tokens) or 1
+            document_embedding = np.zeros((n_document_tokens, model.vector_size))
             for i, token in enumerate(document_tokens):
                 if token not in model.vocab:
                     continue
