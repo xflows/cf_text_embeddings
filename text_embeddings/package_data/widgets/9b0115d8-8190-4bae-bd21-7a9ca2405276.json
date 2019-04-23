@@ -43,6 +43,23 @@
     }
   },
   {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "variable": "lang_selector",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "a964cabd-a58f-491a-bbae-8cdd3efe116b"
+    }
+  },
+  {
     "model": "workflows.abstractoutput",
     "fields": {
       "name": "Embeddings model",

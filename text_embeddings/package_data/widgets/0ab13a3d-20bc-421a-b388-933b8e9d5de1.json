@@ -1,0 +1,66 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Language",
+      "action": "text_embeddings_language",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "0ab13a3d-20bc-421a-b388-933b8e9d5de1",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model",
+      "variable": "lang_selector",
+      "widget": "0ab13a3d-20bc-421a-b388-933b8e9d5de1",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "en",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model",
+      "variable": "lang_selector",
+      "widget": "0ab13a3d-20bc-421a-b388-933b8e9d5de1",
+      "order": 1,
+      "uid": "4d5d9854-7ccd-4bcc-a74a-ab03b83fc8df"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0",
+      "name": "English",
+      "value": "en",
+      "uid": "b44c51f6-b46d-4326-9992-b95b78a8b39b"
+    }
+  }
+]

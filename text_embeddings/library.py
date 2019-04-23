@@ -7,7 +7,8 @@ from text_embeddings.embeddings_model import (EmbeddingsModelDoc2Vec,
 
 
 def text_embeddings_extract_model_name(input_dict, languages):
-    lang = input_dict['lang']
+    # language selector overrides the language in the widget
+    lang = input_dict['lang_selector'] or input_dict['lang']
     model_name = languages.get(lang)
     if model_name is None:
         raise Exception('Model for %s language is not supported' % lang)
@@ -83,3 +84,7 @@ def text_embeddings_embeddings_hub(input_dict):
     documents = adc.documents
     bow_dataset = embeddings_model.apply(documents, token_annotation)
     return {'bow_dataset': bow_dataset}
+
+
+def text_embeddings_language(input_dict):
+    return input_dict

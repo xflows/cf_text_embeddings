@@ -30,6 +30,23 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
+      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "variable": "lang_selector",
+      "widget": "a492cc56-e6df-4945-bafc-44ee47f8376e",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "464d9734-8cd7-49e7-966f-8291524bfb84"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
       "description": "Language of the embeddings model",
       "variable": "lang",
       "widget": "a492cc56-e6df-4945-bafc-44ee47f8376e",
