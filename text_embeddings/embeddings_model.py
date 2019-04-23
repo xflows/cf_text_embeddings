@@ -106,13 +106,14 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
         return Doc2Vec.load(self._path, mmap='r')
 
     def _tokens_to_embeddings(self, model, documents_tokens):
-        embeddings = []
-        for document_tokens in documents_tokens:
+        document_embeddings = np.zeros((len(documents_tokens), model.vector_size))
+        for i, document_tokens in enumerate(documents_tokens):
+            if not document_tokens:
+                continue
             if self._token_annotation == 'TextBlock':
                 document_tokens = document_tokens[0].split(' ')  # TextBlock to list of strings
-            embedding = model.infer_vector(document_tokens)
-            embeddings.append(embedding)
-        return np.array(embeddings)
+            document_embeddings[i] = model.infer_vector(document_tokens)
+        return document_embeddings
 
 
 class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
