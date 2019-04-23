@@ -44,7 +44,7 @@ class EmbeddingsModelBase:
     @staticmethod
     def _extract_labels(documents, binary=False):
         document_labels = [document.get_first_label() for document in documents]
-        uniq_labels = list(set(document_labels))
+        uniq_labels = list(sorted(set(document_labels)))
         if binary:
             return [uniq_labels.index(r) for r in document_labels], uniq_labels
         return document_labels, uniq_labels
