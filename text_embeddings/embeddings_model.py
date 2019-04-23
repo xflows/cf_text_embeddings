@@ -139,6 +139,8 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
     def _tokens_to_embeddings(self, model, documents_tokens):
         embeddings = []
         for document_tokens in documents_tokens:
+            if not document_tokens:
+                document_tokens.append('')
             tf_embeddings = self._extract_tensors(model, document_tokens)
             document_embedding = self._extract_embeddings(tf_embeddings)
             embeddings.append(np.average(document_embedding, axis=0))
