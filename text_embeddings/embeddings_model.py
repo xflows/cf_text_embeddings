@@ -132,8 +132,8 @@ class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
 
 class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
     @staticmethod
-    def _extract_tensors(model, documents_tokens):
-        tf_embeddings = model(documents_tokens)
+    def _extract_tensors(model, document_tokens):
+        tf_embeddings = model(document_tokens)
         return tf_embeddings
 
     def _tokens_to_embeddings(self, model, documents_tokens):
