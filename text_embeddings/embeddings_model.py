@@ -173,7 +173,7 @@ class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
 
     def _extract_tensors(self, model, documents_tokens):
         sequence_len = self._calculate_sequence_len(documents_tokens)
-        max_len = max(sequence_len)
+        max_len = max(sequence_len) or 1
         documents_tokens = self._pad_tokens(documents_tokens, max_len)
         tf_embeddings = model(inputs={
             "tokens": documents_tokens,
