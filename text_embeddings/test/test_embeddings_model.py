@@ -2,7 +2,8 @@ import unittest
 
 import numpy as np
 
-from text_embeddings.embeddings_model import EmbeddingsModelWord2Vec
+from text_embeddings.embeddings_model import (AggregationMethod,
+                                              EmbeddingsModelWord2Vec)
 from tf_core.nltoolkit.lib.textual_data_in_out import load_adc
 from tf_core.nltoolkit.lib.tokenization import (nltk_simple_tokenizer,
                                                 tokenizer_hub)
@@ -39,7 +40,8 @@ class EmbeddingsModelTest(unittest.TestCase):
         adc = create_tokenized_adc(tokenizer, output_annotation)
         documents = adc.documents
         embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
-        embeddings = embeddings_model.apply(documents, output_annotation)
+        embeddings = embeddings_model.apply(documents, output_annotation,
+                                            AggregationMethod.average.value)
 
         actual_X = embeddings.X
         actual_Y = embeddings.Y
@@ -52,6 +54,7 @@ class EmbeddingsModelTest(unittest.TestCase):
         adc = create_adc()
         documents = adc.documents
         embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
-        embeddings = embeddings_model.apply(documents, 'NonExistent')
+        embeddings = embeddings_model.apply(documents, 'NonExistent',
+                                            AggregationMethod.average.value)
         actual_X = embeddings.X
         self.assertEqual(False, np.any(actual_X))

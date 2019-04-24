@@ -9,6 +9,11 @@ from gensim.models.keyedvectors import (FastTextKeyedVectors,
 from Orange.data import ContinuousVariable, DiscreteVariable, Domain, Table
 
 
+class AggregationMethod(Enum):
+    average = 'average'
+    summation = 'summation'
+
+
 def text_embeddings_package_folder_path():
     return path.dirname(path.realpath(__file__))
 
@@ -54,25 +59,34 @@ class EmbeddingsModelBase:
         embeddings = []
         for document_tokens in documents_tokens:
             n_document_tokens = len(document_tokens) or 1
-            document_embedding = np.zeros((n_document_tokens, model.vector_size))
+            document_embeddings = np.zeros((n_document_tokens, model.vector_size))
             for i, token in enumerate(document_tokens):
                 if token not in model.vocab:
                     continue
-                document_embedding[i] = model[token]
-            embeddings.append(np.average(document_embedding, axis=0))
-        return np.array(embeddings)
+                document_embeddings[i] = model[token]
+            embeddings.append(document_embeddings)
+        return embeddings
 
     @staticmethod
     def _orange_domain(n_features, unique_labels):
         return Domain([ContinuousVariable.make('Feature %d' % i) for i in range(n_features)],
                       DiscreteVariable('class', values=unique_labels))
 
-    def apply(self, documents, token_annotation):
+    @staticmethod
+    def _aggregate_embeddings(embeddings, aggregation_method):
+        if aggregation_method == AggregationMethod.average.value:
+            return np.array([np.average(embedding, axis=0) for embedding in embeddings])
+        if aggregation_method == AggregationMethod.summation.value:
+            return np.array([np.sum(embedding, axis=0) for embedding in embeddings])
+        raise Exception('%s aggregation method is not supported' % aggregation_method)
+
+    def apply(self, documents, token_annotation, aggregation_method):
         self._token_annotation = token_annotation
         self._model = self._load_model()
         documents_tokens = self._extract_tokens(documents, token_annotation=token_annotation)
         Y, unique_labels = self._extract_labels(documents, binary=True)
         embeddings = self._tokens_to_embeddings(self._model, documents_tokens)
+        embeddings = self._aggregate_embeddings(embeddings, aggregation_method)
         domain = self._orange_domain(embeddings.shape[1], unique_labels)
         table = Table(domain, embeddings, Y=Y)
         return table
@@ -115,6 +129,10 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
             document_embeddings[i] = model.infer_vector(document_tokens)
         return document_embeddings
 
+    @staticmethod
+    def _aggregate_embeddings(embeddings, aggregation_method):
+        return embeddings
+
 
 class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
     def _load_model(self):
@@ -143,8 +161,8 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
                 document_tokens.append('')
             tf_embeddings = self._extract_tensors(model, document_tokens)
             document_embedding = self._extract_embeddings(tf_embeddings)
-            embeddings.append(np.average(document_embedding, axis=0))
-        return np.array(embeddings)
+            embeddings.append(document_embedding)
+        return embeddings
 
 
 class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
@@ -182,3 +200,7 @@ class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
             "sequence_len": sequence_len
         }, signature=self.signature, as_dict=self.as_dict)[self.model_output]
         return tf_embeddings
+
+    @staticmethod
+    def _aggregate_embeddings(embeddings, aggregation_method):
+        return embeddings

@@ -45,6 +45,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation. ELMO and Doc2Vec do not support it.",
+      "variable": "aggregation_method",
+      "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "a4d6d6f4-e89a-4c14-8e77-de0c32a0fe55"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Annotated Document Corpus",
       "short_name": "adc",
       "description": "Annotated Document Corpus (workflows.textflows.DocumentCorpus)",
@@ -86,6 +103,24 @@
       "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
       "order": 1,
       "uid": "f3d87e70-92e0-40e1-947d-6a3ae7c8acd0"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "a4d6d6f4-e89a-4c14-8e77-de0c32a0fe55",
+      "name": "Average",
+      "value": "average",
+      "uid": "ef856c70-458e-4ba2-aac4-3e5a367984a9"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "a4d6d6f4-e89a-4c14-8e77-de0c32a0fe55",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "fdaba625-f70c-46b6-978d-869d136cda7b"
     }
   }
 ]

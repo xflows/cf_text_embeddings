@@ -79,10 +79,11 @@ def text_embeddings_elmo(input_dict):
 def text_embeddings_embeddings_hub(input_dict):
     embeddings_model = input_dict['embeddings_model']
     default_token_annotation = embeddings_model.default_token_annotation
-    adc = input_dict['adc']
     token_annotation = input_dict['token_annotation'] or default_token_annotation or 'Token'
+    aggregation_method = input_dict['aggregation_method']
+    adc = input_dict['adc']
     documents = adc.documents
-    bow_dataset = embeddings_model.apply(documents, token_annotation)
+    bow_dataset = embeddings_model.apply(documents, token_annotation, aggregation_method)
     return {'bow_dataset': bow_dataset}
 
 
