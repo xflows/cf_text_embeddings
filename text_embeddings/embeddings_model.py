@@ -1,8 +1,10 @@
+from enum import Enum
 from os import path
 
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
+from bert_embedding import BertEmbedding
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
@@ -204,3 +206,33 @@ class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
     @staticmethod
     def _aggregate_embeddings(embeddings, aggregation_method):
         return embeddings
+
+
+class EmbeddingsModelBert(EmbeddingsModelBase):
+    def __init__(self, model_name, dataset_name, max_seq_length, default_token_annotation):
+        super().__init__(model_name, default_token_annotation=default_token_annotation)
+        self._dataset_name = dataset_name
+        self._max_seq_length = max_seq_length
+        self._vector_size = self._get_vector_size(model_name)
+
+    def _load_model(self):
+        return BertEmbedding(model=self._model_name, dataset_name=self._dataset_name,
+                             max_seq_length=self._max_seq_length)
+
+    def _tokens_to_embeddings(self, model, documents_tokens):
+        default_embedding = np.zeros((1, self._vector_size))
+        embeddings = []
+        for document_tokens in documents_tokens:
+            results = model(document_tokens)
+            # TODO this supports sentences. Add a support for Token and TextBlock
+            document_embedding = [result[1] for result in results]
+            embeddings.append(document_embedding or default_embedding)
+        return embeddings
+
+    @staticmethod
+    def _get_vector_size(model_name):
+        if model_name == 'bert_12_768_12':
+            return 768
+        if model_name == 'bert_24_1024_16':
+            return 1024
+        raise Exception('%s model not supported' % model_name)

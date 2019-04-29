@@ -1,4 +1,5 @@
-from text_embeddings.embeddings_model import (EmbeddingsModelDoc2Vec,
+from text_embeddings.embeddings_model import (EmbeddingsModelBert,
+                                              EmbeddingsModelDoc2Vec,
                                               EmbeddingsModelElmo,
                                               EmbeddingsModelFastText,
                                               EmbeddingsModelGloVe,
@@ -40,6 +41,14 @@ def text_embeddings_fasttext(input_dict):
     }
     model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelFastText(model_name)}
+
+
+def text_embeddings_bert(_):
+    return {
+        'embeddings_model':
+        EmbeddingsModelBert(model_name='bert_12_768_12', dataset_name='wiki_multilingual_cased',
+                            max_seq_length=1000, default_token_annotation='Sentence')
+    }
 
 
 def text_embeddings_universal_sentence_encoder(input_dict):

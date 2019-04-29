@@ -1,0 +1,57 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "BERT",
+      "action": "text_embeddings_bert",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "variable": "lang_selector",
+      "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "d098e4ad-3c74-41d4-8faa-3ff0f5c178d0"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embeddings model",
+      "short_name": "ebm",
+      "description": "Embeddings model",
+      "variable": "embeddings_model",
+      "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "order": 1,
+      "uid": "8b2a6f5c-3ecb-4830-b327-c4b130126a03"
+    }
+  }
+]
