@@ -90,9 +90,11 @@ def text_embeddings_embeddings_hub(input_dict):
     default_token_annotation = embeddings_model.default_token_annotation
     token_annotation = input_dict['token_annotation'] or default_token_annotation or 'Token'
     aggregation_method = input_dict['aggregation_method']
+    weighting_method = input_dict['weighting_method']
     adc = input_dict['adc']
     documents = adc.documents
-    bow_dataset = embeddings_model.apply(documents, token_annotation, aggregation_method)
+    bow_dataset = embeddings_model.apply(documents, token_annotation, aggregation_method,
+                                         weighting_method)
     return {'bow_dataset': bow_dataset}
 
 

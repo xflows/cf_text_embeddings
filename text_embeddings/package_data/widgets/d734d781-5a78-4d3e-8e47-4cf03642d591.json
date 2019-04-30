@@ -28,6 +28,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Weighting method",
+      "short_name": "wgm",
+      "description": "Use no weights or weight each embedding vector by the TF-IDF of the word it represents.",
+      "variable": "weighting_method",
+      "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
+      "required": false,
+      "parameter": true,
+      "multi": false,
+      "default": "none",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Token Annotation",
       "short_name": "str",
       "description": "This is the type of Annotation instances, which mark parts of the document (e.g., words, sentences or a terms), which will be used for generating the vocabulary and the dataset. If empty, default widget annotation will be used.",
@@ -103,6 +120,24 @@
       "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
       "order": 1,
       "uid": "f3d87e70-92e0-40e1-947d-6a3ae7c8acd0"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
+      "name": "None",
+      "value": "none",
+      "uid": "2c7616ce-5bd8-44d2-91df-3b4eb854d015"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
+      "name": "TF-IDF",
+      "value": "tfidf",
+      "uid": "906f4e19-e6ad-452b-abce-85bc07ab0f29"
     }
   },
   {

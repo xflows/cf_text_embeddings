@@ -41,7 +41,7 @@ class EmbeddingsModelTest(unittest.TestCase):
         documents = adc.documents
         embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
         embeddings = embeddings_model.apply(documents, output_annotation,
-                                            AggregationMethod.average.value)
+                                            AggregationMethod.average.value, None)
 
         actual_X = embeddings.X
         actual_Y = embeddings.Y
@@ -55,6 +55,31 @@ class EmbeddingsModelTest(unittest.TestCase):
         documents = adc.documents
         embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
         embeddings = embeddings_model.apply(documents, 'NonExistent',
-                                            AggregationMethod.average.value)
+                                            AggregationMethod.average.value, None)
         actual_X = embeddings.X
         self.assertEqual(False, np.any(actual_X))
+
+    def test_word2vec_with_empty_annotations_and_tfidf(self):
+        adc = create_adc()
+        documents = adc.documents
+        embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
+        embeddings = embeddings_model.apply(documents, 'NonExistent',
+                                            AggregationMethod.average.value, 'tfidf')
+        actual_X = embeddings.X
+        self.assertEqual(False, np.any(actual_X))
+
+    def test_word2vec_model_tfidf(self):
+        output_annotation = 'Token'
+        tokenizer = nltk_simple_tokenizer({'type': 'space_tokenizer'})
+        adc = create_tokenized_adc(tokenizer, output_annotation)
+        documents = adc.documents
+        embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
+        embeddings = embeddings_model.apply(documents, output_annotation,
+                                            AggregationMethod.average.value, 'tfidf')
+
+        actual_X = embeddings.X
+        actual_Y = embeddings.Y
+        expected_X = np.array([[0.01139571, 0.00762929], [-0.0161487, -0.02562849]])
+        expected_Y = np.array([1., 0.])
+        self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
+        self.assertEqual(True, np.array_equal(expected_Y, actual_Y))
