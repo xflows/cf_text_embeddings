@@ -15,3 +15,6 @@ PACKAGE_TREE = [
 ]
 ```
 Then run ` ./manage.py import_package text_embeddings` from the ClowdFlows Backend directory to import widgets into the platform.
+
+## Usage
+See [Usage](https://github.com/xflows/cf_text_embeddings/wiki/Usage) and [Widgets](https://github.com/xflows/cf_text_embeddings/wiki/Widgets) wikis.
