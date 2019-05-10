@@ -1,6 +1,6 @@
 # cf_text_embeddings
 
-This is a [ClowdFlows 2.0](https://github.com/xflows/clowdflows-backend) package which contains widgets for word, sentence and document embeddings.
+This is a [ClowdFlows 3.0](https://github.com/xflows/clowdflows-backend) package which contains widgets for word, sentence and document embeddings.
 
 ## Installation
 Download this repository and run `python setup.py install` to install the package.
