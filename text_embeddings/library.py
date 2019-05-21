@@ -18,7 +18,9 @@ def text_embeddings_extract_model_name(input_dict, languages):
 
 def text_embeddings_word2vec(input_dict):
     languages = {
+        # https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM
         'en': 'GoogleNews-vectors-negative300.wv.bin',
+        # https://github.com/uchile-nlp/spanish-word-embeddings
         'es': 'SBW-vectors-300-min5.wv.bin',
     }
     model_name = text_embeddings_extract_model_name(input_dict, languages)
@@ -27,6 +29,7 @@ def text_embeddings_word2vec(input_dict):
 
 def text_embeddings_glove(input_dict):
     languages = {
+        # https://nlp.stanford.edu/projects/glove/
         'en': 'glove.6B.300d.wv.bin',
     }
     model_name = text_embeddings_extract_model_name(input_dict, languages)
@@ -35,7 +38,6 @@ def text_embeddings_glove(input_dict):
 
 def text_embeddings_fasttext(input_dict):
     languages = {
-        # model downloaded and converted with gensim:
         # https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip
         'en': 'wiki-news-300d-1M.bin',
     }
@@ -45,6 +47,7 @@ def text_embeddings_fasttext(input_dict):
 
 def text_embeddings_bert(_):
     return {
+        # Model source: https://tfhub.dev/google/bert_multi_cased_L-12_H-768_A-12/1
         'embeddings_model':
         EmbeddingsModelBert(model_name='bert_12_768_12', dataset_name='wiki_multilingual_cased',
                             max_seq_length=1000, default_token_annotation='Sentence')
@@ -65,6 +68,7 @@ def text_embeddings_universal_sentence_encoder(input_dict):
 
 def text_embeddings_doc2vec(input_dict):
     languages = {
+        # https://github.com/jhlau/doc2vec
         'en': 'doc2vec.bin',
     }
     model_name = text_embeddings_extract_model_name(input_dict, languages)
