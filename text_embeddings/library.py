@@ -40,6 +40,8 @@ def text_embeddings_fasttext(input_dict):
     languages = {
         # https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip
         'en': 'wiki-news-300d-1M.bin',
+        # https://github.com/uchile-nlp/spanish-word-embeddings
+        'es': 'fasttext-sbwc.vec'
     }
     lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelFastText(lang, model_name)}
