@@ -26,14 +26,15 @@ def text_embeddings_models_folder_path():
     return path.join(text_embeddings_package_folder_path(), 'models')
 
 
-def text_embeddings_model_path(model_name):
-    return path.join(text_embeddings_models_folder_path(), model_name)
+def text_embeddings_model_path(lang, model_name):
+    return path.join(text_embeddings_models_folder_path(), lang, model_name)
 
 
 class EmbeddingsModelBase:
-    def __init__(self, model_name, default_token_annotation=None):
+    def __init__(self, lang, model_name, default_token_annotation=None):
+        self._lang = lang
         self._model_name = model_name
-        self._path = text_embeddings_model_path(self._model_name)
+        self._path = text_embeddings_model_path(self._lang, self._model_name)
         self._model = None
         self._tfidf_dict = None
         self._tfidf_model = None
@@ -164,7 +165,7 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
 
 class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
     def _load_model(self):
-        path_ = text_embeddings_model_path(self._model_name)
+        path_ = text_embeddings_model_path(self._lang, self._model_name)
         return hub.Module(path_)
 
     @staticmethod
@@ -194,8 +195,8 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
 
 
 class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
-    def __init__(self, model_name, model_output, signature, as_dict):
-        super().__init__(model_name)
+    def __init__(self, lang, model_name, model_output, signature, as_dict):
+        super().__init__(lang, model_name)
         self.model_output = model_output
         self.signature = signature
         self.as_dict = as_dict
@@ -236,7 +237,7 @@ class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
 
 class EmbeddingsModelBert(EmbeddingsModelBase):
     def __init__(self, model_name, dataset_name, max_seq_length, default_token_annotation):
-        super().__init__(model_name, default_token_annotation=default_token_annotation)
+        super().__init__(None, model_name, default_token_annotation=default_token_annotation)
         self._dataset_name = dataset_name
         self._max_seq_length = max_seq_length
         self._vector_size = self._get_vector_size(model_name)

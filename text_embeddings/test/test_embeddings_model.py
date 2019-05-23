@@ -39,7 +39,7 @@ class EmbeddingsModelTest(unittest.TestCase):
         tokenizer = nltk_simple_tokenizer({'type': 'space_tokenizer'})
         adc = create_tokenized_adc(tokenizer, output_annotation)
         documents = adc.documents
-        embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
+        embeddings_model = EmbeddingsModelWord2Vec('en', 'word2vec_test_model.bin')
         embeddings = embeddings_model.apply(documents, output_annotation,
                                             AggregationMethod.average.value, None)
 
@@ -53,7 +53,7 @@ class EmbeddingsModelTest(unittest.TestCase):
     def test_word2vec_with_empty_annotations(self):
         adc = create_adc()
         documents = adc.documents
-        embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
+        embeddings_model = EmbeddingsModelWord2Vec('en', 'word2vec_test_model.bin')
         embeddings = embeddings_model.apply(documents, 'NonExistent',
                                             AggregationMethod.average.value, None)
         actual_X = embeddings.X
@@ -62,7 +62,7 @@ class EmbeddingsModelTest(unittest.TestCase):
     def test_word2vec_with_empty_annotations_and_tfidf(self):
         adc = create_adc()
         documents = adc.documents
-        embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
+        embeddings_model = EmbeddingsModelWord2Vec('en', 'word2vec_test_model.bin')
         embeddings = embeddings_model.apply(documents, 'NonExistent',
                                             AggregationMethod.average.value, 'tfidf')
         actual_X = embeddings.X
@@ -73,7 +73,7 @@ class EmbeddingsModelTest(unittest.TestCase):
         tokenizer = nltk_simple_tokenizer({'type': 'space_tokenizer'})
         adc = create_tokenized_adc(tokenizer, output_annotation)
         documents = adc.documents
-        embeddings_model = EmbeddingsModelWord2Vec('word2vec_test_model.bin')
+        embeddings_model = EmbeddingsModelWord2Vec('en', 'word2vec_test_model.bin')
         embeddings = embeddings_model.apply(documents, output_annotation,
                                             AggregationMethod.average.value, 'tfidf')
 
