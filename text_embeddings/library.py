@@ -1,10 +1,7 @@
-from text_embeddings.embeddings_model import (EmbeddingsModelBert,
-                                              EmbeddingsModelDoc2Vec,
-                                              EmbeddingsModelElmo,
-                                              EmbeddingsModelFastText,
-                                              EmbeddingsModelGloVe,
-                                              EmbeddingsModelUniversalSentenceEncoder,
-                                              EmbeddingsModelWord2Vec)
+from text_embeddings.embeddings_model import (
+    EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
+    EmbeddingsModelFastText, EmbeddingsModelGloVe,
+    EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
 
 
 def text_embeddings_extract_model_name(input_dict, languages):
@@ -108,6 +105,7 @@ def text_embeddings_elmo(input_dict):
 
 def text_embeddings_embeddings_hub(input_dict):
     embeddings_model = input_dict['embeddings_model']
+
     default_token_annotation = embeddings_model.default_token_annotation
     token_annotation = input_dict['token_annotation'] or default_token_annotation or 'Token'
     aggregation_method = input_dict['aggregation_method']
