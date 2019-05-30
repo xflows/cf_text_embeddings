@@ -50,7 +50,21 @@ def text_embeddings_fasttext(input_dict):
         # https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip
         'en': 'wiki-news-300d-1M.bin',
         # https://github.com/uchile-nlp/spanish-word-embeddings
-        'es': 'fasttext-sbwc.vec'
+        'es': 'fasttext-sbwc.vec',
+        # https://fasttext.cc/docs/en/crawl-vectors.html
+        'de': 'fasttext_de.wv',
+        # https://fasttext.cc/docs/en/crawl-vectors.html
+        'ru': 'fasttext_ru.wv',
+        # https://fasttext.cc/docs/en/crawl-vectors.html
+        'lv': 'fasttext_lv.wv',
+        # https://fasttext.cc/docs/en/crawl-vectors.html
+        'lt': 'fasttext_lt.wv',
+        # https://fasttext.cc/docs/en/crawl-vectors.html
+        'ee': 'fasttext_ee.wv',
+        # https://fasttext.cc/docs/en/crawl-vectors.html
+        'sl': 'fasttext_sl.wv',
+        # https://fasttext.cc/docs/en/crawl-vectors.html
+        'hr': 'fasttext_hr.wv',
     }
     lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelFastText(lang, model_name)}
