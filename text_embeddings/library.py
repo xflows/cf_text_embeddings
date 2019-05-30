@@ -20,7 +20,7 @@ def text_embeddings_word2vec(input_dict):
         # https://github.com/uchile-nlp/spanish-word-embeddings
         'es': 'SBW-vectors-300-min5.wv.bin',
         # http://vectors.nlpl.eu/repository/
-        'si': 'word2vec_si.wv',
+        'sl': 'word2vec_si.wv',
         # http://vectors.nlpl.eu/repository/
         'hr': 'word2vec_hr.wv',
         # http://vectors.nlpl.eu/repository/
