@@ -40,6 +40,10 @@ def text_embeddings_glove(input_dict):
     languages = {
         # https://nlp.stanford.edu/projects/glove/
         'en': 'glove.6B.300d.wv.bin',
+        # https://github.com/dccuchile/spanish-word-embeddings
+        'es': 'glove_es.wv',
+        # https://deepset.ai/german-word-embeddings
+        'de': 'glove_de.wv',
     }
     lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelGloVe(lang, model_name)}

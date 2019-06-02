@@ -75,6 +75,15 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "d85cd9ea-12b6-4475-bbe6-cc5a2f02d17d",
+      "name": "German",
+      "value": "de",
+      "uid": ""
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d85cd9ea-12b6-4475-bbe6-cc5a2f02d17d",
       "name": "Spanish",
       "value": "es",
       "uid": "4404b5fb-c7fd-4fec-a468-d5f574b11258"
