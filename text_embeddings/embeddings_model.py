@@ -4,6 +4,7 @@ from os import path
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
+import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 from bert_embedding import BertEmbedding
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel

@@ -87,6 +87,10 @@ def text_embeddings_universal_sentence_encoder(input_dict):
     languages = {
         # https://tfhub.dev/google/universal-sentence-encoder/2
         'en': 'universal_sentence_encoder_english',
+        # https://tfhub.dev/google/universal-sentence-encoder-xling/en-de/1
+        'de': 'universal_sentence_encoder_german',
+        # https://tfhub.dev/google/universal-sentence-encoder-xling/en-es/1
+        'es': 'universal_sentence_encoder_spanish',
     }
     lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {

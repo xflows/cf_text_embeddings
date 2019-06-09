@@ -4,3 +4,5 @@ Orange3==3.20.1
 tensorflow==1.13.0rc2
 tensorflow-hub==0.4.0
 bert-embedding==1.0.1
+tf-sentencepiece==0.1.82
+sentencepiece==0.1.82

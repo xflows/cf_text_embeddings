@@ -79,14 +79,5 @@
       "value": "en",
       "uid": "05e7c3e8-b9fe-419d-8b92-44b679db9632"
     }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "bb5b8eb2-a932-46c7-999a-e73edb6cb172",
-      "name": "Spanish",
-      "value": "es",
-      "uid": "51ef0001-e351-49c0-93d3-7b889f8c7cd6"
-    }
   }
 ]

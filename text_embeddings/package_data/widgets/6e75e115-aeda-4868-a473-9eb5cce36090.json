@@ -77,6 +77,15 @@
       "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
       "name": "Spanish",
       "value": "es",
+      "uid": ""
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
+      "name": "German",
+      "value": "de",
       "uid": "a43f3d35-bf12-4da7-9fcd-b03debc57da4"
     }
   },
