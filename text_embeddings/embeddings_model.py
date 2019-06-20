@@ -2,16 +2,17 @@ from enum import Enum
 from os import path
 
 import numpy as np
-import tensorflow as tf
-import tensorflow_hub as hub
-import tf_sentencepiece  # NOQA # pylint: disable=unused-import
-from bert_embedding import BertEmbedding
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
 from Orange.data import ContinuousVariable, DiscreteVariable, Domain, Table
+
+import tensorflow as tf
+import tensorflow_hub as hub
+import tf_sentencepiece  # NOQA # pylint: disable=unused-import
+from bert_embedding import BertEmbedding
 
 
 class AggregationMethod(Enum):
@@ -28,6 +29,7 @@ def text_embeddings_models_folder_path():
 
 
 def text_embeddings_model_path(lang, model_name):
+    lang = '' if lang is None else lang
     return path.join(text_embeddings_models_folder_path(), lang, model_name)
 
 
@@ -102,6 +104,7 @@ class EmbeddingsModelBase:
     @staticmethod
     def _aggregate_embeddings(embeddings, aggregation_method):
         if aggregation_method == AggregationMethod.average.value:
+            __import__('ipdb').set_trace()
             return np.array([np.average(embedding, axis=0) for embedding in embeddings])
         if aggregation_method == AggregationMethod.summation.value:
             return np.array([np.sum(embedding, axis=0) for embedding in embeddings])
@@ -252,9 +255,11 @@ class EmbeddingsModelBert(EmbeddingsModelBase):
         embeddings = []
         for document_tokens in documents_tokens:
             results = model(document_tokens)
-            # TODO this supports sentences. Add a support for Token and TextBlock
-            document_embedding = [result[1] for result in results]
-            embeddings.append(document_embedding or default_embedding)
+            document_embedding = np.array(
+                [word_embedding for document in results for word_embedding in document[1]])
+            document_embedding = (document_embedding
+                                  if document_embedding.size > 0 else default_embedding)
+            embeddings.append(document_embedding)
         return embeddings
 
     @staticmethod
