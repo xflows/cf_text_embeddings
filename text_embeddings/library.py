@@ -51,24 +51,24 @@ def text_embeddings_glove(input_dict):
 
 def text_embeddings_fasttext(input_dict):
     languages = {
-        # https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip
-        'en': 'wiki-news-300d-1M.bin',
-        # https://github.com/uchile-nlp/spanish-word-embeddings
-        'es': 'fasttext-sbwc.vec',
-        # https://fasttext.cc/docs/en/crawl-vectors.html
-        'de': 'fasttext_de.wv',
-        # https://fasttext.cc/docs/en/crawl-vectors.html
-        'ru': 'fasttext_ru.wv',
+        # https://github.com/facebookresearch/MUSE
+        'en': 'wiki.multi.en.wv',
+        # https://github.com/facebookresearch/MUSE
+        'es': 'wiki.multi.es.wv',
+        # https://github.com/facebookresearch/MUSE
+        'de': 'wiki.multi.de.wv',
+        # https://github.com/facebookresearch/MUSE
+        'ru': 'wiki.multi.ru.wv',
         # https://fasttext.cc/docs/en/crawl-vectors.html
         'lv': 'fasttext_lv.wv',
         # https://fasttext.cc/docs/en/crawl-vectors.html
         'lt': 'fasttext_lt.wv',
-        # https://fasttext.cc/docs/en/crawl-vectors.html
-        'ee': 'fasttext_ee.wv',
-        # https://fasttext.cc/docs/en/crawl-vectors.html
-        'sl': 'fasttext_sl.wv',
-        # https://fasttext.cc/docs/en/crawl-vectors.html
-        'hr': 'fasttext_hr.wv',
+        # https://github.com/facebookresearch/MUSE
+        'ee': 'wiki.multi.ee.wv',
+        # https://github.com/facebookresearch/MUSE
+        'sl': 'wiki.multi.sl.wv',
+        # https://github.com/facebookresearch/MUSE
+        'hr': 'wiki.multi.hr.wv',
     }
     lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelFastText(lang, model_name)}
