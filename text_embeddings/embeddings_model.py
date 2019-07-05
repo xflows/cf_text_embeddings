@@ -104,7 +104,6 @@ class EmbeddingsModelBase:
     @staticmethod
     def _aggregate_embeddings(embeddings, aggregation_method):
         if aggregation_method == AggregationMethod.average.value:
-            __import__('ipdb').set_trace()
             return np.array([np.average(embedding, axis=0) for embedding in embeddings])
         if aggregation_method == AggregationMethod.summation.value:
             return np.array([np.sum(embedding, axis=0) for embedding in embeddings])
