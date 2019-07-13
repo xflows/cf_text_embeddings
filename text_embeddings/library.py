@@ -114,15 +114,25 @@ def text_embeddings_doc2vec(input_dict):
 
 def text_embeddings_elmo(input_dict):
     languages = {
-        # https://tfhub.dev/google/elmo/2
-        'en': 'elmo_english',
+        # http://vectors.nlpl.eu/repository/#
+        'en': 'elmo',
+        # http://vectors.nlpl.eu/repository/#
+        'sl': 'elmo',
+        # http://vectors.nlpl.eu/repository/#
+        'es': 'elmo',
+        # http://vectors.nlpl.eu/repository/#
+        'ru': 'elmo',
+        # http://vectors.nlpl.eu/repository/#
+        'hr': 'elmo',
+        # http://vectors.nlpl.eu/repository/#
+        'ee': 'elmo',
+        # http://vectors.nlpl.eu/repository/#
+        'lv': 'elmo',
+        # http://vectors.nlpl.eu/repository/#
+        'de': 'elmo',
     }
     lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
-    return {
-        'embeddings_model':
-        EmbeddingsModelElmo(lang, model_name, model_output='default', signature="tokens",
-                            as_dict=True)
-    }
+    return {'embeddings_model': EmbeddingsModelElmo(lang, model_name)}
 
 
 def text_embeddings_embeddings_hub(input_dict):
