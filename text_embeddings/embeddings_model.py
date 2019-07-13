@@ -13,6 +13,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 from bert_embedding import BertEmbedding
+from elmoformanylangs import Embedder
 
 
 class AggregationMethod(Enum):
@@ -197,44 +198,15 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
         return embeddings
 
 
-class EmbeddingsModelElmo(EmbeddingsModelTensorFlow):
-    def __init__(self, lang, model_name, model_output, signature, as_dict):
+class EmbeddingsModelElmo(EmbeddingsModelBase):
+    def __init__(self, lang, model_name):
         super().__init__(lang, model_name)
-        self.model_output = model_output
-        self.signature = signature
-        self.as_dict = as_dict
 
-    @staticmethod
-    def _calculate_sequence_len(documents_tokens):
-        return [len(document_tokens) for document_tokens in documents_tokens]
-
-    @staticmethod
-    def _pad_tokens(documents_tokens, max_len):
-        for document_tokens in documents_tokens:
-            n_pad = max_len - len(document_tokens)
-            if n_pad == 0:
-                continue
-            for _ in range(n_pad):
-                document_tokens.append('')
-        return documents_tokens
+    def _load_model(self):
+        return Embedder(self._path)
 
     def _tokens_to_embeddings(self, model, documents_tokens):
-        tf_embeddings = self._extract_tensors(model, documents_tokens)
-        embeddings = self._extract_embeddings(tf_embeddings)
-        return embeddings
-
-    def _extract_tensors(self, model, documents_tokens):
-        sequence_len = self._calculate_sequence_len(documents_tokens)
-        max_len = max(sequence_len) or 1
-        documents_tokens = self._pad_tokens(documents_tokens, max_len)
-        tf_embeddings = model(inputs={
-            "tokens": documents_tokens,
-            "sequence_len": sequence_len
-        }, signature=self.signature, as_dict=self.as_dict)[self.model_output]
-        return tf_embeddings
-
-    @staticmethod
-    def _aggregate_embeddings(embeddings, aggregation_method):
+        embeddings = model.sents2elmo(documents_tokens)
         return embeddings
 
 
