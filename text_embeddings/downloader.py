@@ -1,4 +1,5 @@
 import argparse
+import glob
 import zipfile
 from os import path, remove
 
@@ -28,8 +29,16 @@ def unzip_file(zip_filepath):
         zip_ref.extractall(directory_to_extract_to)
 
 
-def remove_file(file_path):
-    remove(file_path)
+def unzip_files(file_paths):
+    for file_path in file_paths:
+        print('Unzipping %s' % (file_path))
+        unzip_file(file_path)
+
+
+def remove_files(file_paths):
+    for file_path in file_paths:
+        print('Removing zip %s' % file_path)
+        remove(file_path)
 
 
 def download_models_for_language(project, module_dir, language):
@@ -37,18 +46,26 @@ def download_models_for_language(project, module_dir, language):
 
     models_tree = project.repository_tree(path='models/%s' % language, ref=REF)
     n_models = len(models_tree)
+
+    language_dir = path.join(module_dir, 'models/%s' % language)
+    zipped_models = [f for f in glob.glob(path.join(language_dir, "*.zip"))]
+    downloaded_models = [path.basename(model_path) for model_path in zipped_models]
+
     for i, model_tree in enumerate(models_tree, 1):
+        model_name = model_tree['name']
         gitlab_path = model_tree['path']
         file_path = path.join(module_dir, gitlab_path)
-        print('%d/%d Downloading model %s to %s' % (i, n_models, gitlab_path, file_path))
-        download_model(gitlab_path, file_path)
+        if model_name not in downloaded_models:
+            print('%d/%d Downloading model %s to %s' % (i, n_models, gitlab_path, file_path))
+            download_model(gitlab_path, file_path)
+            zipped_models.append(file_path)
+    return zipped_models
 
-        print('Unzipping %s' % (file_path))
-        unzip_file(file_path)
 
-        print('Removing zip %s' % file_path)
-        remove_file(file_path)
-    print('Done')
+def process_models_for_language(project, module_dir, language):
+    file_paths = download_models_for_language(project, module_dir, language)
+    unzip_files(file_paths)
+    remove_files(file_paths)
 
 
 def fetch_languages(project):
@@ -84,9 +101,9 @@ def main():
         language = args.download
         if language == 'all':
             for language in languages:
-                download_models_for_language(project, module_dir, language)
+                process_models_for_language(project, module_dir, language)
         else:
-            download_models_for_language(project, module_dir, language)
+            process_models_for_language(project, module_dir, language)
     else:
         parser.print_help()
 
