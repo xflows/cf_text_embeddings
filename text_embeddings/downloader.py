@@ -7,6 +7,7 @@ import gitlab
 import requests
 
 import text_embeddings
+from bert_embedding import BertEmbedding
 
 GITLAB_URL = 'https://repo.ijs.si/'
 GITLAB_PROJECT = 'vpodpecan/cf_text_embeddings_models'
@@ -21,6 +22,10 @@ def download_model(gitlab_path, local_filename):
             for chunk in r.iter_content(chunk_size=8192):
                 if chunk:  # filter out keep-alive new chunks
                     f.write(chunk)
+
+
+def download_bert_model():
+    BertEmbedding(model='bert_12_768_12', dataset_name='wiki_multilingual_cased')
 
 
 def unzip_file(zip_filepath):
@@ -104,6 +109,7 @@ def main():
                 process_models_for_language(project, module_dir, language)
         else:
             process_models_for_language(project, module_dir, language)
+        download_bert_model()
     else:
         parser.print_help()
 
