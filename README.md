@@ -6,7 +6,7 @@ This is a [ClowdFlows 3.0](https://github.com/xflows/clowdflows-backend) package
 
 ## Installation
 Download this repository and run `python setup.py install` to install the package.
-To enable the package in the ClowdFlows Backend, edit the `local_settings.py` file like shown below:
+To enable it in the ClowdFlows Backend, edit the `local_settings.py` file like shown below:
 ```
 PACKAGE_TREE = [
     {
@@ -17,6 +17,22 @@ PACKAGE_TREE = [
 ]
 ```
 Then run ` ./manage.py import_package text_embeddings` from the ClowdFlows Backend directory to import widgets into the platform.
+
+After installation, you need to download the models.
+
+## Download the models
+The Text Embeddings package supports models for multiple languages. 
+To list available languages: 
+
+```python -m text_embeddings.downloader -l```
+
+To download all the models: 
+
+```python -m text_embeddings.downloader -d all```
+
+You can also download the models for a specific language. For example, to download English models:
+
+```python -m text_embeddings.downloader -d en```.
 
 ## Usage
 See [Usage](https://github.com/xflows/cf_text_embeddings/wiki/Usage) and [Widgets](https://github.com/xflows/cf_text_embeddings/wiki/Widgets) wikis.
