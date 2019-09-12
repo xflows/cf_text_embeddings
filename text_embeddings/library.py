@@ -1,3 +1,6 @@
+from Orange.data import Table
+
+from text_embeddings.common import load_numpy_array, orange_domain, map_y
 from text_embeddings.embeddings_model import (
     EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
     EmbeddingsModelFastText, EmbeddingsModelGloVe,
@@ -150,4 +153,21 @@ def text_embeddings_embeddings_hub(input_dict):
 
 
 def text_embeddings_language(input_dict):
+    return input_dict
+
+
+def text_embeddings_import_dataset(input_dict):
+    x_path = input_dict['x_path']
+    y_path = input_dict['y_path']
+
+    x = load_numpy_array(x_path)
+    y = load_numpy_array(y_path)
+
+    y, unique_labels = map_y(y)
+    domain = orange_domain(x.shape[1], unique_labels)
+    bow_dataset = Table(domain, x, Y=y)
+    return {'bow_dataset': bow_dataset}
+
+
+def text_embeddings_export_dataset(input_dict):
     return input_dict
