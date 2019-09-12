@@ -1,0 +1,45 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Export dataset",
+      "action": "text_embeddings_export_dataset",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "text_embeddings_export_dataset",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "93be5a58-73c4-4601-9b49-cc74db4aef82",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "BOW Model Dataset",
+      "short_name": "ds",
+      "description": "Sparse BOW feature vectors.",
+      "variable": "bow_dataset",
+      "widget": "93be5a58-73c4-4601-9b49-cc74db4aef82",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "2942d584-0c18-4653-8de8-00e4e3a9b578"
+    }
+  }
+]

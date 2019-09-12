@@ -2,18 +2,19 @@ from enum import Enum
 from os import path
 
 import numpy as np
+from elmoformanylangs import Embedder
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
-from Orange.data import ContinuousVariable, DiscreteVariable, Domain, Table
+from Orange.data import Table
 
 import tensorflow as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 from bert_embedding import BertEmbedding
-from elmoformanylangs import Embedder
+from text_embeddings.common import orange_domain
 
 
 class AggregationMethod(Enum):
@@ -78,11 +79,6 @@ class EmbeddingsModelBase:
             embeddings.append(document_embeddings)
         return embeddings
 
-    @staticmethod
-    def _orange_domain(n_features, unique_labels):
-        return Domain([ContinuousVariable.make('Feature %d' % i) for i in range(n_features)],
-                      DiscreteVariable('class', values=unique_labels))
-
     def _train_tfidf(self, documents_tokens):
         self._tfidf_dict = Dictionary(documents_tokens)  # fit dictionary
         corpus = [
@@ -120,7 +116,7 @@ class EmbeddingsModelBase:
             self._train_tfidf(documents_tokens)
             embeddings = self._multiply_embeddings_with_tfidf(documents_tokens, embeddings)
         embeddings = self._aggregate_embeddings(embeddings, aggregation_method)
-        domain = self._orange_domain(embeddings.shape[1], unique_labels)
+        domain = orange_domain(embeddings.shape[1], unique_labels)
         table = Table(domain, embeddings, Y=Y)
         return table
 
