@@ -3,8 +3,9 @@ from os import path
 
 import numpy as np
 from elmoformanylangs import Embedder
+from gensim import corpora
 from gensim.corpora import Dictionary
-from gensim.models import TfidfModel
+from gensim.models import LsiModel, TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
@@ -32,6 +33,7 @@ def text_embeddings_models_folder_path():
 
 def text_embeddings_model_path(lang, model_name):
     lang = '' if lang is None else lang
+    model_name = '' if model_name is None else model_name
     return path.join(text_embeddings_models_folder_path(), lang, model_name)
 
 
@@ -236,3 +238,22 @@ class EmbeddingsModelBert(EmbeddingsModelBase):
         if model_name == 'bert_24_1024_16':
             return 1024
         raise Exception('%s model not supported' % model_name)
+
+
+class EmbeddingsModelLSI(EmbeddingsModelBase):
+    def __init__(self, num_topics, decay, default_token_annotation='Token'):
+        super().__init__(None, None, default_token_annotation=default_token_annotation)
+        self.num_topics = num_topics
+        self.decay = decay
+
+    def apply(self, documents, token_annotation, aggregation_method, weighting_method):
+        documents_tokens = self._extract_tokens(documents, token_annotation=token_annotation)
+        Y, unique_labels = self._extract_labels(documents, binary=True)
+        dct = corpora.Dictionary(documents_tokens)
+        corpus = [dct.doc2bow(line) for line in documents_tokens]
+        self._model = LsiModel(corpus=corpus, id2word=dct, num_topics=self.num_topics,
+                               decay=self.decay)
+        embeddings = np.array([[el[1] for el in self._model[document]] for document in corpus])
+        domain = orange_domain(embeddings.shape[1], unique_labels)
+        table = Table(domain, embeddings, Y=Y)
+        return table

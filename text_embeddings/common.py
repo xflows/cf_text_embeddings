@@ -23,3 +23,19 @@ def map_y(y):
     mapping = {v: k for k, v in enumerate(unique_labels)}
     y = np.array([mapping[label] for label in y])
     return y, unique_labels
+
+
+def to_int(num_string, default):
+    try:
+        num = int(num_string)
+    except ValueError:
+        return default
+    return num
+
+
+def to_float(num_string, default):
+    try:
+        num = float(num_string)
+    except ValueError:
+        return default
+    return num

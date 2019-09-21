@@ -1,9 +1,10 @@
 from Orange.data import Table
 
-from text_embeddings.common import load_numpy_array, orange_domain, map_y
+from text_embeddings.common import (load_numpy_array, map_y, orange_domain,
+                                    to_float, to_int)
 from text_embeddings.embeddings_model import (
     EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
-    EmbeddingsModelFastText, EmbeddingsModelGloVe,
+    EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
     EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
 
 
@@ -75,6 +76,14 @@ def text_embeddings_fasttext(input_dict):
     }
     lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelFastText(lang, model_name)}
+
+
+def text_embeddings_lsi(input_dict):
+    num_topics_default = 200
+    num_topics = to_int(input_dict['num_topics'], num_topics_default)
+    num_topics = num_topics_default if num_topics < 1 else num_topics
+    decay = to_float(input_dict['decay'], 1.0)
+    return {'embeddings_model': EmbeddingsModelLSI(num_topics, decay)}
 
 
 def text_embeddings_bert(_):

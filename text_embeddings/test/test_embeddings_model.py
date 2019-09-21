@@ -3,6 +3,7 @@ import unittest
 import numpy as np
 
 from text_embeddings.embeddings_model import (AggregationMethod,
+                                              EmbeddingsModelLSI,
                                               EmbeddingsModelWord2Vec)
 from tf_core.nltoolkit.lib.textual_data_in_out import load_adc
 from tf_core.nltoolkit.lib.tokenization import (nltk_simple_tokenizer,
@@ -80,6 +81,22 @@ class EmbeddingsModelTest(unittest.TestCase):
         actual_X = embeddings.X
         actual_Y = embeddings.Y
         expected_X = np.array([[0.01139571, 0.00762929], [-0.0161487, -0.02562849]])
+        expected_Y = np.array([1., 0.])
+        self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
+        self.assertEqual(True, np.array_equal(expected_Y, actual_Y))
+
+    def test_lsi_model(self):
+        np.random.seed(42)
+        output_annotation = 'Token'
+        tokenizer = nltk_simple_tokenizer({'type': 'space_tokenizer'})
+        adc = create_tokenized_adc(tokenizer, output_annotation)
+        documents = adc.documents
+        embeddings_model = EmbeddingsModelLSI(2, 1)
+        embeddings = embeddings_model.apply(documents, output_annotation,
+                                            AggregationMethod.average.value, None)
+        actual_X = embeddings.X
+        actual_Y = embeddings.Y
+        expected_X = np.array([[3.464], [2.828]])
         expected_Y = np.array([1., 0.])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
         self.assertEqual(True, np.array_equal(expected_Y, actual_Y))

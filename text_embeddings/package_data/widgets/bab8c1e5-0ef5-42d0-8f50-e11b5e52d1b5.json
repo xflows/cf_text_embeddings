@@ -1,0 +1,74 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "LSI",
+      "action": "text_embeddings_lsi",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "A fast truncated SVD (Singular Value Decomposition). The SVD decomposition can be updated with new observations at any time, for an online, incremental, memory-efficient training.",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
+      "package": "text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Number of topics",
+      "short_name": "not",
+      "description": "The number of requested factors (latent dimensions). The number should be smaller or equal to the number of documents in the corpus.",
+      "variable": "num_topics",
+      "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "200",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "43ae7374-8bd3-49c7-b968-8ee500dd4449"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Decay",
+      "short_name": "dcy",
+      "description": "Weight of existing observations relatively to new ones.",
+      "variable": "decay",
+      "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "1",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "f3b35ba5-1b9c-4dee-be7c-14c1d38a32e1"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embeddings model",
+      "short_name": "ebm",
+      "description": "Embeddings model",
+      "variable": "embeddings_model",
+      "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
+      "order": 1,
+      "uid": "303dcd62-2d2a-4b0b-b75b-0831ea74de78"
+    }
+  }
+]
