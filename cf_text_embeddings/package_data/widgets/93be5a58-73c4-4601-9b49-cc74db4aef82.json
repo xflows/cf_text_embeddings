@@ -3,12 +3,12 @@
     "model": "workflows.abstractwidget",
     "fields": {
       "name": "Export dataset",
-      "action": "text_embeddings_export_dataset",
+      "action": "cf_text_embeddings_export_dataset",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
-      "visualization_view": "text_embeddings_export_dataset",
+      "visualization_view": "cf_text_embeddings_export_dataset",
       "streaming_visualization_view": "",
       "interactive": false,
       "interaction_view": "",
@@ -20,7 +20,7 @@
       "is_streaming": false,
       "order": 1,
       "uid": "93be5a58-73c4-4601-9b49-cc74db4aef82",
-      "package": "text_embeddings",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }

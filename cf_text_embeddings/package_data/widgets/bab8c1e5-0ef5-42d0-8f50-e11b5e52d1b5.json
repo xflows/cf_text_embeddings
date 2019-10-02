@@ -3,7 +3,7 @@
     "model": "workflows.abstractwidget",
     "fields": {
       "name": "LSI",
-      "action": "text_embeddings_lsi",
+      "action": "cf_text_embeddings_lsi",
       "wsdl": "",
       "wsdl_method": "",
       "description": "A fast truncated SVD (Singular Value Decomposition). The SVD decomposition can be updated with new observations at any time, for an online, incremental, memory-efficient training.",
@@ -20,7 +20,7 @@
       "is_streaming": false,
       "order": 1,
       "uid": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
-      "package": "text_embeddings",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }

@@ -3,7 +3,7 @@
     "model": "workflows.abstractwidget",
     "fields": {
       "name": "Doc2Vec",
-      "action": "text_embeddings_doc2vec",
+      "action": "cf_text_embeddings_doc2vec",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
@@ -20,7 +20,7 @@
       "is_streaming": false,
       "order": 1,
       "uid": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
-      "package": "text_embeddings",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }

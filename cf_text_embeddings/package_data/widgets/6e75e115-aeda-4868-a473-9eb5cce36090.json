@@ -2,12 +2,12 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "GloVe",
-      "action": "text_embeddings_glove",
+      "name": "Universal Sentence Encoder",
+      "action": "cf_text_embeddings_universal_sentence_encoder",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
-      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "category": "c15657c5-4927-4ea6-b48f-e6a26c011a7c",
       "visualization_view": "",
       "streaming_visualization_view": "",
       "interactive": false,
@@ -19,8 +19,8 @@
       "has_progress_bar": false,
       "is_streaming": false,
       "order": 1,
-      "uid": "a492cc56-e6df-4945-bafc-44ee47f8376e",
-      "package": "text_embeddings",
+      "uid": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }
@@ -32,14 +32,14 @@
       "short_name": "lan",
       "description": "Language of the embeddings model. It overrides the one in the widget.",
       "variable": "lang_selector",
-      "widget": "a492cc56-e6df-4945-bafc-44ee47f8376e",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "required": false,
       "parameter": false,
       "multi": false,
       "default": "",
       "parameter_type": null,
       "order": 1,
-      "uid": "464d9734-8cd7-49e7-966f-8291524bfb84"
+      "uid": "7b7f5b1f-40a5-49c7-8fad-3c191e3b1b99"
     }
   },
   {
@@ -49,14 +49,14 @@
       "short_name": "lan",
       "description": "Language of the embeddings model",
       "variable": "lang",
-      "widget": "a492cc56-e6df-4945-bafc-44ee47f8376e",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "required": true,
       "parameter": true,
       "multi": false,
       "default": "en",
       "parameter_type": "select",
       "order": 1,
-      "uid": "d85cd9ea-12b6-4475-bbe6-cc5a2f02d17d"
+      "uid": "d681c0df-d743-4a20-959c-220af63bdc52"
     }
   },
   {
@@ -66,36 +66,36 @@
       "short_name": "ebm",
       "description": "Embeddings Model",
       "variable": "embeddings_model",
-      "widget": "a492cc56-e6df-4945-bafc-44ee47f8376e",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "order": 1,
-      "uid": "e1439a36-dbc5-4b9b-8ad2-d867fdeefbf6"
+      "uid": "a2c3b7d7-0959-4402-84cb-1762934b9422"
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "d85cd9ea-12b6-4475-bbe6-cc5a2f02d17d",
-      "name": "German",
-      "value": "de",
+      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
+      "name": "Spanish",
+      "value": "es",
       "uid": ""
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "d85cd9ea-12b6-4475-bbe6-cc5a2f02d17d",
-      "name": "Spanish",
-      "value": "es",
-      "uid": "4404b5fb-c7fd-4fec-a468-d5f574b11258"
+      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
+      "name": "German",
+      "value": "de",
+      "uid": "a43f3d35-bf12-4da7-9fcd-b03debc57da4"
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "d85cd9ea-12b6-4475-bbe6-cc5a2f02d17d",
+      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
       "name": "English",
       "value": "en",
-      "uid": "63801ddd-b4e5-441f-bef7-3aea40591158"
+      "uid": "f376f80a-6d3d-4016-9d62-75a98a87bb66"
     }
   }
 ]

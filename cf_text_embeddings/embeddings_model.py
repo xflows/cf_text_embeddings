@@ -15,7 +15,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 from bert_embedding import BertEmbedding
-from text_embeddings.common import orange_domain
+from cf_text_embeddings.common import orange_domain
 
 
 class AggregationMethod(Enum):
@@ -23,25 +23,25 @@ class AggregationMethod(Enum):
     summation = 'summation'
 
 
-def text_embeddings_package_folder_path():
+def cf_text_embeddings_package_folder_path():
     return path.dirname(path.realpath(__file__))
 
 
-def text_embeddings_models_folder_path():
-    return path.join(text_embeddings_package_folder_path(), 'models')
+def cf_text_embeddings_models_folder_path():
+    return path.join(cf_text_embeddings_package_folder_path(), 'models')
 
 
-def text_embeddings_model_path(lang, model_name):
+def cf_text_embeddings_model_path(lang, model_name):
     lang = '' if lang is None else lang
     model_name = '' if model_name is None else model_name
-    return path.join(text_embeddings_models_folder_path(), lang, model_name)
+    return path.join(cf_text_embeddings_models_folder_path(), lang, model_name)
 
 
 class EmbeddingsModelBase:
     def __init__(self, lang, model_name, default_token_annotation=None):
         self._lang = lang
         self._model_name = model_name
-        self._path = text_embeddings_model_path(self._lang, self._model_name)
+        self._path = cf_text_embeddings_model_path(self._lang, self._model_name)
         self._model = None
         self._tfidf_dict = None
         self._tfidf_model = None
@@ -167,7 +167,7 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
 
 class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
     def _load_model(self):
-        path_ = text_embeddings_model_path(self._lang, self._model_name)
+        path_ = cf_text_embeddings_model_path(self._lang, self._model_name)
         return hub.Module(path_)
 
     @staticmethod

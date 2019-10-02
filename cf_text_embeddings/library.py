@@ -1,14 +1,14 @@
 from Orange.data import Table
 
-from text_embeddings.common import (load_numpy_array, map_y, orange_domain,
-                                    to_float, to_int)
-from text_embeddings.embeddings_model import (
+from cf_text_embeddings.common import (load_numpy_array, map_y, orange_domain,
+                                       to_float, to_int)
+from cf_text_embeddings.embeddings_model import (
     EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
     EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
     EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
 
 
-def text_embeddings_extract_model_name(input_dict, languages):
+def cf_text_embeddings_extract_model_name(input_dict, languages):
     # language selector overrides the language in the widget
     lang = input_dict['lang_selector'] or input_dict['lang']
     model_name = languages.get(lang)
@@ -17,7 +17,7 @@ def text_embeddings_extract_model_name(input_dict, languages):
     return lang, model_name
 
 
-def text_embeddings_word2vec(input_dict):
+def cf_text_embeddings_word2vec(input_dict):
     languages = {
         # https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM
         'en': 'GoogleNews-vectors-negative300.wv.bin',
@@ -36,11 +36,11 @@ def text_embeddings_word2vec(input_dict):
         # http://vectors.nlpl.eu/repository/
         'ee': 'word2vec_ee.wv',
     }
-    lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
+    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelWord2Vec(lang, model_name)}
 
 
-def text_embeddings_glove(input_dict):
+def cf_text_embeddings_glove(input_dict):
     languages = {
         # https://nlp.stanford.edu/projects/glove/
         'en': 'glove.6B.300d.wv.bin',
@@ -49,11 +49,11 @@ def text_embeddings_glove(input_dict):
         # https://deepset.ai/german-word-embeddings
         'de': 'glove_de.wv',
     }
-    lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
+    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelGloVe(lang, model_name)}
 
 
-def text_embeddings_fasttext(input_dict):
+def cf_text_embeddings_fasttext(input_dict):
     languages = {
         # https://github.com/facebookresearch/MUSE
         'en': 'wiki.multi.en.wv',
@@ -74,11 +74,11 @@ def text_embeddings_fasttext(input_dict):
         # https://github.com/facebookresearch/MUSE
         'hr': 'wiki.multi.hr.wv',
     }
-    lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
+    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelFastText(lang, model_name)}
 
 
-def text_embeddings_lsi(input_dict):
+def cf_text_embeddings_lsi(input_dict):
     num_topics_default = 200
     num_topics = to_int(input_dict['num_topics'], num_topics_default)
     num_topics = num_topics_default if num_topics < 1 else num_topics
@@ -86,7 +86,7 @@ def text_embeddings_lsi(input_dict):
     return {'embeddings_model': EmbeddingsModelLSI(num_topics, decay)}
 
 
-def text_embeddings_bert(_):
+def cf_text_embeddings_bert(_):
     return {
         # Model source: https://tfhub.dev/google/bert_multi_cased_L-12_H-768_A-12/1
         'embeddings_model':
@@ -95,7 +95,7 @@ def text_embeddings_bert(_):
     }
 
 
-def text_embeddings_universal_sentence_encoder(input_dict):
+def cf_text_embeddings_universal_sentence_encoder(input_dict):
     languages = {
         # https://tfhub.dev/google/universal-sentence-encoder/2
         'en': 'universal_sentence_encoder_english',
@@ -104,7 +104,7 @@ def text_embeddings_universal_sentence_encoder(input_dict):
         # https://tfhub.dev/google/universal-sentence-encoder-xling/en-es/1
         'es': 'universal_sentence_encoder_spanish',
     }
-    lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
+    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {
         'embeddings_model':
         EmbeddingsModelUniversalSentenceEncoder(lang, model_name,
@@ -112,19 +112,19 @@ def text_embeddings_universal_sentence_encoder(input_dict):
     }
 
 
-def text_embeddings_doc2vec(input_dict):
+def cf_text_embeddings_doc2vec(input_dict):
     languages = {
         # https://github.com/jhlau/doc2vec
         'en': 'doc2vec.bin',
     }
-    lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
+    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {
         'embeddings_model':
         EmbeddingsModelDoc2Vec(lang, model_name, default_token_annotation='TextBlock')
     }
 
 
-def text_embeddings_elmo(input_dict):
+def cf_text_embeddings_elmo(input_dict):
     languages = {
         # http://vectors.nlpl.eu/repository/#
         'en': 'elmo',
@@ -143,11 +143,11 @@ def text_embeddings_elmo(input_dict):
         # http://vectors.nlpl.eu/repository/#
         'de': 'elmo',
     }
-    lang, model_name = text_embeddings_extract_model_name(input_dict, languages)
+    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelElmo(lang, model_name)}
 
 
-def text_embeddings_embeddings_hub(input_dict):
+def cf_text_embeddings_embeddings_hub(input_dict):
     embeddings_model = input_dict['embeddings_model']
 
     default_token_annotation = embeddings_model.default_token_annotation
@@ -161,11 +161,11 @@ def text_embeddings_embeddings_hub(input_dict):
     return {'bow_dataset': bow_dataset}
 
 
-def text_embeddings_language(input_dict):
+def cf_text_embeddings_language(input_dict):
     return input_dict
 
 
-def text_embeddings_import_dataset(input_dict):
+def cf_text_embeddings_import_dataset(input_dict):
     x_path = input_dict['x_path']
     y_path = input_dict['y_path']
 
@@ -178,5 +178,5 @@ def text_embeddings_import_dataset(input_dict):
     return {'bow_dataset': bow_dataset}
 
 
-def text_embeddings_export_dataset(input_dict):
+def cf_text_embeddings_export_dataset(input_dict):
     return input_dict

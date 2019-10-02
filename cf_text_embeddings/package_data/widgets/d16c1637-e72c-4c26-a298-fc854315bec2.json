@@ -2,8 +2,8 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "fastText",
-      "action": "text_embeddings_fasttext",
+      "name": "ELMo",
+      "action": "cf_text_embeddings_elmo",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
@@ -19,8 +19,8 @@
       "has_progress_bar": false,
       "is_streaming": false,
       "order": 1,
-      "uid": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
-      "package": "text_embeddings",
+      "uid": "d16c1637-e72c-4c26-a298-fc854315bec2",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }
@@ -30,16 +30,16 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "Language of the embeddings model. It overrides the one in the widget.",
-      "variable": "lang_selector",
-      "widget": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
-      "required": false,
-      "parameter": false,
+      "description": "Language of the embeddings model",
+      "variable": "lang",
+      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
+      "required": true,
+      "parameter": true,
       "multi": false,
-      "default": "",
-      "parameter_type": null,
+      "default": "en",
+      "parameter_type": "select",
       "order": 1,
-      "uid": "77c1f254-5df8-4484-be4c-3356e53bebd2"
+      "uid": "16761059-e48e-42ea-9705-28abb32356f4"
     }
   },
   {
@@ -47,16 +47,16 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "Language of the embeddings model",
-      "variable": "lang",
-      "widget": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
-      "required": true,
-      "parameter": true,
+      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "variable": "lang_selector",
+      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
+      "required": false,
+      "parameter": false,
       "multi": false,
-      "default": "en",
-      "parameter_type": "select",
+      "default": "",
+      "parameter_type": null,
       "order": 1,
-      "uid": "e16bce0d-37d8-4c96-9e90-de394b563863"
+      "uid": "e626b0b2-b292-4c34-9fc4-25b8ffc6c01b"
     }
   },
   {
@@ -66,69 +66,15 @@
       "short_name": "ebm",
       "description": "Embeddings Model",
       "variable": "embeddings_model",
-      "widget": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
+      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
       "order": 1,
-      "uid": "d7783e13-6b3b-448e-a69f-332b34568346"
+      "uid": "4d4d9e86-175e-4ae6-9e24-48eb24b590c8"
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "German",
-      "value": "de",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Russian",
-      "value": "ru",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Latvian",
-      "value": "lv",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Lithuanian",
-      "value": "lt",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Estonian",
-      "value": "ee",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Slovenian",
-      "value": "sl",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
       "name": "Croatian",
       "value": "hr",
       "uid": ""
@@ -137,19 +83,64 @@
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Spanish",
-      "value": "es",
-      "uid": "4826c244-27f4-4765-b27c-4625470854f1"
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
+      "name": "Estonian",
+      "value": "ee",
+      "uid": ""
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
+      "name": "German",
+      "value": "de",
+      "uid": ""
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
+      "name": "Latvian",
+      "value": "lv",
+      "uid": ""
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
+      "name": "Russian",
+      "value": "ru",
+      "uid": ""
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
+      "name": "Slovenian",
+      "value": "sl",
+      "uid": ""
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
+      "name": "Spanish",
+      "value": "es",
+      "uid": "5af2ed64-486a-4558-a39e-f9c139355cbf"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
       "name": "English",
       "value": "en",
-      "uid": "9cc240c4-7222-4159-93fd-eae10adfac94"
+      "uid": "e49d0920-9e87-48b8-9b33-1607b592682e"
     }
   }
 ]

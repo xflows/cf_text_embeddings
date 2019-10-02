@@ -3,7 +3,7 @@
     "model": "workflows.abstractwidget",
     "fields": {
       "name": "Embeddings Hub",
-      "action": "text_embeddings_embeddings_hub",
+      "action": "cf_text_embeddings_embeddings_hub",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
@@ -20,7 +20,7 @@
       "is_streaming": false,
       "order": 1,
       "uid": "d734d781-5a78-4d3e-8e47-4cf03642d591",
-      "package": "text_embeddings",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }

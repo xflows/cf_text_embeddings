@@ -3,7 +3,7 @@
     "model": "workflows.abstractwidget",
     "fields": {
       "name": "BERT",
-      "action": "text_embeddings_bert",
+      "action": "cf_text_embeddings_bert",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
@@ -20,7 +20,7 @@
       "is_streaming": false,
       "order": 1,
       "uid": "43827ef5-f7ad-4d92-9c93-17b54d127540",
-      "package": "text_embeddings",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }

@@ -2,11 +2,10 @@ import argparse
 import glob
 import zipfile
 from os import path, remove
-
+from pathlib import Path
 import gitlab
 import requests
 
-import text_embeddings
 from bert_embedding import BertEmbedding
 
 GITLAB_URL = 'https://repo.ijs.si/'
@@ -90,7 +89,7 @@ def main():
     # anonymous gitlab instance, read-only for public resources
     gl = gitlab.Gitlab(GITLAB_URL)
     project = gl.projects.get(GITLAB_PROJECT)
-    module_dir = path.dirname(text_embeddings.__file__)
+    module_dir = path.join(str(Path.home()), '.cf_text_embeddings')
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list", action="store_true", help="list available languages")

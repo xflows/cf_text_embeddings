@@ -11,12 +11,12 @@ To enable it in the ClowdFlows Backend, edit the `local_settings.py` file like s
 PACKAGE_TREE = [
     {
         "name": "Text Embeddings",
-        "packages": ['text_embeddings'],
+        "packages": ['cf_text_embeddings'],
         "order": 1
     }
 ]
 ```
-Then run ` ./manage.py import_package text_embeddings` from the ClowdFlows Backend directory to import widgets into the platform.
+Then run ` ./manage.py import_package cf_text_embeddings` from the ClowdFlows Backend directory to import widgets into the platform.
 
 After installation, you need to download the models.
 

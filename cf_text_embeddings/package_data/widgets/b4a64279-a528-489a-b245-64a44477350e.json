@@ -3,7 +3,7 @@
     "model": "workflows.abstractwidget",
     "fields": {
       "name": "Import dataset",
-      "action": "text_embeddings_import_dataset",
+      "action": "cf_text_embeddings_import_dataset",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
@@ -20,7 +20,7 @@
       "is_streaming": false,
       "order": 1,
       "uid": "b4a64279-a528-489a-b245-64a44477350e",
-      "package": "text_embeddings",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }

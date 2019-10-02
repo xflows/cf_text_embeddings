@@ -25,7 +25,7 @@ def save_numpy_array(dirname, filename, array):
     np.save(filepath, array)
 
 
-def text_embeddings_export_dataset(request, input_dict, output_dict, widget):
+def cf_text_embeddings_export_dataset(request, input_dict, output_dict, widget):
     bow_dataset = input_dict.get('bow_dataset')
     if bow_dataset is None:
         raise Exception('There is no dataset in the input')

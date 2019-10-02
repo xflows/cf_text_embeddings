@@ -2,9 +2,9 @@ import unittest
 
 import numpy as np
 
-from text_embeddings.embeddings_model import (AggregationMethod,
-                                              EmbeddingsModelLSI,
-                                              EmbeddingsModelWord2Vec)
+from cf_text_embeddings.embeddings_model import (AggregationMethod,
+                                                 EmbeddingsModelLSI,
+                                                 EmbeddingsModelWord2Vec)
 from tf_core.nltoolkit.lib.textual_data_in_out import load_adc
 from tf_core.nltoolkit.lib.tokenization import (nltk_simple_tokenizer,
                                                 tokenizer_hub)

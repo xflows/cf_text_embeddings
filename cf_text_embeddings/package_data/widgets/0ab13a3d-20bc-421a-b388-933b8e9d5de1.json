@@ -3,7 +3,7 @@
     "model": "workflows.abstractwidget",
     "fields": {
       "name": "Language",
-      "action": "text_embeddings_language",
+      "action": "cf_text_embeddings_language",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
@@ -20,7 +20,7 @@
       "is_streaming": false,
       "order": 1,
       "uid": "0ab13a3d-20bc-421a-b388-933b8e9d5de1",
-      "package": "text_embeddings",
+      "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
     }
