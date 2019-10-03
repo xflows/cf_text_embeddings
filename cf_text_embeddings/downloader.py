@@ -1,7 +1,7 @@
 import argparse
 import glob
 import zipfile
-from os import path, remove
+from os import path, remove, rename
 
 import gitlab
 import requests
@@ -16,12 +16,15 @@ REF = 'master'
 
 def download_model(gitlab_path, local_filename):
     url = path.join(GITLAB_URL, GITLAB_PROJECT, 'raw', REF, gitlab_path)
+    filepath, filename = path.split(local_filename)
+    temp_filename = path.join(filepath, filename + '_temp')
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
-        with open(local_filename, 'wb') as f:
+        with open(temp_filename, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if chunk:  # filter out keep-alive new chunks
                     f.write(chunk)
+        rename(temp_filename, local_filename)  # handle partialy downloaded files
 
 
 def download_bert_model():
