@@ -2,11 +2,12 @@ import argparse
 import glob
 import zipfile
 from os import path, remove
-from pathlib import Path
+
 import gitlab
 import requests
 
 from bert_embedding import BertEmbedding
+from cf_text_embeddings.common import PROJECT_DATA_DIR, ensure_dir
 
 GITLAB_URL = 'https://repo.ijs.si/'
 GITLAB_PROJECT = 'vpodpecan/cf_text_embeddings_models'
@@ -45,20 +46,21 @@ def remove_files(file_paths):
         remove(file_path)
 
 
-def download_models_for_language(project, module_dir, language):
+def download_models_for_language(project, models_dir, language):
     print('Downloading models for %s' % language)
 
     models_tree = project.repository_tree(path='models/%s' % language, ref=REF)
     n_models = len(models_tree)
 
-    language_dir = path.join(module_dir, 'models/%s' % language)
+    language_dir = path.join(models_dir, 'models', language)
     zipped_models = [f for f in glob.glob(path.join(language_dir, "*.zip"))]
     downloaded_models = [path.basename(model_path) for model_path in zipped_models]
 
     for i, model_tree in enumerate(models_tree, 1):
         model_name = model_tree['name']
         gitlab_path = model_tree['path']
-        file_path = path.join(module_dir, gitlab_path)
+        file_path = path.join(models_dir, gitlab_path)
+        ensure_dir(file_path)
         if model_name not in downloaded_models:
             print('%d/%d Downloading model %s to %s' % (i, n_models, gitlab_path, file_path))
             download_model(gitlab_path, file_path)
@@ -66,8 +68,8 @@ def download_models_for_language(project, module_dir, language):
     return zipped_models
 
 
-def process_models_for_language(project, module_dir, language):
-    file_paths = download_models_for_language(project, module_dir, language)
+def process_models_for_language(project, models_dir, language):
+    file_paths = download_models_for_language(project, models_dir, language)
     unzip_files(file_paths)
     remove_files(file_paths)
 
@@ -89,7 +91,8 @@ def main():
     # anonymous gitlab instance, read-only for public resources
     gl = gitlab.Gitlab(GITLAB_URL)
     project = gl.projects.get(GITLAB_PROJECT)
-    module_dir = path.join(str(Path.home()), '.cf_text_embeddings')
+    models_dir = PROJECT_DATA_DIR
+    ensure_dir(models_dir)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list", action="store_true", help="list available languages")
@@ -105,9 +108,9 @@ def main():
         language = args.download
         if language == 'all':
             for language in languages:
-                process_models_for_language(project, module_dir, language)
+                process_models_for_language(project, models_dir, language)
         else:
-            process_models_for_language(project, module_dir, language)
+            process_models_for_language(project, models_dir, language)
         download_bert_model()
     else:
         parser.print_help()
