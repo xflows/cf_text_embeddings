@@ -1,28 +1,11 @@
 import shutil
 import tempfile
-from os import makedirs, path
+from os import path
 
-import numpy as np
 from django.shortcuts import render
 
-from text_embeddings.common import extract_map_invert_y
-
-
-def ensure_dir(f):
-    d = path.dirname(f)
-    if not path.exists(d):
-        makedirs(d)
-
-
-def get_media_root():
-    from mothra.settings import MEDIA_ROOT
-    return MEDIA_ROOT
-
-
-def save_numpy_array(dirname, filename, array):
-    filepath = path.join(dirname, filename)
-    ensure_dir(filepath)
-    np.save(filepath, array)
+from cf_text_embeddings.common import (ensure_dir, extract_map_invert_y,
+                                       get_media_root, save_numpy_array)
 
 
 def cf_text_embeddings_export_dataset(request, input_dict, output_dict, widget):
