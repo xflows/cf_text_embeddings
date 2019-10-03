@@ -24,15 +24,15 @@ After installation, you need to download the models.
 The Text Embeddings package supports models for multiple languages. 
 To list available languages: 
 
-```python -m text_embeddings.downloader -l```
+```python -m cf_text_embeddings.downloader -l```
 
 To download all the models: 
 
-```python -m text_embeddings.downloader -d all```
+```python -m cf_text_embeddings.downloader -d all```
 
 You can also download the models for a specific language. For example, to download English models:
 
-```python -m text_embeddings.downloader -d en```.
+```python -m cf_text_embeddings.downloader -d en```.
 
 ## Usage
 See [Usage](https://github.com/xflows/cf_text_embeddings/wiki/Usage) and [Widgets](https://github.com/xflows/cf_text_embeddings/wiki/Widgets) wikis.
