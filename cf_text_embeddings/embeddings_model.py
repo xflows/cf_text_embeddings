@@ -102,7 +102,10 @@ class EmbeddingsModelBase:
 
     def apply(self, documents, token_annotation, aggregation_method, weighting_method):
         self._token_annotation = token_annotation
-        self._model = self._load_model()
+        try:
+            self._model = self._load_model()
+        except FileNotFoundError:
+            raise FileNotFoundError('Cannot find the model. Download it, if available.')
         documents_tokens = self._extract_tokens(documents, token_annotation=token_annotation)
         Y, unique_labels = self._extract_labels(documents, binary=True)
         embeddings = self._tokens_to_embeddings(self._model, documents_tokens)
