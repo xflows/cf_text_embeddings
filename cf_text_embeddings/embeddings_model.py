@@ -1,3 +1,4 @@
+import logging
 from enum import Enum
 from os import path
 
@@ -16,6 +17,10 @@ import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 from bert_embedding import BertEmbedding
 from cf_text_embeddings.common import PROJECT_DATA_DIR, orange_domain
+
+# disable logs because they are output as messages in clowdflows
+logging.getLogger('gensim').setLevel(logging.ERROR)
+tf.get_logger().setLevel('ERROR')
 
 
 class AggregationMethod(Enum):
