@@ -6,4 +6,4 @@ tensorflow-hub==0.4.0
 bert-embedding==1.0.1
 tf-sentencepiece==0.1.82
 sentencepiece==0.1.82
--e git+https://github.com/HIT-SCIR/ELMoForManyLangs@197912d44bf0d7ccd7db62547a0b1122fa359373#egg=ELMoForManyLangs
+git+https://github.com/HIT-SCIR/ELMoForManyLangs@197912d44bf0d7ccd7db62547a0b1122fa359373#egg=ELMoForManyLangs
