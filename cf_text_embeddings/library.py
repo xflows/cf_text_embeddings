@@ -90,8 +90,9 @@ def cf_text_embeddings_bert(_):
     return {
         # Model source: https://tfhub.dev/google/bert_multi_cased_L-12_H-768_A-12/1
         'embeddings_model':
+        # sentence length 25 is default
         EmbeddingsModelBert(model_name='bert_12_768_12', dataset_name='wiki_multilingual_cased',
-                            max_seq_length=1000, default_token_annotation='Sentence')
+                            max_seq_length=25, default_token_annotation='Sentence')
     }
 
 

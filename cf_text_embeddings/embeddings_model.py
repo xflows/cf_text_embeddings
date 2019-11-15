@@ -3,6 +3,10 @@ from enum import Enum
 from os import path
 
 import numpy as np
+import tensorflow as tf
+import tensorflow_hub as hub
+import tf_sentencepiece  # NOQA # pylint: disable=unused-import
+from bert_embedding import BertEmbedding
 from elmoformanylangs import Embedder
 from gensim import corpora
 from gensim.corpora import Dictionary
@@ -12,10 +16,6 @@ from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
 from Orange.data import Table
 
-import tensorflow as tf
-import tensorflow_hub as hub
-import tf_sentencepiece  # NOQA # pylint: disable=unused-import
-from bert_embedding import BertEmbedding
 from cf_text_embeddings.common import PROJECT_DATA_DIR, orange_domain
 
 # disable logs because they are output as messages in clowdflows
@@ -225,6 +225,7 @@ class EmbeddingsModelBert(EmbeddingsModelBase):
         embeddings = []
         for document_tokens in documents_tokens:
             results = model(document_tokens)
+            # UNK tokens are included
             document_embedding = np.array(
                 [word_embedding for document in results for word_embedding in document[1]])
             document_embedding = (document_embedding

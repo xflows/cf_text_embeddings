@@ -3,10 +3,12 @@ import unittest
 import numpy as np
 
 from cf_text_embeddings.embeddings_model import (AggregationMethod,
+                                                 EmbeddingsModelBert,
                                                  EmbeddingsModelLSI,
                                                  EmbeddingsModelWord2Vec)
 from tf_core.nltoolkit.lib.textual_data_in_out import load_adc
-from tf_core.nltoolkit.lib.tokenization import (nltk_simple_tokenizer,
+from tf_core.nltoolkit.lib.tokenization import (nltk_punkt_sentence_tokenizer,
+                                                nltk_simple_tokenizer,
                                                 tokenizer_hub)
 
 
@@ -100,3 +102,29 @@ class EmbeddingsModelTest(unittest.TestCase):
         expected_Y = np.array([1., 0.])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
         self.assertEqual(True, np.array_equal(expected_Y, actual_Y))
+
+    def test_bert_model(self):
+        output_annotation = 'Sentence'
+        tokenizer = nltk_punkt_sentence_tokenizer({})
+        adc = create_tokenized_adc(tokenizer, output_annotation)
+        documents = adc.documents
+        embeddings_model = EmbeddingsModelBert(model_name='bert_12_768_12',
+                                               dataset_name='wiki_multilingual_cased',
+                                               max_seq_length=25,
+                                               default_token_annotation='Sentence')
+        embeddings = embeddings_model.apply(documents, output_annotation,
+                                            AggregationMethod.average.value, 'tfidf')
+
+        actual_X = embeddings.X[:, :2]
+        actual_Y = embeddings.Y
+
+        expected_X = np.array([[-0.37729308009147644, -0.3440774977207184],
+                               [-0.10385636985301971, -0.2948300242424011]])
+        expected_Y = np.array([1., 0.])
+
+        self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
+        self.assertEqual(True, np.array_equal(expected_Y, actual_Y))
+
+
+if __name__ == '__main__':
+    unittest.main()
