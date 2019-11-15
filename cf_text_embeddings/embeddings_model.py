@@ -20,6 +20,7 @@ from cf_text_embeddings.common import PROJECT_DATA_DIR, orange_domain
 
 # disable logs because they are output as messages in clowdflows
 logging.getLogger('gensim').setLevel(logging.ERROR)
+logging.getLogger('elmoformanylangs').setLevel(logging.ERROR)
 tf.get_logger().setLevel('ERROR')
 
 
