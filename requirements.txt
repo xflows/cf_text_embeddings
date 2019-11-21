@@ -8,3 +8,4 @@ tf-sentencepiece==0.1.82
 sentencepiece==0.1.82
 elmoformanylangs==0.0.3
 python-gitlab==1.10.0
+tf-core-p3==0.0.2
