@@ -1,7 +1,10 @@
 import unittest
+import warnings
+from os import path
 
 import numpy as np
 
+from cf_text_embeddings.common import PROJECT_DATA_DIR
 from cf_text_embeddings.embeddings_model import (AggregationMethod,
                                                  EmbeddingsModelBert,
                                                  EmbeddingsModelLSI,
@@ -104,6 +107,12 @@ class EmbeddingsModelTest(unittest.TestCase):
         self.assertEqual(True, np.array_equal(expected_Y, actual_Y))
 
     def test_bert_model(self):
+        if not path.exists(PROJECT_DATA_DIR):
+            # This test is not run by Travis CI
+            warnings.warn(
+                'Test test_bert_model not executed, because bert model was not downloaded yet')
+            return
+
         output_annotation = 'Sentence'
         tokenizer = nltk_punkt_sentence_tokenizer({})
         adc = create_tokenized_adc(tokenizer, output_annotation)
