@@ -29,10 +29,15 @@ class AggregationMethod(Enum):
     summation = 'summation'
 
 
+def cf_text_embeddings_package_folder_path():
+    return path.dirname(path.realpath(__file__))
+
+
 def cf_text_embeddings_model_path(lang, model_name):
+    models_dir = cf_text_embeddings_package_folder_path() if lang == 'test' else PROJECT_DATA_DIR
     lang = '' if lang is None else lang
     model_name = '' if model_name is None else model_name
-    return path.join(PROJECT_DATA_DIR, 'models', lang, model_name)
+    return path.join(models_dir, 'models', lang, model_name)
 
 
 class EmbeddingsModelBase:
