@@ -5,8 +5,8 @@ from os import path, remove, rename
 
 import gitlab
 import requests
+import transformers
 
-from bert_embedding import BertEmbedding
 from cf_text_embeddings.common import PROJECT_DATA_DIR, ensure_dir
 
 GITLAB_URL = 'https://repo.ijs.si/'
@@ -28,7 +28,10 @@ def download_model(gitlab_path, local_filename):
 
 
 def download_bert_model():
-    BertEmbedding(model='bert_12_768_12', dataset_name='wiki_multilingual_cased')
+    print('Downloading Bert Model')
+    model_class = transformers.BertModel
+    pretrained_weights = 'bert-base-uncased'
+    model_class.from_pretrained(pretrained_weights)
 
 
 def unzip_file(zip_filepath):

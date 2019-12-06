@@ -6,7 +6,7 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
-from bert_embedding import BertEmbedding
+import torch
 from elmoformanylangs import Embedder
 from gensim import corpora
 from gensim.corpora import Dictionary
@@ -214,37 +214,43 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
         return embeddings
 
 
-class EmbeddingsModelBert(EmbeddingsModelBase):
-    def __init__(self, model_name, dataset_name, max_seq_length, default_token_annotation):
-        super().__init__(None, model_name, default_token_annotation=default_token_annotation)
-        self._dataset_name = dataset_name
-        self._max_seq_length = max_seq_length
-        self._vector_size = self._get_vector_size(model_name)
+class EmbeddingsModelHuggingface(EmbeddingsModelBase):
+    def __init__(self, model_class, tokenizer_class, pretrained_weights, vector_size, max_seq,
+                 default_token_annotation):
+        super().__init__(None, None, default_token_annotation=default_token_annotation)
+        self.model_class = model_class
+        self.tokenizer_class = tokenizer_class
+        self.pretrained_weights = pretrained_weights
+        self._max_seq = max_seq
+        self._vector_size = vector_size
+        self._model = None
+        self._tokenizer = None
 
     def _load_model(self):
-        return BertEmbedding(model=self._model_name, dataset_name=self._dataset_name,
-                             max_seq_length=self._max_seq_length)
+        self._tokenizer = self.tokenizer_class.from_pretrained(self.pretrained_weights)
+        self._model = self.model_class.from_pretrained(self.pretrained_weights)
+        return self._model
+
+    @staticmethod
+    def tokenize_text(tokenizer, texts, max_seq):
+        return [tokenizer.encode(text, add_special_tokens=True)[:max_seq] for text in texts]
 
     def _tokens_to_embeddings(self, model, documents_tokens):
         default_embedding = np.zeros((1, self._vector_size))
         embeddings = []
         for document_tokens in documents_tokens:
-            results = model(document_tokens)
-            # UNK tokens are included
-            document_embedding = np.array(
-                [word_embedding for document in results for word_embedding in document[1]])
+            input_ids = torch.tensor(
+                self.tokenize_text(self._tokenizer, document_tokens, self._max_seq))
+            results = model(input_ids)[0]
+            document_embedding = results.cpu().detach().numpy().squeeze(axis=0)
             document_embedding = (document_embedding
                                   if document_embedding.size > 0 else default_embedding)
             embeddings.append(document_embedding)
         return embeddings
 
-    @staticmethod
-    def _get_vector_size(model_name):
-        if model_name == 'bert_12_768_12':
-            return 768
-        if model_name == 'bert_24_1024_16':
-            return 1024
-        raise Exception('%s model not supported' % model_name)
+
+class EmbeddingsModelBert(EmbeddingsModelHuggingface):
+    pass
 
 
 class EmbeddingsModelLSI(EmbeddingsModelBase):
