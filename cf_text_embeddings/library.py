@@ -96,7 +96,7 @@ def cf_text_embeddings_bert(_):
         'embeddings_model':
         EmbeddingsModelBert(model_class=model_class, tokenizer_class=tokenizer_class,
                             vector_size=768, pretrained_weights=pretrained_weights, max_seq=100,
-                            default_token_annotation='Sentence')
+                            default_token_annotation='TextBlock')
     }
 
 

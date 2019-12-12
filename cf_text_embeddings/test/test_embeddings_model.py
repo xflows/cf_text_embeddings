@@ -11,8 +11,7 @@ from cf_text_embeddings.embeddings_model import (AggregationMethod,
                                                  EmbeddingsModelLSI,
                                                  EmbeddingsModelWord2Vec)
 from tf_core.nltoolkit.lib.textual_data_in_out import load_adc
-from tf_core.nltoolkit.lib.tokenization import (nltk_punkt_sentence_tokenizer,
-                                                nltk_simple_tokenizer,
+from tf_core.nltoolkit.lib.tokenization import (nltk_simple_tokenizer,
                                                 tokenizer_hub)
 
 
@@ -114,25 +113,24 @@ class EmbeddingsModelTest(unittest.TestCase):
                 'Test test_bert_model not executed, because you need to download model first')
             return
 
-        output_annotation = 'Sentence'
+        adc = create_adc()
         model_class = transformers.BertModel
         tokenizer_class = transformers.BertTokenizer
         pretrained_weights = 'bert-base-uncased'
-        tokenizer = nltk_punkt_sentence_tokenizer({})
-        adc = create_tokenized_adc(tokenizer, output_annotation)
         documents = adc.documents
 
         embeddings_model = EmbeddingsModelBert(model_class=model_class,
                                                tokenizer_class=tokenizer_class,
                                                pretrained_weights=pretrained_weights,
                                                vector_size=768, max_seq=100,
-                                               default_token_annotation='Sentence')
-        embeddings = embeddings_model.apply(documents, output_annotation,
-                                            AggregationMethod.average.value, None)
+                                               default_token_annotation='TextBlock')
+        embeddings = embeddings_model.apply(documents, token_annotation='TextBlock',
+                                            aggregation_method=AggregationMethod.average.value,
+                                            weighting_method=None)
         actual_X = embeddings.X[:, :2]
         actual_Y = embeddings.Y
 
-        expected_X = np.array([[-0.22724755, -0.42256591], [0.28956917, -0.16998126]])
+        expected_X = np.array([[0.13997224, -0.12020198], [0.27512622, 0.04447067]])
         expected_Y = np.array([1., 0.])
 
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))

@@ -21,6 +21,7 @@ from cf_text_embeddings.common import PROJECT_DATA_DIR, orange_domain
 # disable logs because they are output as messages in clowdflows
 logging.getLogger('gensim').setLevel(logging.ERROR)
 logging.getLogger('elmoformanylangs').setLevel(logging.ERROR)
+logging.getLogger('transformers').setLevel(logging.ERROR)
 tf.get_logger().setLevel('ERROR')
 
 
@@ -235,12 +236,21 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
     def tokenize_text(tokenizer, texts, max_seq):
         return [tokenizer.encode(text, add_special_tokens=True)[:max_seq] for text in texts]
 
+    @staticmethod
+    def pad_text(tokenized_text, max_seq):
+        return np.array([el + [0] * (max_seq - len(el)) for el in tokenized_text])
+
+    @classmethod
+    def tokenize_and_pad_text(cls, tokenizer, texts, max_seq):
+        tokenized_text = cls.tokenize_text(tokenizer, texts, max_seq)
+        padded_text = cls.pad_text(tokenized_text, max_seq)
+        return torch.tensor(padded_text)
+
     def _tokens_to_embeddings(self, model, documents_tokens):
         default_embedding = np.zeros((1, self._vector_size))
         embeddings = []
         for document_tokens in documents_tokens:
-            input_ids = torch.tensor(
-                self.tokenize_text(self._tokenizer, document_tokens, self._max_seq))
+            input_ids = self.tokenize_and_pad_text(self._tokenizer, document_tokens, self._max_seq)
             results = model(input_ids)[0]
             document_embedding = results.cpu().detach().numpy().squeeze(axis=0)
             document_embedding = (document_embedding
