@@ -16,7 +16,7 @@ elmoformanylangs = "*"
 python-gitlab = "*"
 tf-core-p3 = "*"
 transformers = "*"
-Orange3 = "*"
+Orange3 = "3.22.0"
 
 [requires]
 python_version = "3.7"
