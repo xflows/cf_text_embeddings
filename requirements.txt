@@ -1,0 +1,11 @@
+gensim
+numpy
+tensorflow==1.13.0rc2
+tensorflow-hub==0.4.0
+tf-sentencepiece==0.1.82
+sentencepiece
+elmoformanylangs
+python-gitlab
+tf-core-p3
+transformers
+Orange3==3.22.0
