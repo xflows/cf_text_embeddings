@@ -8,15 +8,15 @@ verify_ssl = true
 [packages]
 gensim = "*"
 numpy = "*"
-tensorflow = "==1.13.0rc2"
-tensorflow-hub = "==0.4.0"
-tf-sentencepiece = "==0.1.82"
+tensorflow = "*"
+tensorflow-hub = "*"
+tf-sentencepiece = "*"
 sentencepiece = "*"
 elmoformanylangs = "*"
 python-gitlab = "*"
 tf-core-p3 = "*"
 transformers = "*"
-Orange3 = "==3.22.0"
+Orange3 = "*"
 
 [requires]
-python_version = "3.6.2"
+python_version = "3.6.9"
