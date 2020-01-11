@@ -14,7 +14,7 @@ tf-sentencepiece = "*"
 sentencepiece = "*"
 elmoformanylangs = "*"
 python-gitlab = "*"
-tf-core-p3 = "*"
+tf-core = "*"
 transformers = "*"
 Orange3 = "*"
 
