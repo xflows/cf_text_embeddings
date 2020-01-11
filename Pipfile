@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 gensim = "*"
 numpy = "*"
-tensorflow = "*"
+tensorflow = "<= 2.0.0"
 tensorflow-hub = "*"
 tf-sentencepiece = "*"
 sentencepiece = "*"
