@@ -1,12 +1,38 @@
-import transformers
-from Orange.data import Table
+import csv
 
+import transformers
 from cf_text_embeddings.common import (load_numpy_array, map_y, orange_domain,
                                        to_float, to_int)
 from cf_text_embeddings.embeddings_model import (
     EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
     EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
     EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
+from Orange.data import Table
+
+
+def cf_text_embeddings_parse_csv(input_dict):
+    filename = input_dict['input']
+    delimiter = input_dict['delimiter'] or None
+    skip_header = input_dict['skip_header']
+
+    bytes_to_read = 1024 * 2
+    rows = []
+    with open(filename) as csvfile:
+        if delimiter is None:
+            sniffer = csv.Sniffer()
+            content_to_analyze = csvfile.read(bytes_to_read)
+            dialect = sniffer.sniff(content_to_analyze)
+            skip_header = sniffer.has_header(content_to_analyze)
+            csvfile.seek(0)
+            csv_reader = csv.reader(csvfile, dialect=dialect)
+        else:
+            csv_reader = csv.reader(csvfile, delimiter=delimiter)
+
+        for i, row in enumerate(csv_reader):
+            if skip_header and i == 0:
+                continue
+            rows.append(row)
+    return {'dc': rows}
 
 
 def cf_text_embeddings_extract_model_name(input_dict, languages):
