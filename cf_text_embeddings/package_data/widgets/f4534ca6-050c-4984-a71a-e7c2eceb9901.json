@@ -1,0 +1,91 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Load Corpus",
+      "action": "cf_text_embeddings_parse_csv",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Delimiter",
+      "short_name": "dlr",
+      "description": "The delimiter to separate columns. Leave empty to deduce it.",
+      "variable": "delimiter",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "255fd787-b76b-4caf-b645-b558f08442bb"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Skip header",
+      "short_name": "skh",
+      "description": "The first row is a series of column headers.",
+      "variable": "skip_header",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "False",
+      "parameter_type": "checkbox",
+      "order": 2,
+      "uid": "44476563-fceb-4dfe-8ee4-01721f7217e3"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Input",
+      "short_name": "inp",
+      "description": "Input can be a file.",
+      "variable": "input",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "ba8d1da1-259d-4ed3-94d7-475329d3bccb"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Corpus",
+      "short_name": "dc",
+      "description": "Document corpus",
+      "variable": "dc",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "order": 1,
+      "uid": "c55a471a-042e-4778-9cd2-489cac07803a"
+    }
+  }
+]
