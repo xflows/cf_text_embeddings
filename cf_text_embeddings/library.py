@@ -1,38 +1,25 @@
-import csv
-
 import transformers
+from Orange.data import Table
+
+from cf_text_embeddings.base import io
 from cf_text_embeddings.common import (load_numpy_array, map_y, orange_domain,
                                        to_float, to_int)
 from cf_text_embeddings.embeddings_model import (
     EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
     EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
     EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
-from Orange.data import Table
 
 
 def cf_text_embeddings_parse_csv(input_dict):
     filename = input_dict['input']
     delimiter = input_dict['delimiter'] or None
-    skip_header = input_dict['skip_header']
+    title_column = input_dict.get('title_column') or 'title'
+    text_column = input_dict.get('text_column') or 'text'
+    label_column = input_dict.get('label_column') or 'label'
 
-    bytes_to_read = 1024 * 2
-    rows = []
-    with open(filename) as csvfile:
-        if delimiter is None:
-            sniffer = csv.Sniffer()
-            content_to_analyze = csvfile.read(bytes_to_read)
-            dialect = sniffer.sniff(content_to_analyze)
-            skip_header = sniffer.has_header(content_to_analyze)
-            csvfile.seek(0)
-            csv_reader = csv.reader(csvfile, dialect=dialect)
-        else:
-            csv_reader = csv.reader(csvfile, delimiter=delimiter)
-
-        for i, row in enumerate(csv_reader):
-            if skip_header and i == 0:
-                continue
-            rows.append(row)
-    return {'dc': rows}
+    dc = io.read_csv(filename=filename, delimiter=delimiter, title_column=title_column,
+                     text_column=text_column, label_column=label_column)
+    return {'dc': dc}
 
 
 def cf_text_embeddings_extract_model_name(input_dict, languages):
@@ -125,56 +112,56 @@ def cf_text_embeddings_bert(_):
                             default_token_annotation='TextBlock')
     }
 
+    def cf_text_embeddings_universal_sentence_encoder(input_dict):
+        languages = {
+            # https://tfhub.dev/google/universal-sentence-encoder/2
+            'en': 'universal_sentence_encoder_english',
+            # https://tfhub.dev/google/universal-sentence-encoder-xling/en-de/1
+            'de': 'universal_sentence_encoder_german',
+            # https://tfhub.dev/google/universal-sentence-encoder-xling/en-es/1
+            'es': 'universal_sentence_encoder_spanish',
+        }
+        lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
 
-def cf_text_embeddings_universal_sentence_encoder(input_dict):
-    languages = {
-        # https://tfhub.dev/google/universal-sentence-encoder/2
-        'en': 'universal_sentence_encoder_english',
-        # https://tfhub.dev/google/universal-sentence-encoder-xling/en-de/1
-        'de': 'universal_sentence_encoder_german',
-        # https://tfhub.dev/google/universal-sentence-encoder-xling/en-es/1
-        'es': 'universal_sentence_encoder_spanish',
-    }
-    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {
         'embeddings_model':
         EmbeddingsModelUniversalSentenceEncoder(lang, model_name,
                                                 default_token_annotation='Sentence')
     }
 
+    def cf_text_embeddings_doc2vec(input_dict):
+        languages = {
+            # https://github.com/jhlau/doc2vec
+            'en': 'doc2vec.bin',
+        }
+        lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
 
-def cf_text_embeddings_doc2vec(input_dict):
-    languages = {
-        # https://github.com/jhlau/doc2vec
-        'en': 'doc2vec.bin',
-    }
-    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {
         'embeddings_model':
         EmbeddingsModelDoc2Vec(lang, model_name, default_token_annotation='TextBlock')
     }
 
+    def cf_text_embeddings_elmo(input_dict):
+        languages = {
+            # http://vectors.nlpl.eu/repository/#
+            'en': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'sl': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'es': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'ru': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'hr': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'ee': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'lv': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'de': 'elmo',
+        }
+        lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
 
-def cf_text_embeddings_elmo(input_dict):
-    languages = {
-        # http://vectors.nlpl.eu/repository/#
-        'en': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'sl': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'es': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'ru': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'hr': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'ee': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'lv': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'de': 'elmo',
-    }
-    lang, model_name = cf_text_embeddings_extract_model_name(input_dict, languages)
     return {'embeddings_model': EmbeddingsModelElmo(lang, model_name)}
 
 
