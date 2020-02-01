@@ -28,15 +28,15 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Text column",
+      "name": "Text column index",
       "short_name": "txt",
-      "description": "Name of the text column in text file (required).",
-      "variable": "text",
+      "description": "Index of the text column in text file (required).",
+      "variable": "text_index",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "required": true,
       "parameter": true,
       "multi": false,
-      "default": "text",
+      "default": "2",
       "parameter_type": "text",
       "order": 2,
       "uid": "02802756-0952-4976-b994-c9f4480cb8a6"
@@ -62,6 +62,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Skip header",
+      "short_name": "sph",
+      "description": "Skip the first line in the file.",
+      "variable": "skip_header",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "",
+      "parameter_type": "checkbox",
+      "order": 5,
+      "uid": "2d4e59a9-ae4e-4090-b443-1a53d26abe4f"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Input",
       "short_name": "inp",
       "description": "Input can be a file.",
@@ -79,15 +96,15 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Label column",
+      "name": "Label column index",
       "short_name": "lab",
-      "description": "Name of the label column in the text file (required for classification).",
-      "variable": "label",
+      "description": "Index of the label column in the text file (required for classification).",
+      "variable": "label_index",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "required": true,
       "parameter": true,
       "multi": false,
-      "default": "label",
+      "default": "3",
       "parameter_type": "text",
       "order": 3,
       "uid": "e94be394-0e97-4a77-9aa6-6460717be19a"
@@ -96,15 +113,15 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Title column",
+      "name": "Title column index",
       "short_name": "ttl",
-      "description": "Name of the title column in text file (not required).",
-      "variable": "title",
+      "description": "Index of the title column in text file (not required).",
+      "variable": "title_index",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "required": true,
       "parameter": true,
       "multi": false,
-      "default": "title",
+      "default": "1",
       "parameter_type": "text",
       "order": 1,
       "uid": "f6319de0-f9e7-4792-b22b-53a1361a7f51"

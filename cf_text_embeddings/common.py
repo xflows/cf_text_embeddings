@@ -1,10 +1,15 @@
 from os import makedirs, path
 from pathlib import Path
 
-import numpy as np
 from Orange.data import ContinuousVariable, DiscreteVariable, Domain
 
+import numpy as np
+
 PROJECT_DATA_DIR = path.join(str(Path.home()), '.cf_text_embeddings')
+
+
+def map_checkbox_value(value):
+    return value and value == 'true'
 
 
 def orange_domain(n_features, unique_labels):

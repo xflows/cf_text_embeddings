@@ -2,8 +2,8 @@ import transformers
 from Orange.data import Table
 
 from cf_text_embeddings.base import io
-from cf_text_embeddings.common import (load_numpy_array, map_y, orange_domain,
-                                       to_float, to_int)
+from cf_text_embeddings.common import (load_numpy_array, map_checkbox_value,
+                                       map_y, orange_domain, to_float, to_int)
 from cf_text_embeddings.embeddings_model import (
     EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
     EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
@@ -12,13 +12,15 @@ from cf_text_embeddings.embeddings_model import (
 
 def cf_text_embeddings_parse_csv(input_dict):
     filename = input_dict['input']
+    title_index = input_dict.get('title_index')
+    text_index = input_dict.get('text_index')
+    label_index = input_dict.get('label_index')
     delimiter = input_dict['delimiter'] or None
-    title_column = input_dict.get('title_column') or 'title'
-    text_column = input_dict.get('text_column') or 'text'
-    label_column = input_dict.get('label_column') or 'label'
+    skip_header = input_dict.get('skip_header')
+    skip_header = map_checkbox_value(skip_header)
 
-    dc = io.read_csv(filename=filename, delimiter=delimiter, title_column=title_column,
-                     text_column=text_column, label_column=label_column)
+    dc = io.read_csv(filename=filename, delimiter=delimiter, skip_header=skip_header,
+                     title_index=title_index, text_index=text_index, label_index=label_index)
     return {'dc': dc}
 
 
