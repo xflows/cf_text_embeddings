@@ -75,18 +75,18 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
-      "name": "Spanish",
-      "value": "es",
-      "uid": "dc395181-0ae6-4585-a89b-46def0bca9d8"
+      "name": "German",
+      "value": "de",
+      "uid": "a43f3d35-bf12-4da7-9fcd-b03debc57da4"
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
-      "name": "German",
-      "value": "de",
-      "uid": "a43f3d35-bf12-4da7-9fcd-b03debc57da4"
+      "name": "Spanish",
+      "value": "es",
+      "uid": "dc395181-0ae6-4585-a89b-46def0bca9d8"
     }
   },
   {

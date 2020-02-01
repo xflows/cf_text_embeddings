@@ -75,45 +75,9 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "Slovenian",
-      "value": "sl",
-      "uid": "94e2f03d-0c94-4a85-bbb3-a610afae54e9"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "Croatian",
-      "value": "hr",
-      "uid": "ef175ad2-412a-4036-86be-a5f60185767f"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "German",
-      "value": "de",
-      "uid": "87dd2fc2-376c-436e-b22c-bc3b9f2245dd"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
       "name": "Russian",
       "value": "ru",
       "uid": "0fbf95fd-20ba-40c5-8aa7-85213ef6c41b"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "Latvian",
-      "value": "lv",
-      "uid": "a330497-f215-44e2-8141-b5a37455f464"
     }
   },
   {
@@ -132,6 +96,42 @@
       "name": "Spanish",
       "value": "es",
       "uid": "6bc24d17-7cae-493a-bd09-e012a4052aba"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "German",
+      "value": "de",
+      "uid": "87dd2fc2-376c-436e-b22c-bc3b9f2245dd"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "Slovenian",
+      "value": "sl",
+      "uid": "94e2f03d-0c94-4a85-bbb3-a610afae54e9"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "Latvian",
+      "value": "lv",
+      "uid": "a330497-f215-44e2-8141-b5a37455f464"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "Croatian",
+      "value": "hr",
+      "uid": "ef175ad2-412a-4036-86be-a5f60185767f"
     }
   },
   {

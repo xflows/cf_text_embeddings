@@ -58,9 +58,9 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0",
-      "name": "German",
-      "value": "de",
-      "uid": "47b2d04b-3e8d-4a0b-8d9b-5ad8b12dbf56"
+      "name": "Slovenian",
+      "value": "sl",
+      "uid": "'5292f93-5972-432d-ac10-a29d0a87fe6e"
     }
   },
   {
@@ -76,9 +76,9 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0",
-      "name": "Russian",
-      "value": "ru",
-      "uid": "888bed19-2373-4e59-a84c-344ba1242850"
+      "name": "Estonian",
+      "value": "ee",
+      "uid": "1f603870-a478-4338-afb3-5e7d7fbc7c62"
     }
   },
   {
@@ -94,6 +94,15 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0",
+      "name": "German",
+      "value": "de",
+      "uid": "47b2d04b-3e8d-4a0b-8d9b-5ad8b12dbf56"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0",
       "name": "Latvian",
       "value": "lv",
       "uid": "610d8826-4c30-4a3f-8017-4b90c4987848"
@@ -103,18 +112,9 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0",
-      "name": "Estonian",
-      "value": "ee",
-      "uid": "1f603870-a478-4338-afb3-5e7d7fbc7c62"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e7ffaf64-46bb-49e0-88e6-0850e6d442f0",
-      "name": "Slovenian",
-      "value": "sl",
-      "uid": "'5292f93-5972-432d-ac10-a29d0a87fe6e"
+      "name": "Russian",
+      "value": "ru",
+      "uid": "888bed19-2373-4e59-a84c-344ba1242850"
     }
   },
   {

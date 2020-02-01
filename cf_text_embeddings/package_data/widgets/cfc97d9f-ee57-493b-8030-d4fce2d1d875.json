@@ -75,18 +75,27 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "German",
-      "value": "de",
-      "uid": "bbcb8a1f-0809-4b8e-a7b5-dce71e133e96"
+      "name": "Lithuanian",
+      "value": "lt",
+      "uid": "087a2663-5e54-4056-80ea-bbf8bb788cce"
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Russian",
-      "value": "ru",
-      "uid": "a717eb6d-f931-45eb-902c-e6b16b97ef39"
+      "name": "Spanish",
+      "value": "es",
+      "uid": "4826c244-27f4-4765-b27c-4625470854f1"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "Estonian",
+      "value": "ee",
+      "uid": "64c233fe-087d-4b07-868c-20a89e207be2"
     }
   },
   {
@@ -102,18 +111,27 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Lithuanian",
-      "value": "lt",
-      "uid": "087a2663-5e54-4056-80ea-bbf8bb788cce"
+      "name": "English",
+      "value": "en",
+      "uid": "9cc240c4-7222-4159-93fd-eae10adfac94"
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Estonian",
-      "value": "ee",
-      "uid": "64c233fe-087d-4b07-868c-20a89e207be2"
+      "name": "Russian",
+      "value": "ru",
+      "uid": "a717eb6d-f931-45eb-902c-e6b16b97ef39"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "German",
+      "value": "de",
+      "uid": "bbcb8a1f-0809-4b8e-a7b5-dce71e133e96"
     }
   },
   {
@@ -132,24 +150,6 @@
       "name": "Croatian",
       "value": "hr",
       "uid": "fedb6005-6de8-49d0-ab96-9a245e8417e3"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Spanish",
-      "value": "es",
-      "uid": "4826c244-27f4-4765-b27c-4625470854f1"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "English",
-      "value": "en",
-      "uid": "9cc240c4-7222-4159-93fd-eae10adfac94"
     }
   }
 ]
