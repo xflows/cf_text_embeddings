@@ -1,7 +1,7 @@
 import transformers
 from Orange.data import Table
 
-from cf_text_embeddings.base import io
+from cf_text_embeddings.base import io, tokenizers
 from cf_text_embeddings.common import (load_numpy_array, map_checkbox_value,
                                        map_y, orange_domain, to_float, to_int)
 from cf_text_embeddings.embeddings_model import (
@@ -22,6 +22,23 @@ def cf_text_embeddings_parse_csv(input_dict):
     dc = io.read_csv(filename=filename, delimiter=delimiter, skip_header=skip_header,
                      title_index=title_index, text_index=text_index, label_index=label_index)
     return {'dc': dc}
+
+
+def cf_text_embeddings_tok_tok_tokenizer(input_dict):
+    assert 'dc' in input_dict, 'Document corpus is missing'
+    assert 'text' in input_dict['dc'], 'Text of document corpus is missing'
+
+    input_dict['dc']['words'] = tokenizers.toktok_tokenizer(input_dict['dc']['text'])
+    return input_dict
+
+
+def cf_text_embeddings_punkt_tokenizer(input_dict):
+    assert 'dc' in input_dict, 'Document corpus is missing'
+    assert 'text' in input_dict['dc'], 'Text of document corpus is missing'
+
+    language = input_dict['language']
+    input_dict['dc']['sentences'] = tokenizers.punkt_tokenizer(input_dict['dc']['text'], language)
+    return input_dict
 
 
 def cf_text_embeddings_extract_model_name(input_dict, languages):

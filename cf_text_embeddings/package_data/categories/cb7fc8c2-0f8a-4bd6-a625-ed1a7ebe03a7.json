@@ -1,0 +1,9 @@
+{
+  "model": "workflows.category",
+  "fields": {
+    "name": "Tokenizers",
+    "parent": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+    "order": 1,
+    "uid": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7"
+  }
+}
