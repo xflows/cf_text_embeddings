@@ -13,12 +13,10 @@ from gensim.models import LsiModel, TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
-from Orange.data import Table
 
 import numpy as np
 from cf_text_embeddings.base.common import (PROJECT_DATA_DIR,
-                                            cf_text_embeddings_package_path,
-                                            orange_domain)
+                                            cf_text_embeddings_package_path)
 
 # disable logs because they are output as messages in clowdflows
 logging.getLogger('gensim').setLevel(logging.ERROR)
@@ -223,7 +221,8 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
         default_embedding = np.zeros((1, self._vector_size))
         embeddings = []
         for document_tokens in documents_tokens:
-            input_ids = self.tokenize_and_pad_text(self._tokenizer, [document_tokens], self._max_seq)
+            input_ids = self.tokenize_and_pad_text(self._tokenizer, [document_tokens],
+                                                   self._max_seq)
             results = model(input_ids)[0]
             document_embedding = results.cpu().detach().numpy().squeeze(axis=0)
             document_embedding = (document_embedding
