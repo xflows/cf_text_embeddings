@@ -1,16 +1,16 @@
 import unittest
 from os import path
 
+from cf_text_embeddings.base.common import cf_text_embeddings_package_path
 from cf_text_embeddings.library import (cf_text_embeddings_parse_csv,
                                         cf_text_embeddings_tok_tok_tokenizer)
-
-ROOT_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 
 
 class TestLibrary(unittest.TestCase):
     def test_parse_csv(self):
+        package_path = cf_text_embeddings_package_path()
         input_dict = {
-            'input': path.join(ROOT_DIR, 'corpus/basic.tsv'),
+            'input': path.join(package_path, 'corpus/basic.tsv'),
             'text_index': 2,
             'label_index': 3,
             'skip_header': 'true',
