@@ -36,7 +36,7 @@
       "required": true,
       "parameter": true,
       "multi": false,
-      "default": "2",
+      "default": "1",
       "parameter_type": "text",
       "order": 2,
       "uid": "02802756-0952-4976-b994-c9f4480cb8a6"
@@ -104,39 +104,34 @@
       "required": true,
       "parameter": true,
       "multi": false,
-      "default": "3",
+      "default": "2",
       "parameter_type": "text",
       "order": 3,
       "uid": "e94be394-0e97-4a77-9aa6-6460717be19a"
     }
   },
   {
-    "model": "workflows.abstractinput",
+    "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Title column index",
-      "short_name": "ttl",
-      "description": "Index of the title column in text file (not required).",
-      "variable": "title_index",
+      "name": "Label",
+      "short_name": "lab",
+      "description": "Documents labels",
+      "variable": "labels",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
-      "required": true,
-      "parameter": true,
-      "multi": false,
-      "default": "1",
-      "parameter_type": "text",
       "order": 1,
-      "uid": "f6319de0-f9e7-4792-b22b-53a1361a7f51"
+      "uid": "ab9f6f40-6cce-46ca-b2bf-b313096c5a10"
     }
   },
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Corpus",
-      "short_name": "dc",
-      "description": "Document corpus",
-      "variable": "dc",
+      "name": "Text",
+      "short_name": "txt",
+      "description": "Documents texts",
+      "variable": "texts",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "order": 1,
-      "uid": "c55a471a-042e-4778-9cd2-489cac07803a"
+      "uid": "f9fb1845-97f5-4f25-9596-0797ca64d669"
     }
   }
 ]

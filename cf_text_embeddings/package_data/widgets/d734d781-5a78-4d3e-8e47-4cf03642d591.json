@@ -79,10 +79,10 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Annotated Document Corpus",
-      "short_name": "adc",
-      "description": "Annotated Document Corpus (workflows.textflows.DocumentCorpus)",
-      "variable": "adc",
+      "name": "Document Corpus",
+      "short_name": "dc",
+      "description": "Document corpus",
+      "variable": "dc",
       "widget": "d734d781-5a78-4d3e-8e47-4cf03642d591",
       "required": true,
       "parameter": false,

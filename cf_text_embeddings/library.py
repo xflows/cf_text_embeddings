@@ -12,16 +12,15 @@ from cf_text_embeddings.embeddings_model import (
 
 def cf_text_embeddings_parse_csv(input_dict):
     filename = input_dict['input']
-    title_index = input_dict.get('title_index')
     text_index = input_dict.get('text_index')
     label_index = input_dict.get('label_index')
     delimiter = input_dict['delimiter'] or None
     skip_header = input_dict.get('skip_header')
     skip_header = map_checkbox_value(skip_header)
 
-    dc = io.read_csv(filename=filename, delimiter=delimiter, skip_header=skip_header,
-                     title_index=title_index, text_index=text_index, label_index=label_index)
-    return {'dc': dc}
+    texts, labels = io.read_csv(filename=filename, delimiter=delimiter, skip_header=skip_header,
+                                text_index=text_index, label_index=label_index)
+    return {'texts': texts, 'labels': labels}
 
 
 def cf_text_embeddings_tok_tok_tokenizer(input_dict):
