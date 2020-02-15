@@ -2,7 +2,6 @@ import logging
 from enum import Enum
 from os import path
 
-import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
@@ -16,7 +15,10 @@ from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
 from Orange.data import Table
 
-from cf_text_embeddings.common import PROJECT_DATA_DIR, orange_domain
+import numpy as np
+from cf_text_embeddings.base.common import (PROJECT_DATA_DIR,
+                                            cf_text_embeddings_package_path,
+                                            orange_domain)
 
 # disable logs because they are output as messages in clowdflows
 logging.getLogger('gensim').setLevel(logging.ERROR)
@@ -30,47 +32,24 @@ class AggregationMethod(Enum):
     summation = 'summation'
 
 
-def cf_text_embeddings_package_folder_path():
-    return path.dirname(path.realpath(__file__))
-
-
 def cf_text_embeddings_model_path(lang, model_name):
-    models_dir = cf_text_embeddings_package_folder_path() if lang == 'test' else PROJECT_DATA_DIR
+    models_dir = cf_text_embeddings_package_path() if lang == 'test' else PROJECT_DATA_DIR
     lang = '' if lang is None else lang
     model_name = '' if model_name is None else model_name
     return path.join(models_dir, 'models', lang, model_name)
 
 
 class EmbeddingsModelBase:
-    def __init__(self, lang, model_name, default_token_annotation=None):
+    def __init__(self, lang, model_name):
         self._lang = lang
         self._model_name = model_name
         self._path = cf_text_embeddings_model_path(self._lang, self._model_name)
         self._model = None
         self._tfidf_dict = None
         self._tfidf_model = None
-        self._token_annotation = None
-        self.default_token_annotation = default_token_annotation
 
     def _load_model(self):
         return Word2VecKeyedVectors.load(self._path, mmap='r')
-
-    @staticmethod
-    def _extract_tokens(documents, token_annotation):
-        documents_tokens = []
-        for document in documents:
-            annotations_with_text = document.get_annotations_with_text(token_annotation)
-            document_tokens = [ann[1] for ann in annotations_with_text]
-            documents_tokens.append(document_tokens)
-        return documents_tokens
-
-    @staticmethod
-    def _extract_labels(documents, binary=False):
-        document_labels = [document.get_first_label() for document in documents]
-        uniq_labels = list(sorted(set(document_labels)))
-        if binary:
-            return [uniq_labels.index(r) for r in document_labels], uniq_labels
-        return document_labels, uniq_labels
 
     @staticmethod
     def _tokens_to_embeddings(model, documents_tokens):
@@ -112,22 +91,17 @@ class EmbeddingsModelBase:
             return np.array([np.sum(embedding, axis=0) for embedding in embeddings])
         raise Exception('%s aggregation method is not supported' % aggregation_method)
 
-    def apply(self, documents, token_annotation, aggregation_method, weighting_method):
-        self._token_annotation = token_annotation
+    def apply(self, texts, aggregation_method, weighting_method):
         try:
             self._model = self._load_model()
         except FileNotFoundError:
             raise FileNotFoundError('Cannot find the model. Download it, if available.')
-        documents_tokens = self._extract_tokens(documents, token_annotation=token_annotation)
-        Y, unique_labels = self._extract_labels(documents, binary=True)
-        embeddings = self._tokens_to_embeddings(self._model, documents_tokens)
+        embeddings = self._tokens_to_embeddings(self._model, texts)
         if weighting_method == 'tfidf':
-            self._train_tfidf(documents_tokens)
-            embeddings = self._multiply_embeddings_with_tfidf(documents_tokens, embeddings)
+            self._train_tfidf(texts)
+            embeddings = self._multiply_embeddings_with_tfidf(texts, embeddings)
         embeddings = self._aggregate_embeddings(embeddings, aggregation_method)
-        domain = orange_domain(embeddings.shape[1], unique_labels)
-        table = Table(domain, embeddings, Y=Y)
-        return table
+        return embeddings
 
     def __getstate__(self):
         state = self.__dict__
@@ -216,9 +190,8 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
 
 
 class EmbeddingsModelHuggingface(EmbeddingsModelBase):
-    def __init__(self, model_class, tokenizer_class, pretrained_weights, vector_size, max_seq,
-                 default_token_annotation):
-        super().__init__(None, None, default_token_annotation=default_token_annotation)
+    def __init__(self, model_class, tokenizer_class, pretrained_weights, vector_size, max_seq):
+        super().__init__(None, None)
         self.model_class = model_class
         self.tokenizer_class = tokenizer_class
         self.pretrained_weights = pretrained_weights
@@ -250,7 +223,7 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
         default_embedding = np.zeros((1, self._vector_size))
         embeddings = []
         for document_tokens in documents_tokens:
-            input_ids = self.tokenize_and_pad_text(self._tokenizer, document_tokens, self._max_seq)
+            input_ids = self.tokenize_and_pad_text(self._tokenizer, [document_tokens], self._max_seq)
             results = model(input_ids)[0]
             document_embedding = results.cpu().detach().numpy().squeeze(axis=0)
             document_embedding = (document_embedding
@@ -264,19 +237,15 @@ class EmbeddingsModelBert(EmbeddingsModelHuggingface):
 
 
 class EmbeddingsModelLSI(EmbeddingsModelBase):
-    def __init__(self, num_topics, decay, default_token_annotation='Token'):
-        super().__init__(None, None, default_token_annotation=default_token_annotation)
+    def __init__(self, num_topics, decay):
+        super().__init__(None, None)
         self.num_topics = num_topics
         self.decay = decay
 
-    def apply(self, documents, token_annotation, aggregation_method, weighting_method):
-        documents_tokens = self._extract_tokens(documents, token_annotation=token_annotation)
-        Y, unique_labels = self._extract_labels(documents, binary=True)
-        dct = corpora.Dictionary(documents_tokens)
-        corpus = [dct.doc2bow(line) for line in documents_tokens]
+    def apply(self, text, aggregation_method, weighting_method):
+        dct = corpora.Dictionary(text)
+        corpus = [dct.doc2bow(line) for line in text]
         self._model = LsiModel(corpus=corpus, id2word=dct, num_topics=self.num_topics,
                                decay=self.decay)
         embeddings = np.array([[el[1] for el in self._model[document]] for document in corpus])
-        domain = orange_domain(embeddings.shape[1], unique_labels)
-        table = Table(domain, embeddings, Y=Y)
-        return table
+        return embeddings

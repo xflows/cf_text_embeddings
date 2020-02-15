@@ -66,3 +66,7 @@ def save_numpy_array(dirname, filename, array):
     filepath = path.join(dirname, filename)
     ensure_dir(filepath)
     np.save(filepath, array)
+
+
+def cf_text_embeddings_package_path():
+    return path.dirname(path.dirname(path.abspath(__file__)))
