@@ -14,7 +14,7 @@ def cf_text_embeddings_parse_csv(input_dict):
     filename = input_dict['input']
     text_index = input_dict.get('text_index')
     label_index = input_dict.get('label_index')
-    delimiter = input_dict['delimiter'] or None
+    delimiter = input_dict.get('delimiter') or None
     skip_header = input_dict.get('skip_header')
     skip_header = map_checkbox_value(skip_header)
 
@@ -24,19 +24,17 @@ def cf_text_embeddings_parse_csv(input_dict):
 
 
 def cf_text_embeddings_tok_tok_tokenizer(input_dict):
-    assert 'dc' in input_dict, 'Document corpus is missing'
-    assert 'text' in input_dict['dc'], 'Text of document corpus is missing'
+    assert 'texts' in input_dict, 'Text is missing'
 
-    input_dict['dc']['words'] = tokenizers.toktok_tokenizer(input_dict['dc']['text'])
+    input_dict['texts'] = tokenizers.toktok_tokenizer(input_dict['texts'])
     return input_dict
 
 
 def cf_text_embeddings_punkt_tokenizer(input_dict):
-    assert 'dc' in input_dict, 'Document corpus is missing'
-    assert 'text' in input_dict['dc'], 'Text of document corpus is missing'
+    assert 'text' in input_dict, 'Text is missing'
 
     language = input_dict['language']
-    input_dict['dc']['sentences'] = tokenizers.punkt_tokenizer(input_dict['dc']['text'], language)
+    input_dict['texts'] = tokenizers.punkt_tokenizer(input_dict['texts'], language)
     return input_dict
 
 
