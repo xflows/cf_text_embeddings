@@ -28,10 +28,10 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Corpus",
-      "short_name": "dc",
-      "description": "Document Corpus",
-      "variable": "dc",
+      "name": "Text",
+      "short_name": "txt",
+      "description": "Documents texts",
+      "variable": "texts",
       "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
       "required": true,
       "parameter": false,
@@ -45,10 +45,10 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Corpus",
-      "short_name": "dc",
-      "description": "Document corpus",
-      "variable": "dc",
+      "name": "Text",
+      "short_name": "txt",
+      "description": "Documents text tokenized to words",
+      "variable": "texts",
       "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
       "order": 1,
       "uid": "c55a471a-042e-4778-9cd2-489cac07803a"
