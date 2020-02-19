@@ -2,9 +2,9 @@ import unittest
 import warnings
 from os import path
 
-import transformers
-
 import numpy as np
+
+import transformers
 from cf_text_embeddings.base.common import PROJECT_DATA_DIR
 from cf_text_embeddings.base.embeddings_model import (AggregationMethod,
                                                       EmbeddingsModelBert,
@@ -34,15 +34,18 @@ def document_tokens():
 class EmbeddingsModelTest(unittest.TestCase):
     def test_word2vec_model(self):
         text = word_tokens()
-        embeddings_model = EmbeddingsModelWord2Vec('test', 'word2vec_test_model.bin')
+        embeddings_model = EmbeddingsModelWord2Vec('test')
         actual_X = embeddings_model.apply(text, AggregationMethod.average.value, None)
 
         expected_X = np.array([[0.039, 0.026], [-0.045, -0.072]])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
 
+    def test_word2vec_model_not_exists(self):
+        self.assertRaises(Exception, EmbeddingsModelWord2Vec, 'not_exists')
+
     def test_word2vec_model_tfidf(self):
         text = word_tokens()
-        embeddings_model = EmbeddingsModelWord2Vec('test', 'word2vec_test_model.bin')
+        embeddings_model = EmbeddingsModelWord2Vec('test')
         actual_X = embeddings_model.apply(text, AggregationMethod.average.value, 'tfidf')
 
         expected_X = np.array([[0.01139571, 0.00762929], [-0.0161487, -0.02562849]])

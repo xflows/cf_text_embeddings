@@ -49,26 +49,8 @@ def cf_text_embeddings_extract_models_language(input_dict, languages):
 
 
 def cf_text_embeddings_word2vec(input_dict):
-    languages = {
-        # https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM
-        'en': 'GoogleNews-vectors-negative300.wv.bin',
-        # https://github.com/uchile-nlp/spanish-word-embeddings
-        'es': 'SBW-vectors-300-min5.wv.bin',
-        # http://vectors.nlpl.eu/repository/
-        'sl': 'word2vec_si.wv',
-        # http://vectors.nlpl.eu/repository/
-        'hr': 'word2vec_hr.wv',
-        # http://vectors.nlpl.eu/repository/
-        'de': 'word2vec_de.wv',
-        # http://vectors.nlpl.eu/repository/
-        'ru': 'word2vec_ru.wv',
-        # http://vectors.nlpl.eu/repository/
-        'lv': 'word2vec_lv.wv',
-        # http://vectors.nlpl.eu/repository/
-        'ee': 'word2vec_ee.wv',
-        'test': 'word2vec_test_model.bin'}
-    lang, model_name = cf_text_embeddings_extract_models_language(input_dict, languages)
-    embeddings_model = EmbeddingsModelWord2Vec(lang, model_name)
+    lang = input_dict.get('lang_selector') or input_dict.get('lang')
+    embeddings_model = EmbeddingsModelWord2Vec(lang)
 
     aggregation_method = input_dict.get('aggregation_method')
     weighting_method = input_dict.get('weighting_method')

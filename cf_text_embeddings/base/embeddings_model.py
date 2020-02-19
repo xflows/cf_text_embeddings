@@ -38,9 +38,11 @@ def cf_text_embeddings_model_path(lang, model_name):
 
 
 class EmbeddingsModelBase:
-    def __init__(self, lang, model_name):
+    def __init__(self, lang):
         self._lang = lang
-        self._model_name = model_name
+        self._model_name = self.supported_models(lang)
+        if self._model_name is None:
+            raise Exception('Model for %s language is not supported' % lang)
         self._path = cf_text_embeddings_model_path(self._lang, self._model_name)
         self._model = None
         self._tfidf_dict = None
@@ -48,6 +50,29 @@ class EmbeddingsModelBase:
 
     def _load_model(self):
         return Word2VecKeyedVectors.load(self._path, mmap='r')
+
+    @staticmethod
+    def supported_models(lang):
+        languages = {
+            # https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM
+            'en': 'GoogleNews-vectors-negative300.wv.bin',
+            # https://github.com/uchile-nlp/spanish-word-embeddings
+            'es': 'SBW-vectors-300-min5.wv.bin',
+            # http://vectors.nlpl.eu/repository/
+            'sl': 'word2vec_si.wv',
+            # http://vectors.nlpl.eu/repository/
+            'hr': 'word2vec_hr.wv',
+            # http://vectors.nlpl.eu/repository/
+            'de': 'word2vec_de.wv',
+            # http://vectors.nlpl.eu/repository/
+            'ru': 'word2vec_ru.wv',
+            # http://vectors.nlpl.eu/repository/
+            'lv': 'word2vec_lv.wv',
+            # http://vectors.nlpl.eu/repository/
+            'ee': 'word2vec_ee.wv',
+            'test': 'word2vec_test_model.bin'
+        }
+        return languages.get(lang)
 
     @staticmethod
     def _tokens_to_embeddings(model, documents_tokens):
@@ -189,7 +214,6 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
 
 class EmbeddingsModelHuggingface(EmbeddingsModelBase):
     def __init__(self, model_class, tokenizer_class, pretrained_weights, vector_size, max_seq):
-        super().__init__(None, None)
         self.model_class = model_class
         self.tokenizer_class = tokenizer_class
         self.pretrained_weights = pretrained_weights
@@ -237,7 +261,6 @@ class EmbeddingsModelBert(EmbeddingsModelHuggingface):
 
 class EmbeddingsModelLSI(EmbeddingsModelBase):
     def __init__(self, num_topics, decay):
-        super().__init__(None, None)
         self.num_topics = num_topics
         self.decay = decay
 
