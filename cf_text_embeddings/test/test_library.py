@@ -38,7 +38,7 @@ class TestLibrary(unittest.TestCase):
         input_dict = {
             'texts': [['this', 'is', 'doc1'], ['this', 'is', 'doc2']],
             'labels': ['positive', 'negative'],
-            'lang': 'en',
+            'lang': 'test',
             'aggregation_method': AggregationMethod.summation.value,
             'weighting_method': None,
         }
