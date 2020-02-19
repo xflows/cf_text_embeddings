@@ -2,9 +2,9 @@ import unittest
 import warnings
 from os import path
 
-import numpy as np
-
 import transformers
+
+import numpy as np
 from cf_text_embeddings.base.common import PROJECT_DATA_DIR
 from cf_text_embeddings.base.embeddings_model import (AggregationMethod,
                                                       EmbeddingsModelBert,

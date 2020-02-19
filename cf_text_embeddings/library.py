@@ -1,14 +1,15 @@
 import transformers
 from Orange.data import Table
 
-from cf_text_embeddings.base.table import orange_data_table
 from cf_text_embeddings.base import io, tokenizers
 from cf_text_embeddings.base.common import (load_numpy_array,
-                                            map_checkbox_value, map_y, to_float, to_int)
+                                            map_checkbox_value, map_y,
+                                            to_float, to_int)
 from cf_text_embeddings.base.embeddings_model import (
     EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
     EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
     EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
+from cf_text_embeddings.base.table import orange_data_table
 
 
 def cf_text_embeddings_parse_csv(input_dict):
@@ -39,16 +40,7 @@ def cf_text_embeddings_punkt_tokenizer(input_dict):
     return input_dict
 
 
-def cf_text_embeddings_extract_models_language(input_dict, languages):
-    # language selector overrides the language in the widget
-    lang = input_dict.get('lang_selector') or input_dict.get('lang')
-    model_name = languages.get(lang)
-    if model_name is None:
-        raise Exception('Model for %s language is not supported' % lang)
-    return lang, model_name
-
-
-def cf_text_embeddings_word2vec(input_dict):
+def cf_text_embeddings_base(input_dict):
     lang = input_dict.get('lang_selector') or input_dict.get('lang')
     embeddings_model = EmbeddingsModelWord2Vec(lang)
 
@@ -60,6 +52,10 @@ def cf_text_embeddings_word2vec(input_dict):
     labels = input_dict['labels']
     dataset = orange_data_table(embeddings, labels)
     return {'dataset': dataset}
+
+
+def cf_text_embeddings_word2vec(input_dict):
+    return cf_text_embeddings_base(input_dict)
 
 
 def cf_text_embeddings_glove(input_dict):
@@ -120,6 +116,7 @@ def cf_text_embeddings_bert(_):
                             default_token_annotation='TextBlock')
     }
 
+
 def cf_text_embeddings_universal_sentence_encoder(input_dict):
     languages = {
         # https://tfhub.dev/google/universal-sentence-encoder/2
@@ -137,6 +134,7 @@ def cf_text_embeddings_universal_sentence_encoder(input_dict):
                                                 default_token_annotation='Sentence')
     }
 
+
 def cf_text_embeddings_doc2vec(input_dict):
     languages = {
         # https://github.com/jhlau/doc2vec
@@ -148,6 +146,7 @@ def cf_text_embeddings_doc2vec(input_dict):
         'embeddings_model':
         EmbeddingsModelDoc2Vec(lang, model_name, default_token_annotation='TextBlock')
     }
+
 
 def cf_text_embeddings_elmo(input_dict):
     languages = {
