@@ -45,8 +45,8 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Text",
-      "short_name": "txt",
+      "name": "Word tokens",
+      "short_name": "tok",
       "description": "Documents text tokenized to words",
       "variable": "texts",
       "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",

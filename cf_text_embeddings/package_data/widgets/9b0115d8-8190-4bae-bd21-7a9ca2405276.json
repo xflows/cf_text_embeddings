@@ -96,9 +96,9 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Text",
-      "short_name": "txt",
-      "description": "Document text",
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
       "variable": "texts",
       "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
       "required": true,
