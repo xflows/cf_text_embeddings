@@ -40,9 +40,9 @@ def cf_text_embeddings_punkt_tokenizer(input_dict):
     return input_dict
 
 
-def cf_text_embeddings_base(input_dict):
+def cf_text_embeddings_base(klass, input_dict):
     lang = input_dict.get('lang_selector') or input_dict.get('lang')
-    embeddings_model = EmbeddingsModelWord2Vec(lang)
+    embeddings_model = klass(lang)
 
     aggregation_method = input_dict.get('aggregation_method')
     weighting_method = input_dict.get('weighting_method')
@@ -55,20 +55,11 @@ def cf_text_embeddings_base(input_dict):
 
 
 def cf_text_embeddings_word2vec(input_dict):
-    return cf_text_embeddings_base(input_dict)
+    return cf_text_embeddings_base(EmbeddingsModelWord2Vec, input_dict)
 
 
 def cf_text_embeddings_glove(input_dict):
-    languages = {
-        # https://nlp.stanford.edu/projects/glove/
-        'en': 'glove.6B.300d.wv.bin',
-        # https://github.com/dccuchile/spanish-word-embeddings
-        'es': 'glove_es.wv',
-        # https://deepset.ai/german-word-embeddings
-        'de': 'glove_de.wv',
-    }
-    lang, model_name = cf_text_embeddings_extract_models_language(input_dict, languages)
-    return {'embeddings_model': EmbeddingsModelGloVe(lang, model_name)}
+    return cf_text_embeddings_base(EmbeddingsModelGloVe, input_dict)
 
 
 def cf_text_embeddings_fasttext(input_dict):

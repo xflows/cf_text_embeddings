@@ -3,7 +3,8 @@ from os import path
 
 from cf_text_embeddings.base.common import cf_text_embeddings_package_path
 from cf_text_embeddings.base.embeddings_model import AggregationMethod
-from cf_text_embeddings.library import (cf_text_embeddings_parse_csv,
+from cf_text_embeddings.library import (cf_text_embeddings_glove,
+                                        cf_text_embeddings_parse_csv,
                                         cf_text_embeddings_tok_tok_tokenizer,
                                         cf_text_embeddings_word2vec)
 
@@ -43,6 +44,18 @@ class TestLibrary(unittest.TestCase):
             'weighting_method': None,
         }
         output_dict = cf_text_embeddings_word2vec(input_dict)
+        self.assertTrue('dataset' in output_dict)
+        self.assertTrue(len(output_dict['dataset']) == 2)
+
+    def test_glove_model(self):
+        input_dict = {
+            'texts': [['this', 'is', 'doc1'], ['this', 'is', 'doc2']],
+            'labels': ['positive', 'negative'],
+            'lang': 'test',
+            'aggregation_method': AggregationMethod.summation.value,
+            'weighting_method': None,
+        }
+        output_dict = cf_text_embeddings_glove(input_dict)
         self.assertTrue('dataset' in output_dict)
         self.assertTrue(len(output_dict['dataset']) == 2)
 

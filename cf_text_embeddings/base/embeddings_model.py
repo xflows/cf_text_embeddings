@@ -142,7 +142,19 @@ class EmbeddingsModelWord2Vec(EmbeddingsModelBase):
 
 
 class EmbeddingsModelGloVe(EmbeddingsModelBase):
-    pass
+    @staticmethod
+    def supported_models(lang):
+        languages = {
+            # https://nlp.stanford.edu/projects/glove/
+            'en': 'glove.6B.300d.wv.bin',
+            # https://github.com/dccuchile/spanish-word-embeddings
+            'es': 'glove_es.wv',
+            # https://deepset.ai/german-word-embeddings
+            'de': 'glove_de.wv',
+            # internally glove models are handeled the same as word2vec
+            'test': 'word2vec_test_model.bin'
+        }
+        return languages.get(lang)
 
 
 class EmbeddingsModelFastText(EmbeddingsModelBase):

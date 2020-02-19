@@ -1,0 +1,135 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "GloVe",
+      "action": "cf_text_embeddings_glove",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "f400f371-3a40-4238-b839-d371febaafca",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
+      "variable": "texts",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "12972597-fb4e-4aa8-8b6a-f916753f016c"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Labels",
+      "short_name": "lab",
+      "description": "Document labels",
+      "variable": "labels",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 2,
+      "uid": "65902245-cc4b-4f9e-93de-28b7659c2d11"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model",
+      "variable": "lang",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "en",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "cb75b426-6c36-4231-b96b-db2121679b7d"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "variable": "lang_selector",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "dc1b24c1-0245-470b-afa9-39ddc2d2213f"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Dataset",
+      "short_name": "dst",
+      "description": "Dataset with embeddings and labels",
+      "variable": "dataset",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "order": 1,
+      "uid": "14b0d7e9-75aa-48cb-8e04-715aa1f57118"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "cb75b426-6c36-4231-b96b-db2121679b7d",
+      "name": "German",
+      "value": "de",
+      "uid": "076e19b8-dd98-41c7-9b58-0af5af0cc3c6"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "cb75b426-6c36-4231-b96b-db2121679b7d",
+      "name": "English",
+      "value": "en",
+      "uid": "40ca0a5e-d9f4-43a0-8f59-1300f1231fc4"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "cb75b426-6c36-4231-b96b-db2121679b7d",
+      "name": "Spanish",
+      "value": "es",
+      "uid": "8960a7be-9231-4f7b-9cef-ba364b2efd1e"
+    }
+  }
+]
