@@ -3,6 +3,8 @@ import re
 
 from setuptools import setup
 
+import nltk
+
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
     # remove multiple spaces because of pypi requirement
@@ -27,3 +29,5 @@ setup(
     author_email='orac.roman@gmail.com',
     install_requires=requirements,
 )
+
+nltk.download('punkt')
