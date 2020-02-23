@@ -2,13 +2,13 @@ import transformers
 from Orange.data import Table
 
 from cf_text_embeddings.base import io, tokenizers
-from cf_text_embeddings.base.common import (load_numpy_array, map_checkbox_value, map_y, to_float,
-                                            to_int)
-from cf_text_embeddings.base.embeddings_model import (EmbeddingsModelBert, EmbeddingsModelDoc2Vec,
-                                                      EmbeddingsModelElmo, EmbeddingsModelFastText,
-                                                      EmbeddingsModelGloVe, EmbeddingsModelLSI,
-                                                      EmbeddingsModelUniversalSentenceEncoder,
-                                                      EmbeddingsModelWord2Vec)
+from cf_text_embeddings.base.common import (load_numpy_array,
+                                            map_checkbox_value, map_y,
+                                            to_float, to_int)
+from cf_text_embeddings.base.embeddings_model import (
+    EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
+    EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
+    EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
 from cf_text_embeddings.base.table import orange_data_table
 
 
@@ -33,7 +33,7 @@ def cf_text_embeddings_tok_tok_tokenizer(input_dict):
 
 
 def cf_text_embeddings_punkt_tokenizer(input_dict):
-    assert 'text' in input_dict, 'Text is missing'
+    assert 'texts' in input_dict, 'Text is missing'
 
     language = input_dict['language']
     input_dict['texts'] = tokenizers.punkt_tokenizer(input_dict['texts'], language)

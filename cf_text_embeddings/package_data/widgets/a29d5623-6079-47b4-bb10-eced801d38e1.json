@@ -62,13 +62,13 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Text",
-      "short_name": "txt",
-      "description": "Document text tokenized to sentences",
+      "name": "Sentence tokens",
+      "short_name": "sen",
+      "description": "Documents text tokenized to sentences",
       "variable": "texts",
       "widget": "a29d5623-6079-47b4-bb10-eced801d38e1",
       "order": 1,
-      "uid": "c55a471a-042e-4778-9cd2-489cac07803a"
+      "uid": "fbd593c1-0210-4a67-8f98-8e58e6af8c1a"
     }
   },
   {
