@@ -38,25 +38,8 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
+      "order": 4,
       "uid": "12972597-fb4e-4aa8-8b6a-f916753f016c"
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "Weighting method",
-      "short_name": "wgm",
-      "description": "Use no weights or weight each embedding vector by the TF-IDF of the word it represents.",
-      "variable": "weighting_method",
-      "widget": "f400f371-3a40-4238-b839-d371febaafca",
-      "required": false,
-      "parameter": true,
-      "multi": false,
-      "default": "none",
-      "parameter_type": "select",
-      "order": 1,
-      "uid": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d"
     }
   },
   {
@@ -72,8 +55,42 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 2,
+      "order": 5,
       "uid": "65902245-cc4b-4f9e-93de-28b7659c2d11"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation. ELMO and Doc2Vec do not support it.",
+      "variable": "aggregation_method",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 2,
+      "uid": "b5944327-ab68-42a5-b243-7cd0705c7355"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Weighting method",
+      "short_name": "wgm",
+      "description": "Use no weights or weight each embedding vector by the TF-IDF of the word it represents.",
+      "variable": "weighting_method",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": false,
+      "parameter": true,
+      "multi": false,
+      "default": "none",
+      "parameter_type": "select",
+      "order": 3,
+      "uid": "c59e1f2f-9c3a-4bc0-919c-dbcf09834a4b"
     }
   },
   {
@@ -106,25 +123,8 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
+      "order": 6,
       "uid": "dc1b24c1-0245-470b-afa9-39ddc2d2213f"
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "Aggregation method",
-      "short_name": "agg",
-      "description": "Combine token embeddings to a single vector by averaging or summation. ELMO and Doc2Vec do not support it.",
-      "variable": "aggregation_method",
-      "widget": "f400f371-3a40-4238-b839-d371febaafca",
-      "required": true,
-      "parameter": true,
-      "multi": false,
-      "default": "average",
-      "parameter_type": "select",
-      "order": 1,
-      "uid": "ede4837d-43a3-457b-9a54-de0312429ec6"
     }
   },
   {
@@ -151,37 +151,28 @@
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "ede4837d-43a3-457b-9a54-de0312429ec6",
-      "name": "Summation",
-      "value": "summation",
-      "uid": "27f5d095-11c1-4731-bc6c-cd0821463383"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
-      "name": "None",
-      "value": "none",
-      "uid": "2c7616ce-5bd8-44d2-91df-3b4eb854d015"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "ede4837d-43a3-457b-9a54-de0312429ec6",
-      "name": "Average",
-      "value": "average",
-      "uid": "2cc3d58d-598a-4fd8-a727-75d0b6a3a57c"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
       "abstract_input": "cb75b426-6c36-4231-b96b-db2121679b7d",
       "name": "English",
       "value": "en",
       "uid": "40ca0a5e-d9f4-43a0-8f59-1300f1231fc4"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "b5944327-ab68-42a5-b243-7cd0705c7355",
+      "name": "Average",
+      "value": "average",
+      "uid": "7ba6cb6b-713e-4d12-941a-5f0ec42f4a07"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "c59e1f2f-9c3a-4bc0-919c-dbcf09834a4b",
+      "name": "TF-IDF",
+      "value": "tfidf",
+      "uid": "803edd4f-be0d-4ec7-9784-b33ca4d5beaf"
     }
   },
   {
@@ -196,10 +187,19 @@
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
-      "name": "TF-IDF",
-      "value": "tfidf",
-      "uid": "906f4e19-e6ad-452b-abce-85bc07ab0f29"
+      "abstract_input": "b5944327-ab68-42a5-b243-7cd0705c7355",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "b12262a1-dd53-4a58-843b-1126d01030c7"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "c59e1f2f-9c3a-4bc0-919c-dbcf09834a4b",
+      "name": "None",
+      "value": "none",
+      "uid": "c4e98ece-fbc7-4dad-9f7d-f4bb61e5ac5e"
     }
   }
 ]
