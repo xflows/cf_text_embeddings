@@ -2,13 +2,13 @@ import transformers
 from Orange.data import Table
 
 from cf_text_embeddings.base import io, tokenizers
-from cf_text_embeddings.base.common import (load_numpy_array,
-                                            map_checkbox_value, map_y,
-                                            to_float, to_int)
-from cf_text_embeddings.base.embeddings_model import (
-    EmbeddingsModelBert, EmbeddingsModelDoc2Vec, EmbeddingsModelElmo,
-    EmbeddingsModelFastText, EmbeddingsModelGloVe, EmbeddingsModelLSI,
-    EmbeddingsModelUniversalSentenceEncoder, EmbeddingsModelWord2Vec)
+from cf_text_embeddings.base.common import (load_numpy_array, map_checkbox_value, map_y, to_float,
+                                            to_int)
+from cf_text_embeddings.base.embeddings_model import (EmbeddingsModelBert, EmbeddingsModelDoc2Vec,
+                                                      EmbeddingsModelElmo, EmbeddingsModelFastText,
+                                                      EmbeddingsModelGloVe, EmbeddingsModelLSI,
+                                                      EmbeddingsModelUniversalSentenceEncoder,
+                                                      EmbeddingsModelWord2Vec)
 from cf_text_embeddings.base.table import orange_data_table
 
 
@@ -161,14 +161,6 @@ def cf_text_embeddings_elmo(input_dict):
     lang, model_name = cf_text_embeddings_extract_models_language(input_dict, languages)
 
     return {'embeddings_model': EmbeddingsModelElmo(lang, model_name)}
-
-
-def cf_text_embeddings_embeddings_hub(input_dict):
-    aggregation_method = input_dict['aggregation_method']
-    weighting_method = input_dict['weighting_method']
-    texts, labels = input_dict['texts']
-    bow_dataset = embeddings_model.apply(dc, aggregation_method, weighting_method)
-    return {'bow_dataset': bow_dataset}
 
 
 def cf_text_embeddings_language(input_dict):
