@@ -40,7 +40,7 @@ def cf_text_embeddings_model_path(lang, model_name):
 class EmbeddingsModelBase:
     def __init__(self, lang):
         self._lang = lang
-        self._model_name = self.supported_models(lang)
+        self._model_name = self.extract_model_name(lang)
         if self._model_name is None:
             raise Exception('Model for %s language is not supported' % lang)
         self._path = cf_text_embeddings_model_path(self._lang, self._model_name)
@@ -52,27 +52,13 @@ class EmbeddingsModelBase:
         return Word2VecKeyedVectors.load(self._path, mmap='r')
 
     @staticmethod
-    def supported_models(lang):
-        languages = {
-            # https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM
-            'en': 'GoogleNews-vectors-negative300.wv.bin',
-            # https://github.com/uchile-nlp/spanish-word-embeddings
-            'es': 'SBW-vectors-300-min5.wv.bin',
-            # http://vectors.nlpl.eu/repository/
-            'sl': 'word2vec_si.wv',
-            # http://vectors.nlpl.eu/repository/
-            'hr': 'word2vec_hr.wv',
-            # http://vectors.nlpl.eu/repository/
-            'de': 'word2vec_de.wv',
-            # http://vectors.nlpl.eu/repository/
-            'ru': 'word2vec_ru.wv',
-            # http://vectors.nlpl.eu/repository/
-            'lv': 'word2vec_lv.wv',
-            # http://vectors.nlpl.eu/repository/
-            'ee': 'word2vec_ee.wv',
-            'test': 'word2vec_test_model.bin'
-        }
-        return languages.get(lang)
+    def supported_models():
+        return {}
+
+    @classmethod
+    def extract_model_name(cls, lang):
+        supported_models = cls.supported_models()
+        return supported_models.get(lang)
 
     @staticmethod
     def _tokens_to_embeddings(model, documents_tokens):
@@ -138,13 +124,33 @@ class EmbeddingsModelBase:
 
 
 class EmbeddingsModelWord2Vec(EmbeddingsModelBase):
-    pass
+    @staticmethod
+    def supported_models():
+        return {
+            # https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM
+            'en': 'GoogleNews-vectors-negative300.wv.bin',
+            # https://github.com/uchile-nlp/spanish-word-embeddings
+            'es': 'SBW-vectors-300-min5.wv.bin',
+            # http://vectors.nlpl.eu/repository/
+            'sl': 'word2vec_si.wv',
+            # http://vectors.nlpl.eu/repository/
+            'hr': 'word2vec_hr.wv',
+            # http://vectors.nlpl.eu/repository/
+            'de': 'word2vec_de.wv',
+            # http://vectors.nlpl.eu/repository/
+            'ru': 'word2vec_ru.wv',
+            # http://vectors.nlpl.eu/repository/
+            'lv': 'word2vec_lv.wv',
+            # http://vectors.nlpl.eu/repository/
+            'ee': 'word2vec_ee.wv',
+            'test': 'word2vec_test_model.bin'
+        }
 
 
 class EmbeddingsModelGloVe(EmbeddingsModelBase):
     @staticmethod
-    def supported_models(lang):
-        languages = {
+    def supported_models():
+        return {
             # https://nlp.stanford.edu/projects/glove/
             'en': 'glove.6B.300d.wv.bin',
             # https://github.com/dccuchile/spanish-word-embeddings
@@ -154,7 +160,6 @@ class EmbeddingsModelGloVe(EmbeddingsModelBase):
             # internally glove models are handeled the same as word2vec
             'test': 'word2vec_test_model.bin'
         }
-        return languages.get(lang)
 
 
 class EmbeddingsModelFastText(EmbeddingsModelBase):
