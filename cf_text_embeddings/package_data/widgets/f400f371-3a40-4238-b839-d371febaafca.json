@@ -45,6 +45,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Weighting method",
+      "short_name": "wgm",
+      "description": "Use no weights or weight each embedding vector by the TF-IDF of the word it represents.",
+      "variable": "weighting_method",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": false,
+      "parameter": true,
+      "multi": false,
+      "default": "none",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Labels",
       "short_name": "lab",
       "description": "Document labels",
@@ -94,6 +111,23 @@
     }
   },
   {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation. ELMO and Doc2Vec do not support it.",
+      "variable": "aggregation_method",
+      "widget": "f400f371-3a40-4238-b839-d371febaafca",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "ede4837d-43a3-457b-9a54-de0312429ec6"
+    }
+  },
+  {
     "model": "workflows.abstractoutput",
     "fields": {
       "name": "Dataset",
@@ -117,6 +151,33 @@
   {
     "model": "workflows.abstractoption",
     "fields": {
+      "abstract_input": "ede4837d-43a3-457b-9a54-de0312429ec6",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "27f5d095-11c1-4731-bc6c-cd0821463383"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
+      "name": "None",
+      "value": "none",
+      "uid": "2c7616ce-5bd8-44d2-91df-3b4eb854d015"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "ede4837d-43a3-457b-9a54-de0312429ec6",
+      "name": "Average",
+      "value": "average",
+      "uid": "2cc3d58d-598a-4fd8-a727-75d0b6a3a57c"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
       "abstract_input": "cb75b426-6c36-4231-b96b-db2121679b7d",
       "name": "English",
       "value": "en",
@@ -130,6 +191,15 @@
       "name": "Spanish",
       "value": "es",
       "uid": "8960a7be-9231-4f7b-9cef-ba364b2efd1e"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
+      "name": "TF-IDF",
+      "value": "tfidf",
+      "uid": "906f4e19-e6ad-452b-abce-85bc07ab0f29"
     }
   }
 ]
