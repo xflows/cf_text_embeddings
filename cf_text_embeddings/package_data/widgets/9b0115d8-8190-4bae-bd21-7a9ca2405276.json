@@ -38,7 +38,7 @@
       "multi": false,
       "default": "none",
       "parameter_type": "select",
-      "order": 1,
+      "order": 3,
       "uid": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d"
     }
   },
@@ -72,7 +72,7 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 2,
+      "order": 5,
       "uid": "62139243-ec76-4565-bedc-909c8d0e7765"
     }
   },
@@ -89,7 +89,7 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 3,
+      "order": 6,
       "uid": "a964cabd-a58f-491a-bbae-8cdd3efe116b"
     }
   },
@@ -106,7 +106,7 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
+      "order": 4,
       "uid": "cfbe567a-a889-4f9b-9c3d-a26109246af6"
     }
   },
@@ -123,7 +123,7 @@
       "multi": false,
       "default": "average",
       "parameter_type": "select",
-      "order": 1,
+      "order": 2,
       "uid": "ede4837d-43a3-457b-9a54-de0312429ec6"
     }
   },
