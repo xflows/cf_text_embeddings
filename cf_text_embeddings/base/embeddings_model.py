@@ -163,6 +163,29 @@ class EmbeddingsModelGloVe(EmbeddingsModelBase):
 
 
 class EmbeddingsModelFastText(EmbeddingsModelBase):
+    @staticmethod
+    def supported_models():
+        return {
+            # https://github.com/facebookresearch/MUSE
+            'en': 'wiki.multi.en.wv',
+            # https://github.com/facebookresearch/MUSE
+            'es': 'wiki.multi.es.wv',
+            # https://github.com/facebookresearch/MUSE
+            'de': 'wiki.multi.de.wv',
+            # https://github.com/facebookresearch/MUSE
+            'ru': 'wiki.multi.ru.wv',
+            # https://fasttext.cc/docs/en/crawl-vectors.html
+            'lv': 'fasttext_lv.wv',
+            # https://fasttext.cc/docs/en/crawl-vectors.html
+            'lt': 'fasttext_lt.wv',
+            # https://github.com/facebookresearch/MUSE
+            'ee': 'wiki.multi.ee.wv',
+            # https://github.com/facebookresearch/MUSE
+            'sl': 'wiki.multi.sl.wv',
+            # https://github.com/facebookresearch/MUSE
+            'hr': 'wiki.multi.hr.wv',
+        }
+
     def _load_model(self):
         return FastTextKeyedVectors.load(self._path, mmap='r')
 

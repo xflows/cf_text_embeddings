@@ -63,28 +63,7 @@ def cf_text_embeddings_glove(input_dict):
 
 
 def cf_text_embeddings_fasttext(input_dict):
-    languages = {
-        # https://github.com/facebookresearch/MUSE
-        'en': 'wiki.multi.en.wv',
-        # https://github.com/facebookresearch/MUSE
-        'es': 'wiki.multi.es.wv',
-        # https://github.com/facebookresearch/MUSE
-        'de': 'wiki.multi.de.wv',
-        # https://github.com/facebookresearch/MUSE
-        'ru': 'wiki.multi.ru.wv',
-        # https://fasttext.cc/docs/en/crawl-vectors.html
-        'lv': 'fasttext_lv.wv',
-        # https://fasttext.cc/docs/en/crawl-vectors.html
-        'lt': 'fasttext_lt.wv',
-        # https://github.com/facebookresearch/MUSE
-        'ee': 'wiki.multi.ee.wv',
-        # https://github.com/facebookresearch/MUSE
-        'sl': 'wiki.multi.sl.wv',
-        # https://github.com/facebookresearch/MUSE
-        'hr': 'wiki.multi.hr.wv',
-    }
-    lang, model_name = cf_text_embeddings_extract_models_language(input_dict, languages)
-    return {'embeddings_model': EmbeddingsModelFastText(lang, model_name)}
+    return cf_text_embeddings_base(EmbeddingsModelFastText, input_dict)
 
 
 def cf_text_embeddings_lsi(input_dict):
