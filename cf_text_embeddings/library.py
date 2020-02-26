@@ -71,11 +71,17 @@ def cf_text_embeddings_elmo(input_dict):
 
 
 def cf_text_embeddings_lsi(input_dict):
+    texts = input_dict['texts']
+    labels = input_dict['labels']
     num_topics_default = 200
     num_topics = to_int(input_dict['num_topics'], num_topics_default)
     num_topics = num_topics_default if num_topics < 1 else num_topics
     decay = to_float(input_dict['decay'], 1.0)
-    return {'embeddings_model': EmbeddingsModelLSI(num_topics, decay)}
+
+    embeddings_model = EmbeddingsModelLSI(num_topics, decay)
+    embeddings = embeddings_model.apply(texts, None, None)
+    dataset = orange_data_table(embeddings, labels)
+    return {'dataset': dataset}
 
 
 def cf_text_embeddings_bert(_):
