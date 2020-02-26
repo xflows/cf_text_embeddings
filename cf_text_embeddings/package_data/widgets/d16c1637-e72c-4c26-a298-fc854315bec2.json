@@ -7,7 +7,7 @@
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
-      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "category": "c15657c5-4927-4ea6-b48f-e6a26c011a7c",
       "visualization_view": "",
       "streaming_visualization_view": "",
       "interactive": false,
@@ -45,6 +45,57 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Labels",
+      "short_name": "lab",
+      "description": "Document labels",
+      "variable": "labels",
+      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 5,
+      "uid": "6fca438a-a442-4aeb-abde-f5268be71ff2"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Weighting method",
+      "short_name": "wgm",
+      "description": "Use no weights or weight each embedding vector by the TF-IDF of the word it represents.",
+      "variable": "weighting_method",
+      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
+      "required": false,
+      "parameter": true,
+      "multi": false,
+      "default": "none",
+      "parameter_type": "select",
+      "order": 3,
+      "uid": "8706085d-4089-47f6-b35f-51a548bdd6fd"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Sentence tokens",
+      "short_name": "sen",
+      "description": "Sentence tokens",
+      "variable": "texts",
+      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 4,
+      "uid": "8f88442c-15cf-40ff-a537-9fc373a7c64a"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Language",
       "short_name": "lan",
       "description": "Language of the embeddings model. It overrides the one in the widget.",
@@ -55,20 +106,55 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
+      "order": 6,
       "uid": "e626b0b2-b292-4c34-9fc4-25b8ffc6c01b"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation. ELMO and Doc2Vec do not support it.",
+      "variable": "aggregation_method",
+      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 2,
+      "uid": "f782a314-ff55-43fa-893b-afac2ee79594"
     }
   },
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Embeddings Model",
-      "short_name": "ebm",
-      "description": "Embeddings Model",
-      "variable": "embeddings_model",
+      "name": "Dataset",
+      "short_name": "dst",
+      "description": "Dataset with embeddings and labels",
+      "variable": "dataset",
       "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
       "order": 1,
       "uid": "4d4d9e86-175e-4ae6-9e24-48eb24b590c8"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "8706085d-4089-47f6-b35f-51a548bdd6fd",
+      "name": "None",
+      "value": "none",
+      "uid": "09f404fb-5496-4d4d-a932-46de2abffe76"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "f782a314-ff55-43fa-893b-afac2ee79594",
+      "name": "Average",
+      "value": "average",
+      "uid": "0a284e77-ee9b-481d-a841-370ee197db46"
     }
   },
   {
@@ -137,10 +223,28 @@
   {
     "model": "workflows.abstractoption",
     "fields": {
+      "abstract_input": "f782a314-ff55-43fa-893b-afac2ee79594",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "b975eff3-316a-43bc-8931-6b8e785f5221"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
       "abstract_input": "16761059-e48e-42ea-9705-28abb32356f4",
       "name": "English",
       "value": "en",
       "uid": "e49d0920-9e87-48b8-9b33-1607b592682e"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "8706085d-4089-47f6-b35f-51a548bdd6fd",
+      "name": "TF-IDF",
+      "value": "tfidf",
+      "uid": "fd90c40b-5ef7-4db7-9a50-2510fc87476e"
     }
   }
 ]

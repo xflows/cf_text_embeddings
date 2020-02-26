@@ -66,6 +66,10 @@ def cf_text_embeddings_fasttext(input_dict):
     return cf_text_embeddings_base(EmbeddingsModelFastText, input_dict)
 
 
+def cf_text_embeddings_elmo(input_dict):
+    return cf_text_embeddings_base(EmbeddingsModelElmo, input_dict)
+
+
 def cf_text_embeddings_lsi(input_dict):
     num_topics_default = 200
     num_topics = to_int(input_dict['num_topics'], num_topics_default)
@@ -116,30 +120,6 @@ def cf_text_embeddings_doc2vec(input_dict):
         'embeddings_model':
         EmbeddingsModelDoc2Vec(lang, model_name, default_token_annotation='TextBlock')
     }
-
-
-def cf_text_embeddings_elmo(input_dict):
-    languages = {
-        # http://vectors.nlpl.eu/repository/#
-        'en': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'sl': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'es': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'ru': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'hr': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'ee': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'lv': 'elmo',
-        # http://vectors.nlpl.eu/repository/#
-        'de': 'elmo',
-    }
-    lang, model_name = cf_text_embeddings_extract_models_language(input_dict, languages)
-
-    return {'embeddings_model': EmbeddingsModelElmo(lang, model_name)}
 
 
 def cf_text_embeddings_language(input_dict):

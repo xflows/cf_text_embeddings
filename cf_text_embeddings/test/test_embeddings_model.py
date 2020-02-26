@@ -8,6 +8,7 @@ import numpy as np
 from cf_text_embeddings.base.common import PROJECT_DATA_DIR
 from cf_text_embeddings.base.embeddings_model import (AggregationMethod,
                                                       EmbeddingsModelBert,
+                                                      EmbeddingsModelElmo,
                                                       EmbeddingsModelLSI,
                                                       EmbeddingsModelWord2Vec)
 
@@ -21,7 +22,8 @@ def word_tokens():
 
 def sentence_tokens():
     return [['This is sentence1 of doc1', 'this is sentence2 of doc1'],
-            ['This is sentence1 of doc2', 'this is sentence2 of doc2']]
+            ['This is sentence1 of doc2', 'this is sentence2 of doc2'],
+            ['This is sentence1 of doc3']]
 
 
 def document_tokens():
@@ -85,6 +87,24 @@ class EmbeddingsModelTest(unittest.TestCase):
 
         expected_X = np.array([[0.13997224, -0.12020198], [0.27512622, 0.04447067]])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
+
+    def test_elmo_model(self):
+        english_elmo = path.join(PROJECT_DATA_DIR, 'models', 'en', 'elmo')
+        if not path.exists(english_elmo):
+            warnings.warn(
+                'Test test_elmo_model not executed, because you need to download english elmo model'
+            )
+            return
+        sentences = sentence_tokens()
+        model = EmbeddingsModelElmo('en')
+        embeddings = model.apply(sentences, aggregation_method=AggregationMethod.average.value,
+                                 weighting_method=None)
+
+        actual_X = embeddings[:, :2]
+        expected_X = np.array([[-0.13834494, -0.26584834], [-0.1336689, -0.24047077],
+                               [-0.13042556, -0.23901139]])
+        self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
+        self.assertEqual(3, actual_X.shape[0])
 
 
 if __name__ == '__main__':

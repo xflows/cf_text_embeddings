@@ -241,14 +241,32 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
 
 
 class EmbeddingsModelElmo(EmbeddingsModelBase):
-    def __init__(self, lang, model_name):
-        super().__init__(lang, model_name)
+    @staticmethod
+    def supported_models():
+        return {
+            # http://vectors.nlpl.eu/repository/#
+            'en': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'sl': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'es': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'ru': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'hr': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'ee': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'lv': 'elmo',
+            # http://vectors.nlpl.eu/repository/#
+            'de': 'elmo',
+        }
 
     def _load_model(self):
         return Embedder(self._path)
 
     def _tokens_to_embeddings(self, model, documents_tokens):
-        embeddings = model.sents2elmo(documents_tokens)
+        embeddings = np.array(model.sents2elmo(documents_tokens))
         return embeddings
 
 
