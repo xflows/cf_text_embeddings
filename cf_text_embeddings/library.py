@@ -1,4 +1,3 @@
-import transformers
 from Orange.data import Table
 
 from cf_text_embeddings.base import io, tokenizers
@@ -84,17 +83,15 @@ def cf_text_embeddings_lsi(input_dict):
     return {'dataset': dataset}
 
 
-def cf_text_embeddings_bert(_):
-    model_class = transformers.BertModel
-    tokenizer_class = transformers.BertTokenizer
-    pretrained_weights = 'bert-base-uncased'
-    return {
-        # Model source: https://tfhub.dev/google/bert_multi_cased_L-12_H-768_A-12/1
-        'embeddings_model':
-        EmbeddingsModelBert(model_class=model_class, tokenizer_class=tokenizer_class,
-                            vector_size=768, pretrained_weights=pretrained_weights, max_seq=100,
-                            default_token_annotation='TextBlock')
-    }
+def cf_text_embeddings_bert(input_dict):
+    texts = input_dict['texts']
+    labels = input_dict['labels']
+
+    embeddings_model = EmbeddingsModelBert()
+    embeddings = embeddings_model.apply(texts)
+
+    dataset = orange_data_table(embeddings, labels)
+    return {'dataset': dataset}
 
 
 def cf_text_embeddings_universal_sentence_encoder(input_dict):

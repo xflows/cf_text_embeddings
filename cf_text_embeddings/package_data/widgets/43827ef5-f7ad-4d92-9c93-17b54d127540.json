@@ -28,27 +28,44 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Language",
-      "short_name": "lan",
-      "description": "Language of the embeddings model. It overrides the one in the widget.",
-      "variable": "lang_selector",
+      "name": "Document tokens",
+      "short_name": "txt",
+      "description": "Document tokens",
+      "variable": "texts",
+      "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "83166fb1-7fb2-4add-9997-ab400034b22a"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Labels",
+      "short_name": "lab",
+      "description": "Document labels",
+      "variable": "labels",
       "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
       "required": false,
       "parameter": false,
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
-      "uid": "d098e4ad-3c74-41d4-8faa-3ff0f5c178d0"
+      "order": 2,
+      "uid": "95f35aef-6109-4997-92f5-bfc6cca9559e"
     }
   },
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Embeddings model",
-      "short_name": "ebm",
-      "description": "Embeddings model",
-      "variable": "embeddings_model",
+      "name": "Dataset",
+      "short_name": "dst",
+      "description": "Dataset with embeddings and labels",
+      "variable": "dataset",
       "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
       "order": 1,
       "uid": "8b2a6f5c-3ecb-4830-b327-c4b130126a03"

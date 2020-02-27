@@ -6,6 +6,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 import torch
+import transformers
 from elmoformanylangs import Embedder
 from gensim import corpora
 from gensim.corpora import Dictionary
@@ -100,7 +101,8 @@ class EmbeddingsModelBase:
             return np.array([np.sum(embedding, axis=0) for embedding in embeddings])
         raise Exception('%s aggregation method is not supported' % aggregation_method)
 
-    def apply(self, texts, aggregation_method, weighting_method):
+    def apply(self, texts, aggregation_method=AggregationMethod.average.value,
+              weighting_method=None):
         try:
             self._model = self._load_model()
         except FileNotFoundError:
@@ -314,7 +316,11 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
 
 
 class EmbeddingsModelBert(EmbeddingsModelHuggingface):
-    pass
+    def __init__(self, model_class=transformers.BertModel,
+                 tokenizer_class=transformers.BertTokenizer, pretrained_weights='bert-base-uncased',
+                 vector_size=768, max_seq=100):
+        # Model source: https://tfhub.dev/google/bert_multi_cased_L-12_H-768_A-12/1
+        super().__init__(model_class, tokenizer_class, pretrained_weights, vector_size, max_seq)
 
 
 class EmbeddingsModelLSI(EmbeddingsModelBase):
