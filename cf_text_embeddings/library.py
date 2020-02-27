@@ -113,16 +113,16 @@ def cf_text_embeddings_universal_sentence_encoder(input_dict):
 
 
 def cf_text_embeddings_doc2vec(input_dict):
-    languages = {
-        # https://github.com/jhlau/doc2vec
-        'en': 'doc2vec.bin',
-    }
-    lang, model_name = cf_text_embeddings_extract_models_language(input_dict, languages)
+    lang = input_dict.get('lang_selector') or input_dict.get('lang')
+    texts = input_dict['texts']
+    labels = input_dict['labels']
 
-    return {
-        'embeddings_model':
-        EmbeddingsModelDoc2Vec(lang, model_name, default_token_annotation='TextBlock')
-    }
+    embeddings_model = EmbeddingsModelDoc2Vec(lang)
+    __import__('ipdb').set_trace()
+    embeddings = embeddings_model.apply(texts)
+
+    dataset = orange_data_table(embeddings, labels)
+    return {'dataset': dataset}
 
 
 def cf_text_embeddings_language(input_dict):

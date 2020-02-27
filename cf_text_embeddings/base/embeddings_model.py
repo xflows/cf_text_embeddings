@@ -193,6 +193,13 @@ class EmbeddingsModelFastText(EmbeddingsModelBase):
 
 
 class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
+    @staticmethod
+    def supported_models():
+        return {
+            # https://github.com/jhlau/doc2vec
+            'en': 'doc2vec.bin',
+        }
+
     def _load_model(self):
         return Doc2Vec.load(self._path, mmap='r')
 
@@ -201,8 +208,6 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
         for i, document_tokens in enumerate(documents_tokens):
             if not document_tokens:
                 continue
-            if self._token_annotation == 'TextBlock':
-                document_tokens = document_tokens[0].split(' ')  # TextBlock to list of strings
             document_embeddings[i] = model.infer_vector(document_tokens)
         return document_embeddings
 
