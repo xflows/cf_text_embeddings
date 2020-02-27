@@ -2,7 +2,7 @@ import logging
 from enum import Enum
 from os import path
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 import torch
@@ -218,6 +218,8 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
 
 class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
     def _load_model(self):
+        # To make tf 2.0 compatible with tf1.0 code, we disable the tf2.0 functionalities
+        tf.disable_eager_execution()
         path_ = cf_text_embeddings_model_path(self._lang, self._model_name)
         return hub.Module(path_)
 
@@ -231,6 +233,17 @@ class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
 
 
 class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
+    @staticmethod
+    def supported_models():
+        return {
+            # https://tfhub.dev/google/universal-sentence-encoder/2
+            'en': 'universal_sentence_encoder_english',
+            # https://tfhub.dev/google/universal-sentence-encoder-xling/en-de/1
+            'de': 'universal_sentence_encoder_german',
+            # https://tfhub.dev/google/universal-sentence-encoder-xling/en-es/1
+            'es': 'universal_sentence_encoder_spanish',
+        }
+
     @staticmethod
     def _extract_tensors(model, document_tokens):
         tf_embeddings = model(document_tokens)

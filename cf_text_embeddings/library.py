@@ -95,21 +95,7 @@ def cf_text_embeddings_bert(input_dict):
 
 
 def cf_text_embeddings_universal_sentence_encoder(input_dict):
-    languages = {
-        # https://tfhub.dev/google/universal-sentence-encoder/2
-        'en': 'universal_sentence_encoder_english',
-        # https://tfhub.dev/google/universal-sentence-encoder-xling/en-de/1
-        'de': 'universal_sentence_encoder_german',
-        # https://tfhub.dev/google/universal-sentence-encoder-xling/en-es/1
-        'es': 'universal_sentence_encoder_spanish',
-    }
-    lang, model_name = cf_text_embeddings_extract_models_language(input_dict, languages)
-
-    return {
-        'embeddings_model':
-        EmbeddingsModelUniversalSentenceEncoder(lang, model_name,
-                                                default_token_annotation='Sentence')
-    }
+    return cf_text_embeddings_base(EmbeddingsModelUniversalSentenceEncoder, input_dict)
 
 
 def cf_text_embeddings_doc2vec(input_dict):
@@ -118,7 +104,6 @@ def cf_text_embeddings_doc2vec(input_dict):
     labels = input_dict['labels']
 
     embeddings_model = EmbeddingsModelDoc2Vec(lang)
-    __import__('ipdb').set_trace()
     embeddings = embeddings_model.apply(texts)
 
     dataset = orange_data_table(embeddings, labels)
