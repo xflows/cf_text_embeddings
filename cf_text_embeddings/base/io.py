@@ -9,7 +9,7 @@ def map_delimiter(delimiter):
 
 def read_file(filename, delimiter, skip_header):
     delimiter = map_delimiter(delimiter)
-    bytes_to_read = 1024 * 2  # for analysis
+    bytes_to_read = 1024 * 10  # for analysis
     rows = []
     with open(filename) as csvfile:
         if delimiter is None:
