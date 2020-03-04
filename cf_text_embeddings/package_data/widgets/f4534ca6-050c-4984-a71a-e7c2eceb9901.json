@@ -53,7 +53,7 @@
       "required": true,
       "parameter": true,
       "multi": false,
-      "default": "",
+      "default": ",",
       "parameter_type": "text",
       "order": 4,
       "uid": "255fd787-b76b-4caf-b645-b558f08442bb"
