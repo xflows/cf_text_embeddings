@@ -45,14 +45,6 @@ class EmbeddingsModelTest(unittest.TestCase):
     def test_word2vec_model_not_exists(self):
         self.assertRaises(Exception, EmbeddingsModelWord2Vec, 'not_exists')
 
-    def test_word2vec_model_tfidf(self):
-        text = word_tokens()
-        embeddings_model = EmbeddingsModelWord2Vec('test')
-        actual_X = embeddings_model.apply(text, AggregationMethod.average.value, 'tfidf')
-
-        expected_X = np.array([[0.01139571, 0.00762929], [-0.0161487, -0.02562849]])
-        self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
-
     def test_lsi_model(self):
         np.random.seed(42)
         text = word_tokens()
@@ -101,8 +93,8 @@ class EmbeddingsModelTest(unittest.TestCase):
                                  weighting_method=None)
 
         actual_X = embeddings[:, :2]
-        expected_X = np.array([[-0.13834494, -0.26584834], [-0.1336689, -0.24047077],
-                               [-0.13042556, -0.23901139]])
+        expected_X = np.array([[-0.13834494, -0.26584834], [-0.18460909, -0.21928412],
+                               [-0.26500371, -0.23988204]])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
         self.assertEqual(3, actual_X.shape[0])
 

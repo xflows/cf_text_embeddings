@@ -31,6 +31,14 @@ class AggregationMethod(Enum):
     summation = 'summation'
 
 
+def aggregate_document_embeddings(document_embedding, aggregation_method):
+    if aggregation_method == AggregationMethod.summation.value:
+        return np.sum(document_embedding, axis=0)
+    if aggregation_method == AggregationMethod.average.value:
+        return np.average(document_embedding, axis=0)
+    raise Exception('%s aggregation method is not supported' % aggregation_method)
+
+
 def cf_text_embeddings_model_path(lang, model_name):
     models_dir = cf_text_embeddings_package_path() if lang == 'test' else PROJECT_DATA_DIR
     lang = '' if lang is None else lang
@@ -62,44 +70,21 @@ class EmbeddingsModelBase:
         return supported_models.get(lang)
 
     @staticmethod
-    def _tokens_to_embeddings(model, documents_tokens):
-        embeddings = []
-        for document_tokens in documents_tokens:
-            n_document_tokens = len(document_tokens) or 1
-            document_embeddings = np.zeros((n_document_tokens, model.vector_size))
-            for i, token in enumerate(document_tokens):
+    def _tokens_to_embeddings(model, documents_tokens, aggregation_method):
+        embeddings = np.zeros((len(documents_tokens), model.vector_size))
+        for i, document_tokens in enumerate(documents_tokens):
+            n_tokens = 0
+            for token in document_tokens:
                 if token not in model.vocab:
                     continue
-                document_embeddings[i] = model[token]
-            embeddings.append(document_embeddings)
+                if aggregation_method in {
+                        AggregationMethod.summation.value, AggregationMethod.average.value
+                }:
+                    embeddings[i] += model[token]
+                    n_tokens += 1
+            if aggregation_method == AggregationMethod.average.value and n_tokens > 0:
+                embeddings[i] /= n_tokens
         return embeddings
-
-    def _train_tfidf(self, documents_tokens):
-        self._tfidf_dict = Dictionary(documents_tokens)  # fit dictionary
-        corpus = [
-            self._tfidf_dict.doc2bow(document_tokens) for document_tokens in documents_tokens
-        ]  # convert corpus to BoW format
-        self._tfidf_model = TfidfModel(corpus)  # fit model
-
-    def _multiply_embeddings_with_tfidf(self, documents_tokens, embeddings):
-        for i, document_tokens in enumerate(documents_tokens):
-            if not document_tokens:
-                continue
-            # convert document_tokens to gensim corpus format (idx, freq=1)
-            document_corpus = [(idx, 1) for idx in self._tfidf_dict.doc2idx(document_tokens)]
-            # extract tfidf weights
-            tfidf_vector = np.array([[el[1] for el in self._tfidf_model[document_corpus]]])
-            tfidf_vector = tfidf_vector.reshape(-1, 1)
-            embeddings[i] *= tfidf_vector
-        return embeddings
-
-    @staticmethod
-    def _aggregate_embeddings(embeddings, aggregation_method):
-        if aggregation_method == AggregationMethod.average.value:
-            return np.array([np.average(embedding, axis=0) for embedding in embeddings])
-        if aggregation_method == AggregationMethod.summation.value:
-            return np.array([np.sum(embedding, axis=0) for embedding in embeddings])
-        raise Exception('%s aggregation method is not supported' % aggregation_method)
 
     def apply(self, texts, aggregation_method=AggregationMethod.average.value,
               weighting_method=None):
@@ -107,11 +92,8 @@ class EmbeddingsModelBase:
             self._model = self._load_model()
         except FileNotFoundError:
             raise FileNotFoundError('Cannot find the model. Download it, if available.')
-        embeddings = self._tokens_to_embeddings(self._model, texts)
-        if weighting_method == 'tfidf':
-            self._train_tfidf(texts)
-            embeddings = self._multiply_embeddings_with_tfidf(texts, embeddings)
-        embeddings = self._aggregate_embeddings(embeddings, aggregation_method)
+        embeddings = self._tokens_to_embeddings(self._model, texts,
+                                                aggregation_method=aggregation_method)
         return embeddings
 
     def __getstate__(self):
@@ -203,17 +185,13 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
     def _load_model(self):
         return Doc2Vec.load(self._path, mmap='r')
 
-    def _tokens_to_embeddings(self, model, documents_tokens):
+    def _tokens_to_embeddings(self, model, documents_tokens, _):
         document_embeddings = np.zeros((len(documents_tokens), model.vector_size))
         for i, document_tokens in enumerate(documents_tokens):
             if not document_tokens:
                 continue
             document_embeddings[i] = model.infer_vector(document_tokens)
         return document_embeddings
-
-    @staticmethod
-    def _aggregate_embeddings(embeddings, aggregation_method):
-        return embeddings
 
 
 class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
@@ -261,6 +239,10 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
 
 
 class EmbeddingsModelElmo(EmbeddingsModelBase):
+    def __init__(self, lang):
+        super().__init__(lang)
+        self.embeddings_size = 1024
+
     @staticmethod
     def supported_models():
         return {
@@ -285,8 +267,12 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
     def _load_model(self):
         return Embedder(self._path)
 
-    def _tokens_to_embeddings(self, model, documents_tokens):
-        embeddings = np.array(model.sents2elmo(documents_tokens))
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
+        model.model.eval()
+        embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
+        for i, document_tokens in enumerate(documents_tokens):
+            document_embeddings = model.sents2elmo([document_tokens])[0]
+            embeddings[i] = aggregate_document_embeddings(document_embeddings, aggregation_method)
         return embeddings
 
 
@@ -319,17 +305,16 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
         padded_text = cls.pad_text(tokenized_text, max_seq)
         return torch.tensor(padded_text)
 
-    def _tokens_to_embeddings(self, model, documents_tokens):
-        default_embedding = np.zeros((1, self._vector_size))
-        embeddings = []
-        for document_tokens in documents_tokens:
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
+        embeddings = np.zeros((len(documents_tokens), self._vector_size))
+        for i, document_tokens in enumerate(documents_tokens):
             input_ids = self.tokenize_and_pad_text(self._tokenizer, [document_tokens],
                                                    self._max_seq)
             results = model(input_ids)[0]
             document_embedding = results.cpu().detach().numpy().squeeze(axis=0)
-            document_embedding = (document_embedding
-                                  if document_embedding.size > 0 else default_embedding)
-            embeddings.append(document_embedding)
+            if document_embedding.size > 0:
+                embeddings[i] = aggregate_document_embeddings(document_embedding,
+                                                              aggregation_method)
         return embeddings
 
 
