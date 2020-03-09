@@ -1,5 +1,6 @@
 import shutil
 import tempfile
+import uuid
 from os import path
 
 from django.shortcuts import render
@@ -13,7 +14,7 @@ def cf_text_embeddings_export_dataset(request, input_dict, output_dict, widget):
     if bow_dataset is None:
         raise Exception('There is no dataset in the input')
 
-    archive_filename = str(widget.id)
+    archive_filename = str(uuid.uuid4())
     archive_download_filepath = path.join(str(request.user.id), archive_filename + '.zip')
     archive_local_filepath = path.join(get_media_root(), str(request.user.id), archive_filename)
     ensure_dir(archive_local_filepath)
