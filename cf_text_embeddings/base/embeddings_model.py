@@ -184,7 +184,7 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
     def _load_model(self):
         return Doc2Vec.load(self._path, mmap='r')
 
-    def _tokens_to_embeddings(self, model, documents_tokens, _):
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
         document_embeddings = np.zeros((len(documents_tokens), model.vector_size))
         for i, document_tokens in enumerate(documents_tokens):
             if not document_tokens:
@@ -330,9 +330,9 @@ class EmbeddingsModelLSI(EmbeddingsModelBase):
         self.num_topics = num_topics
         self.decay = decay
 
-    def apply(self, text, aggregation_method, weighting_method):
-        dct = corpora.Dictionary(text)
-        corpus = [dct.doc2bow(line) for line in text]
+    def apply(self, texts, aggregation_method, weighting_method):
+        dct = corpora.Dictionary(texts)
+        corpus = [dct.doc2bow(line) for line in texts]
         self._model = LsiModel(corpus=corpus, id2word=dct, num_topics=self.num_topics,
                                decay=self.decay)
         embeddings = np.array([[el[1] for el in self._model[document]] for document in corpus])
