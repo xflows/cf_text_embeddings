@@ -1,7 +1,6 @@
 import unittest
 
-from cf_text_embeddings.base.tokenizers import (punkt_tokenizer,
-                                                toktok_tokenizer)
+from ..base.tokenizers import punkt_tokenizer, toktok_tokenizer
 
 
 class TestTokenizers(unittest.TestCase):

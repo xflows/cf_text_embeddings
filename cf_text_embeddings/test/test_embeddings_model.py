@@ -5,12 +5,11 @@ from os import path
 import transformers
 
 import numpy as np
-from cf_text_embeddings.base.common import PROJECT_DATA_DIR
-from cf_text_embeddings.base.embeddings_model import (AggregationMethod,
-                                                      EmbeddingsModelBert,
-                                                      EmbeddingsModelElmo,
-                                                      EmbeddingsModelLSI,
-                                                      EmbeddingsModelWord2Vec)
+
+from ..base.common import PROJECT_DATA_DIR
+from ..base.embeddings_model import (AggregationMethod, EmbeddingsModelBert,
+                                     EmbeddingsModelElmo, EmbeddingsModelLSI,
+                                     EmbeddingsModelWord2Vec)
 
 
 def word_tokens():

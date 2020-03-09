@@ -9,15 +9,14 @@ import torch
 import transformers
 from elmoformanylangs import Embedder
 from gensim import corpora
-from gensim.corpora import Dictionary
-from gensim.models import LsiModel, TfidfModel
+from gensim.models import LsiModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
 
 import numpy as np
-from cf_text_embeddings.base.common import (PROJECT_DATA_DIR,
-                                            cf_text_embeddings_package_path)
+
+from .common import PROJECT_DATA_DIR, cf_text_embeddings_package_path
 
 # disable logs because they are output as messages in clowdflows
 logging.getLogger('gensim').setLevel(logging.ERROR)

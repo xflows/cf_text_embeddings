@@ -1,6 +1,6 @@
 import unittest
 
-from cf_text_embeddings.base.io import parse_csv, validate_and_convert_indices
+from ..base.io import parse_csv, validate_and_convert_indices
 
 
 class TestParseCSV(unittest.TestCase):

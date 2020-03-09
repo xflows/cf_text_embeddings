@@ -1,12 +1,11 @@
 import unittest
 from os import path
 
-from cf_text_embeddings.base.common import cf_text_embeddings_package_path
-from cf_text_embeddings.base.embeddings_model import AggregationMethod
-from cf_text_embeddings.library import (cf_text_embeddings_glove,
-                                        cf_text_embeddings_parse_csv,
-                                        cf_text_embeddings_tok_tok_tokenizer,
-                                        cf_text_embeddings_word2vec)
+from ..base.common import cf_text_embeddings_package_path
+from ..base.embeddings_model import AggregationMethod
+from ..library import (cf_text_embeddings_glove, cf_text_embeddings_parse_csv,
+                       cf_text_embeddings_tok_tok_tokenizer,
+                       cf_text_embeddings_word2vec)
 
 
 class TestLibrary(unittest.TestCase):
