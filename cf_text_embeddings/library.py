@@ -10,7 +10,7 @@ from .base.embeddings_model import (EmbeddingsModelBert,
                                     EmbeddingsModelGloVe, EmbeddingsModelLSI,
                                     EmbeddingsModelUniversalSentenceEncoder,
                                     EmbeddingsModelWord2Vec)
-from .base.table import orange_data_table
+from .base.table import orange_data_table, orange_domain
 
 
 def cf_text_embeddings_parse_csv(input_dict):
@@ -46,13 +46,9 @@ def cf_text_embeddings_base(klass, input_dict):
     embeddings_model = klass(lang)
 
     aggregation_method = input_dict.get('aggregation_method')
-    weighting_method = input_dict.get('weighting_method')
     texts = input_dict['texts']
-    embeddings = embeddings_model.apply(texts, aggregation_method, weighting_method)
-
-    labels = input_dict['labels']
-    dataset = orange_data_table(embeddings, labels)
-    return {'dataset': dataset}
+    embeddings = embeddings_model.apply(texts, aggregation_method)
+    return {'embeddings': embeddings}
 
 
 def cf_text_embeddings_word2vec(input_dict):
@@ -73,7 +69,6 @@ def cf_text_embeddings_elmo(input_dict):
 
 def cf_text_embeddings_lsi(input_dict):
     texts = input_dict['texts']
-    labels = input_dict['labels']
     num_topics_default = 200
     num_topics = to_int(input_dict['num_topics'], num_topics_default)
     num_topics = num_topics_default if num_topics < 1 else num_topics
@@ -81,19 +76,15 @@ def cf_text_embeddings_lsi(input_dict):
 
     embeddings_model = EmbeddingsModelLSI(num_topics, decay)
     embeddings = embeddings_model.apply(texts, None, None)
-    dataset = orange_data_table(embeddings, labels)
-    return {'dataset': dataset}
+    return {'embeddings': embeddings}
 
 
 def cf_text_embeddings_bert(input_dict):
     texts = input_dict['texts']
-    labels = input_dict['labels']
 
     embeddings_model = EmbeddingsModelBert()
     embeddings = embeddings_model.apply(texts)
-
-    dataset = orange_data_table(embeddings, labels)
-    return {'dataset': dataset}
+    return {'embeddings': embeddings}
 
 
 def cf_text_embeddings_universal_sentence_encoder(input_dict):
@@ -103,13 +94,10 @@ def cf_text_embeddings_universal_sentence_encoder(input_dict):
 def cf_text_embeddings_doc2vec(input_dict):
     lang = input_dict.get('lang_selector') or input_dict.get('lang')
     texts = input_dict['texts']
-    labels = input_dict['labels']
 
     embeddings_model = EmbeddingsModelDoc2Vec(lang)
     embeddings = embeddings_model.apply(texts)
-
-    dataset = orange_data_table(embeddings, labels)
-    return {'dataset': dataset}
+    return {'embeddings': embeddings}
 
 
 def cf_text_embeddings_language(input_dict):

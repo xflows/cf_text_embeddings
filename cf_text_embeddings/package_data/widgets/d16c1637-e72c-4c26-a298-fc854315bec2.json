@@ -45,10 +45,10 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Labels",
-      "short_name": "lab",
-      "description": "Document labels",
-      "variable": "labels",
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
       "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
       "required": false,
       "parameter": false,
@@ -57,23 +57,6 @@
       "parameter_type": null,
       "order": 5,
       "uid": "6fca438a-a442-4aeb-abde-f5268be71ff2"
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "Weighting method",
-      "short_name": "wgm",
-      "description": "Use no weights or weight each embedding vector by the TF-IDF of the word it represents.",
-      "variable": "weighting_method",
-      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
-      "required": false,
-      "parameter": true,
-      "multi": false,
-      "default": "none",
-      "parameter_type": "select",
-      "order": 3,
-      "uid": "8706085d-4089-47f6-b35f-51a548bdd6fd"
     }
   },
   {
@@ -130,22 +113,13 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Dataset",
-      "short_name": "dst",
-      "description": "Dataset with embeddings and labels",
-      "variable": "dataset",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
       "order": 1,
       "uid": "4d4d9e86-175e-4ae6-9e24-48eb24b590c8"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "8706085d-4089-47f6-b35f-51a548bdd6fd",
-      "name": "None",
-      "value": "none",
-      "uid": "09f404fb-5496-4d4d-a932-46de2abffe76"
     }
   },
   {
@@ -236,15 +210,6 @@
       "name": "English",
       "value": "en",
       "uid": "e49d0920-9e87-48b8-9b33-1607b592682e"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "8706085d-4089-47f6-b35f-51a548bdd6fd",
-      "name": "TF-IDF",
-      "value": "tfidf",
-      "uid": "fd90c40b-5ef7-4db7-9a50-2510fc87476e"
     }
   }
 ]

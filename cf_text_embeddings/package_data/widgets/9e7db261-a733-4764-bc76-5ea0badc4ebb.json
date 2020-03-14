@@ -77,29 +77,12 @@
     }
   },
   {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "Labels",
-      "short_name": "lab",
-      "description": "Document labels",
-      "variable": "labels",
-      "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
-      "required": false,
-      "parameter": false,
-      "multi": false,
-      "default": "",
-      "parameter_type": null,
-      "order": 2,
-      "uid": "f4b03967-d1b2-4808-9704-6c11bbc4cbbe"
-    }
-  },
-  {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Dataset",
-      "short_name": "dst",
-      "description": "Dataset with embeddings and labels",
-      "variable": "dataset",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
       "order": 1,
       "uid": "abc0d6b5-b7e8-4ddf-821e-352a132ee825"

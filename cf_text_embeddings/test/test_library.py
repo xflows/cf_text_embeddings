@@ -40,11 +40,10 @@ class TestLibrary(unittest.TestCase):
             'labels': ['positive', 'negative'],
             'lang': 'test',
             'aggregation_method': AggregationMethod.summation.value,
-            'weighting_method': None,
         }
         output_dict = cf_text_embeddings_word2vec(input_dict)
-        self.assertTrue('dataset' in output_dict)
-        self.assertTrue(len(output_dict['dataset']) == 2)
+        self.assertTrue('embeddings' in output_dict)
+        self.assertTrue(len(output_dict['embeddings']) == 2)
 
     def test_glove_model(self):
         input_dict = {
@@ -52,11 +51,10 @@ class TestLibrary(unittest.TestCase):
             'labels': ['positive', 'negative'],
             'lang': 'test',
             'aggregation_method': AggregationMethod.summation.value,
-            'weighting_method': None,
         }
         output_dict = cf_text_embeddings_glove(input_dict)
-        self.assertTrue('dataset' in output_dict)
-        self.assertTrue(len(output_dict['dataset']) == 2)
+        self.assertTrue('embeddings' in output_dict)
+        self.assertTrue(len(output_dict['embeddings']) == 2)
 
 
 if __name__ == '__main__':

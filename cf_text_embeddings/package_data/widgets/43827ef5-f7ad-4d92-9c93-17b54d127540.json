@@ -7,7 +7,7 @@
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
-      "category": "c15657c5-4927-4ea6-b48f-e6a26c011a7c",
+      "category": "64066a04-05fe-4d9a-b380-f2627846a232",
       "visualization_view": "",
       "streaming_visualization_view": "",
       "interactive": false,
@@ -43,29 +43,12 @@
     }
   },
   {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "Labels",
-      "short_name": "lab",
-      "description": "Document labels",
-      "variable": "labels",
-      "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
-      "required": false,
-      "parameter": false,
-      "multi": false,
-      "default": "",
-      "parameter_type": null,
-      "order": 2,
-      "uid": "95f35aef-6109-4997-92f5-bfc6cca9559e"
-    }
-  },
-  {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Dataset",
-      "short_name": "dst",
-      "description": "Dataset with embeddings and labels",
-      "variable": "dataset",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
       "order": 1,
       "uid": "8b2a6f5c-3ecb-4830-b327-c4b130126a03"

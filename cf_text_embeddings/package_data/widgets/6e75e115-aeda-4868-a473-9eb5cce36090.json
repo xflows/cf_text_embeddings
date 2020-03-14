@@ -28,10 +28,10 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Labels",
-      "short_name": "lab",
-      "description": "Document labels",
-      "variable": "labels",
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "required": false,
       "parameter": false,
@@ -113,10 +113,10 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Dataset",
-      "short_name": "dst",
-      "description": "Dataset with embeddings and labels",
-      "variable": "dataset",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "order": 1,
       "uid": "a2c3b7d7-0959-4402-84cb-1762934b9422"

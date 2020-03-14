@@ -2,7 +2,7 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "Punkt Tokenizer",
+      "name": "Punkt Sentence Tokenizer",
       "action": "cf_text_embeddings_punkt_tokenizer",
       "wsdl": "",
       "wsdl_method": "",

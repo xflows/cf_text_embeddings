@@ -210,6 +210,10 @@ class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
 
 
 class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
+    def __init__(self, lang):
+        super().__init__(lang)
+        self.embeddings_size = 512
+
     @staticmethod
     def supported_models():
         return {
@@ -226,14 +230,14 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
         tf_embeddings = model(document_tokens)
         return tf_embeddings
 
-    def _tokens_to_embeddings(self, model, documents_tokens):
-        embeddings = []
-        for document_tokens in documents_tokens:
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
+        embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
+        for i, document_tokens in enumerate(documents_tokens):
             if not document_tokens:
                 document_tokens.append('')
             tf_embeddings = self._extract_tensors(model, document_tokens)
             document_embedding = self._extract_embeddings(tf_embeddings)
-            embeddings.append(document_embedding)
+            embeddings[i] = aggregate_document_embeddings(document_embedding, aggregation_method)
         return embeddings
 
 

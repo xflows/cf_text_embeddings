@@ -28,23 +28,6 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Weighting method",
-      "short_name": "wgm",
-      "description": "Use no weights or weight each embedding vector by the TF-IDF of the word it represents.",
-      "variable": "weighting_method",
-      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
-      "required": false,
-      "parameter": true,
-      "multi": false,
-      "default": "none",
-      "parameter_type": "select",
-      "order": 3,
-      "uid": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d"
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
       "name": "Language",
       "short_name": "lan",
       "description": "Language of the embeddings model",
@@ -62,10 +45,10 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Labels",
-      "short_name": "lab",
-      "description": "Document labels",
-      "variable": "labels",
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
       "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
       "required": false,
       "parameter": false,
@@ -130,10 +113,10 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Dataset",
-      "short_name": "dst",
-      "description": "Dataset with embeddings and labels",
-      "variable": "dataset",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
       "order": 1,
       "uid": "b87c4160-0f92-4aa9-acec-c96cba5fb0ba"
@@ -155,15 +138,6 @@
       "name": "Summation",
       "value": "summation",
       "uid": "27f5d095-11c1-4731-bc6c-cd0821463383"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
-      "name": "None",
-      "value": "none",
-      "uid": "2c7616ce-5bd8-44d2-91df-3b4eb854d015"
     }
   },
   {
@@ -200,15 +174,6 @@
       "name": "German",
       "value": "de",
       "uid": "87dd2fc2-376c-436e-b22c-bc3b9f2245dd"
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "3ec486f5-32bc-4ecc-888d-3557e66d3c0d",
-      "name": "TF-IDF",
-      "value": "tfidf",
-      "uid": "906f4e19-e6ad-452b-abce-85bc07ab0f29"
     }
   },
   {

@@ -2,7 +2,7 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "Tok Tok Tokenizer",
+      "name": "Tok Tok Word Tokenizer",
       "action": "cf_text_embeddings_tok_tok_tokenizer",
       "wsdl": "",
       "wsdl_method": "",
