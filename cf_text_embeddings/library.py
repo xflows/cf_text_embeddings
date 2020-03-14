@@ -113,8 +113,8 @@ def cf_text_embeddings_import_dataset(input_dict):
 
     y, unique_labels = map_y(y)
     domain = orange_domain(x.shape[1], unique_labels)
-    bow_dataset = Table(domain, x, Y=y)
-    return {'bow_dataset': bow_dataset}
+    dataset = Table(domain, x, Y=y)
+    return {'dataset': dataset}
 
 
 def cf_text_embeddings_export_dataset(input_dict):
