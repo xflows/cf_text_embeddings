@@ -117,5 +117,12 @@ def cf_text_embeddings_import_dataset(input_dict):
     return {'dataset': dataset}
 
 
+def cf_text_embeddings_create_dataset(input_dict):
+    embeddings = input_dict['embeddings']
+    labels = input_dict['labels']
+    dataset = orange_data_table(embeddings, labels)
+    return {'dataset': dataset}
+
+
 def cf_text_embeddings_export_dataset(input_dict):
     return input_dict

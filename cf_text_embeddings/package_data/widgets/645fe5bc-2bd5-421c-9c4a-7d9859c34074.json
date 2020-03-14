@@ -1,0 +1,74 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Create dataset",
+      "action": "cf_text_embeddings_create_dataset",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
+      "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "1974f754-74e4-40bd-8a17-337e301d693a"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Labels",
+      "short_name": "lab",
+      "description": "Labels",
+      "variable": "labels",
+      "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "840e4f16-497f-4257-ae40-c950f29ca5ed"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Dataset",
+      "short_name": "ds",
+      "description": "Dataset",
+      "variable": "dataset",
+      "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
+      "order": 1,
+      "uid": "b1a6d40b-2683-469f-88f0-e87779d04719"
+    }
+  }
+]
