@@ -1,8 +1,5 @@
-from Orange.data import Table
-
 from .base import io, tokenizers
-from .base.common import (load_numpy_array, map_checkbox_value, map_y,
-                          to_float, to_int)
+from .base.common import load_numpy_array, map_checkbox_value, to_float, to_int
 from .base.embeddings_model import (EmbeddingsModelBert,
                                     EmbeddingsModelDoc2Vec,
                                     EmbeddingsModelElmo,
@@ -10,7 +7,7 @@ from .base.embeddings_model import (EmbeddingsModelBert,
                                     EmbeddingsModelGloVe, EmbeddingsModelLSI,
                                     EmbeddingsModelUniversalSentenceEncoder,
                                     EmbeddingsModelWord2Vec)
-from .base.table import orange_data_table, orange_domain
+from .base.table import orange_data_table
 
 
 def cf_text_embeddings_parse_csv(input_dict):
@@ -108,12 +105,9 @@ def cf_text_embeddings_import_dataset(input_dict):
     x_path = input_dict['x_path']
     y_path = input_dict['y_path']
 
-    x = load_numpy_array(x_path)
-    y = load_numpy_array(y_path)
-
-    y, unique_labels = map_y(y)
-    domain = orange_domain(x.shape[1], unique_labels)
-    dataset = Table(domain, x, Y=y)
+    embeddings = load_numpy_array(x_path)
+    labels = load_numpy_array(y_path)
+    dataset = orange_data_table(embeddings, labels)
     return {'dataset': dataset}
 
 
