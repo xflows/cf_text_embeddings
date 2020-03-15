@@ -21,13 +21,6 @@ def extract_map_invert_y(odt):
     return y, unique_labels
 
 
-def map_y(y):
-    unique_labels = list(sorted(set(y)))
-    mapping = {v: k for k, v in enumerate(unique_labels)}
-    y = np.array([mapping[label] for label in y])
-    return y, unique_labels
-
-
 def to_int(num_string, default):
     try:
         num = int(num_string)
