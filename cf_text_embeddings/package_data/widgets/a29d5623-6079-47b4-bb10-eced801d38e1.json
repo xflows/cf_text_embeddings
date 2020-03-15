@@ -1,0 +1,119 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Punkt Sentence Tokenizer",
+      "action": "cf_text_embeddings_punkt_tokenizer",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "a29d5623-6079-47b4-bb10-eced801d38e1",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language for puntk tokenizer",
+      "variable": "language",
+      "widget": "a29d5623-6079-47b4-bb10-eced801d38e1",
+      "required": false,
+      "parameter": true,
+      "multi": false,
+      "default": "english",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "3b4d4ae0-51a1-4040-b5ef-de894079a658"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Text",
+      "short_name": "txt",
+      "description": "Documents texts",
+      "variable": "texts",
+      "widget": "a29d5623-6079-47b4-bb10-eced801d38e1",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "eae117d0-98b6-495f-af9f-5118c22b203d"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Sentence tokens",
+      "short_name": "sen",
+      "description": "Documents text tokenized to sentences",
+      "variable": "texts",
+      "widget": "a29d5623-6079-47b4-bb10-eced801d38e1",
+      "order": 1,
+      "uid": "fbd593c1-0210-4a67-8f98-8e58e6af8c1a"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3b4d4ae0-51a1-4040-b5ef-de894079a658",
+      "name": "Spanish",
+      "value": "spanish",
+      "uid": "4e7af538-e681-487a-b2b4-3e9a09eaa16f"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3b4d4ae0-51a1-4040-b5ef-de894079a658",
+      "name": "English",
+      "value": "english",
+      "uid": "57eac67c-e820-40d4-bc02-1a868a3e477d"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3b4d4ae0-51a1-4040-b5ef-de894079a658",
+      "name": "Estonian",
+      "value": "estonian",
+      "uid": "abb9ba21-efa6-417c-95c1-533fd1b1134b"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3b4d4ae0-51a1-4040-b5ef-de894079a658",
+      "name": "Slovene",
+      "value": "slovene",
+      "uid": "b596c8af-48df-416a-9a4e-061af2b92d1f"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3b4d4ae0-51a1-4040-b5ef-de894079a658",
+      "name": "German",
+      "value": "german",
+      "uid": "f3c6c73e-f7a5-4c20-8f4a-8bbbff9e6110"
+    }
+  }
+]

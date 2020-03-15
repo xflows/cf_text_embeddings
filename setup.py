@@ -3,16 +3,15 @@ import re
 
 from setuptools import setup
 
-from pipenv.project import Project
-from pipenv.utils import convert_deps_to_pip
+import nltk
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
     # remove multiple spaces because of pypi requirement
     README = re.sub(' +', '', README)
 
-pfile = Project(chdir=False).parsed_pipfile
-requirements = convert_deps_to_pip(pfile['packages'], r=False)
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
@@ -30,3 +29,5 @@ setup(
     author_email='orac.roman@gmail.com',
     install_requires=requirements,
 )
+
+nltk.download('punkt')

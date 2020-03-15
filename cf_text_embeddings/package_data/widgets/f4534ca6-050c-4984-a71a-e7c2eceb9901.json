@@ -1,0 +1,137 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Load Corpus",
+      "action": "cf_text_embeddings_parse_csv",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Text column index",
+      "short_name": "txt",
+      "description": "Index of the text column in text file (required).",
+      "variable": "text_index",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "1",
+      "parameter_type": "text",
+      "order": 2,
+      "uid": "02802756-0952-4976-b994-c9f4480cb8a6"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Delimiter",
+      "short_name": "dlr",
+      "description": "The delimiter to separate columns. Leave empty to deduce it.",
+      "variable": "delimiter",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": ",",
+      "parameter_type": "text",
+      "order": 4,
+      "uid": "255fd787-b76b-4caf-b645-b558f08442bb"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Skip header",
+      "short_name": "sph",
+      "description": "Skip the first line in the file.",
+      "variable": "skip_header",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "",
+      "parameter_type": "checkbox",
+      "order": 5,
+      "uid": "2d4e59a9-ae4e-4090-b443-1a53d26abe4f"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Input",
+      "short_name": "inp",
+      "description": "Input can be a file.",
+      "variable": "input",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "ba8d1da1-259d-4ed3-94d7-475329d3bccb"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Label column index",
+      "short_name": "lab",
+      "description": "Index of the label column in the text file (required for classification).",
+      "variable": "label_index",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "2",
+      "parameter_type": "text",
+      "order": 3,
+      "uid": "e94be394-0e97-4a77-9aa6-6460717be19a"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Label",
+      "short_name": "lab",
+      "description": "Documents labels",
+      "variable": "labels",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "order": 2,
+      "uid": "ab9f6f40-6cce-46ca-b2bf-b313096c5a10"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Text",
+      "short_name": "txt",
+      "description": "Documents texts",
+      "variable": "texts",
+      "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
+      "order": 1,
+      "uid": "f9fb1845-97f5-4f25-9596-0797ca64d669"
+    }
+  }
+]

@@ -2,12 +2,12 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "BERT",
-      "action": "cf_text_embeddings_bert",
+      "name": "Tok Tok Word Tokenizer",
+      "action": "cf_text_embeddings_tok_tok_tokenizer",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
-      "category": "64066a04-05fe-4d9a-b380-f2627846a232",
+      "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
       "visualization_view": "",
       "streaming_visualization_view": "",
       "interactive": false,
@@ -19,7 +19,7 @@
       "has_progress_bar": false,
       "is_streaming": false,
       "order": 1,
-      "uid": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "uid": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
       "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
@@ -28,30 +28,30 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Document tokens",
+      "name": "Text",
       "short_name": "txt",
-      "description": "Document tokens",
+      "description": "Documents texts",
       "variable": "texts",
-      "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
       "required": true,
       "parameter": false,
       "multi": false,
       "default": "",
       "parameter_type": null,
       "order": 1,
-      "uid": "83166fb1-7fb2-4add-9997-ab400034b22a"
+      "uid": "4826f18d-2c5d-4b77-82d1-c8f1f0cbad3f"
     }
   },
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Embeddings",
-      "short_name": "emb",
-      "description": "Embeddings",
-      "variable": "embeddings",
-      "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Documents text tokenized to words",
+      "variable": "texts",
+      "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
       "order": 1,
-      "uid": "8b2a6f5c-3ecb-4830-b327-c4b130126a03"
+      "uid": "c55a471a-042e-4778-9cd2-489cac07803a"
     }
   }
 ]

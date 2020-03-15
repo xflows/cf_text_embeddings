@@ -28,10 +28,10 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "BOW Model Dataset",
+      "name": "Dataset",
       "short_name": "ds",
-      "description": "Sparse BOW feature vectors.",
-      "variable": "bow_dataset",
+      "description": "Dataset with embeddings and labels",
+      "variable": "dataset",
       "widget": "93be5a58-73c4-4601-9b49-cc74db4aef82",
       "required": true,
       "parameter": false,

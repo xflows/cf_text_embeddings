@@ -28,6 +28,40 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 4,
+      "uid": "17fc10fd-9f1e-414a-a416-10aec9fc1eca"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Sentence tokens",
+      "short_name": "sen",
+      "description": "Sentence tokens",
+      "variable": "texts",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 3,
+      "uid": "31bfb733-300b-4833-a454-beca944421eb"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Language",
       "short_name": "lan",
       "description": "Language of the embeddings model. It overrides the one in the widget.",
@@ -38,7 +72,7 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
+      "order": 5,
       "uid": "7b7f5b1f-40a5-49c7-8fad-3c191e3b1b99"
     }
   },
@@ -60,12 +94,29 @@
     }
   },
   {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation.",
+      "variable": "aggregation_method",
+      "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 2,
+      "uid": "fae232b2-0d71-4f2b-9899-c0f79acd5627"
+    }
+  },
+  {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Embeddings Model",
-      "short_name": "ebm",
-      "description": "Embeddings Model",
-      "variable": "embeddings_model",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "order": 1,
       "uid": "a2c3b7d7-0959-4402-84cb-1762934b9422"
@@ -74,10 +125,10 @@
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
-      "name": "Spanish",
-      "value": "es",
-      "uid": ""
+      "abstract_input": "fae232b2-0d71-4f2b-9899-c0f79acd5627",
+      "name": "Average",
+      "value": "average",
+      "uid": "05e4cf6e-7408-4d23-9099-f8befb2c5c7b"
     }
   },
   {
@@ -87,6 +138,24 @@
       "name": "German",
       "value": "de",
       "uid": "a43f3d35-bf12-4da7-9fcd-b03debc57da4"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "fae232b2-0d71-4f2b-9899-c0f79acd5627",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "b9fe4e6f-b94f-4d1e-b2cb-1da96eab1e89"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d681c0df-d743-4a20-959c-220af63bdc52",
+      "name": "Spanish",
+      "value": "es",
+      "uid": "dc395181-0ae6-4585-a89b-46def0bca9d8"
     }
   },
   {

@@ -1,0 +1,11 @@
+gensim
+numpy
+tensorflow<=2.0.0
+tensorflow-hub
+tf-sentencepiece
+sentencepiece
+elmoformanylangs
+python-gitlab
+transformers
+Orange3
+nltk

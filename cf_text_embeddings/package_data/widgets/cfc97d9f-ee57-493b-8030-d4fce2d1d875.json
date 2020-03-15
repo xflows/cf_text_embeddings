@@ -28,6 +28,40 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
+      "variable": "texts",
+      "widget": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "28f28e4a-e826-42c2-8a66-8a5428b0886a"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
+      "widget": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 2,
+      "uid": "63302332-cb4d-4c77-89a6-2a10a952b517"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Language",
       "short_name": "lan",
       "description": "Language of the embeddings model. It overrides the one in the widget.",
@@ -38,7 +72,7 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
+      "order": 3,
       "uid": "77c1f254-5df8-4484-be4c-3356e53bebd2"
     }
   },
@@ -55,17 +89,34 @@
       "multi": false,
       "default": "en",
       "parameter_type": "select",
-      "order": 1,
+      "order": 4,
       "uid": "e16bce0d-37d8-4c96-9e90-de394b563863"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation. ELMO and Doc2Vec do not support it.",
+      "variable": "aggregation_method",
+      "widget": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 5,
+      "uid": "f183799a-6d9a-4f78-a5c5-2e19ed8bf118"
     }
   },
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Embeddings Model",
-      "short_name": "ebm",
-      "description": "Embeddings Model",
-      "variable": "embeddings_model",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "cfc97d9f-ee57-493b-8030-d4fce2d1d875",
       "order": 1,
       "uid": "d7783e13-6b3b-448e-a69f-332b34568346"
@@ -75,63 +126,9 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "German",
-      "value": "de",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Russian",
-      "value": "ru",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Latvian",
-      "value": "lv",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
       "name": "Lithuanian",
       "value": "lt",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Estonian",
-      "value": "ee",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Slovenian",
-      "value": "sl",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
-      "name": "Croatian",
-      "value": "hr",
-      "uid": ""
+      "uid": "087a2663-5e54-4056-80ea-bbf8bb788cce"
     }
   },
   {
@@ -146,10 +143,82 @@
   {
     "model": "workflows.abstractoption",
     "fields": {
+      "abstract_input": "f183799a-6d9a-4f78-a5c5-2e19ed8bf118",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "525b72e8-2da3-413f-9592-48186ee6eb2b"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "Estonian",
+      "value": "ee",
+      "uid": "64c233fe-087d-4b07-868c-20a89e207be2"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "Latvian",
+      "value": "lv",
+      "uid": "68804f4b-e195-445c-8d3a-c28479188a98"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "f183799a-6d9a-4f78-a5c5-2e19ed8bf118",
+      "name": "Average",
+      "value": "average",
+      "uid": "7fd3185b-adcc-4d00-8089-8622e4c50fc7"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
       "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
       "name": "English",
       "value": "en",
       "uid": "9cc240c4-7222-4159-93fd-eae10adfac94"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "Russian",
+      "value": "ru",
+      "uid": "a717eb6d-f931-45eb-902c-e6b16b97ef39"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "German",
+      "value": "de",
+      "uid": "bbcb8a1f-0809-4b8e-a7b5-dce71e133e96"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "Slovenian",
+      "value": "sl",
+      "uid": "c1665a2c-9261-44dd-8110-3450da6b4358"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "e16bce0d-37d8-4c96-9e90-de394b563863",
+      "name": "Croatian",
+      "value": "hr",
+      "uid": "fedb6005-6de8-49d0-ab96-9a245e8417e3"
     }
   }
 ]

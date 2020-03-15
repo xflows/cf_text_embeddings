@@ -45,6 +45,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 5,
+      "uid": "62139243-ec76-4565-bedc-909c8d0e7765"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Language",
       "short_name": "lan",
       "description": "Language of the embeddings model. It overrides the one in the widget.",
@@ -55,17 +72,51 @@
       "multi": false,
       "default": "",
       "parameter_type": null,
-      "order": 1,
+      "order": 6,
       "uid": "a964cabd-a58f-491a-bbae-8cdd3efe116b"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
+      "variable": "texts",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 4,
+      "uid": "cfbe567a-a889-4f9b-9c3d-a26109246af6"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation. ELMO and Doc2Vec do not support it.",
+      "variable": "aggregation_method",
+      "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 2,
+      "uid": "ede4837d-43a3-457b-9a54-de0312429ec6"
     }
   },
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Embeddings model",
-      "short_name": "ebm",
-      "description": "Embeddings model",
-      "variable": "embeddings_model",
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
       "widget": "9b0115d8-8190-4bae-bd21-7a9ca2405276",
       "order": 1,
       "uid": "b87c4160-0f92-4aa9-acec-c96cba5fb0ba"
@@ -75,45 +126,27 @@
     "model": "workflows.abstractoption",
     "fields": {
       "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "Slovenian",
-      "value": "sl",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "Croatian",
-      "value": "hr",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "German",
-      "value": "de",
-      "uid": ""
-    }
-  },
-  {
-    "model": "workflows.abstractoption",
-    "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
       "name": "Russian",
       "value": "ru",
-      "uid": ""
+      "uid": "0fbf95fd-20ba-40c5-8aa7-85213ef6c41b"
     }
   },
   {
     "model": "workflows.abstractoption",
     "fields": {
-      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
-      "name": "Latvian",
-      "value": "lv",
-      "uid": ""
+      "abstract_input": "ede4837d-43a3-457b-9a54-de0312429ec6",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "27f5d095-11c1-4731-bc6c-cd0821463383"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "ede4837d-43a3-457b-9a54-de0312429ec6",
+      "name": "Average",
+      "value": "average",
+      "uid": "2cc3d58d-598a-4fd8-a727-75d0b6a3a57c"
     }
   },
   {
@@ -122,7 +155,7 @@
       "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
       "name": "Estonian",
       "value": "ee",
-      "uid": ""
+      "uid": "63d70654-543a-4d7e-ae74-a7c7da1ec674"
     }
   },
   {
@@ -132,6 +165,42 @@
       "name": "Spanish",
       "value": "es",
       "uid": "6bc24d17-7cae-493a-bd09-e012a4052aba"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "German",
+      "value": "de",
+      "uid": "87dd2fc2-376c-436e-b22c-bc3b9f2245dd"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "Slovenian",
+      "value": "sl",
+      "uid": "94e2f03d-0c94-4a85-bbb3-a610afae54e9"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "Latvian",
+      "value": "lv",
+      "uid": "a330497-f215-44e2-8141-b5a37455f464"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "47033ade-bc8a-4f2a-935e-a2b9a27c3369",
+      "name": "Croatian",
+      "value": "hr",
+      "uid": "ef175ad2-412a-4036-86be-a5f60185767f"
     }
   },
   {

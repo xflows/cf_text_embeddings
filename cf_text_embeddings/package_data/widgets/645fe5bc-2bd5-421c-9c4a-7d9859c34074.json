@@ -2,8 +2,8 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "Import dataset",
-      "action": "cf_text_embeddings_import_dataset",
+      "name": "Create dataset",
+      "action": "cf_text_embeddings_create_dataset",
       "wsdl": "",
       "wsdl_method": "",
       "description": "",
@@ -19,7 +19,7 @@
       "has_progress_bar": false,
       "is_streaming": false,
       "order": 1,
-      "uid": "b4a64279-a528-489a-b245-64a44477350e",
+      "uid": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
       "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
@@ -30,33 +30,33 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings are a 2D Numpy array. If you used the Export dataset widget it is x.npy.",
-      "variable": "x_path",
-      "widget": "b4a64279-a528-489a-b245-64a44477350e",
+      "description": "Embeddings",
+      "variable": "embeddings",
+      "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
       "required": true,
-      "parameter": true,
+      "parameter": false,
       "multi": false,
       "default": "",
-      "parameter_type": "file",
+      "parameter_type": null,
       "order": 1,
-      "uid": "1e3257b2-c49e-45c0-8814-85a875fba703"
+      "uid": "1974f754-74e4-40bd-8a17-337e301d693a"
     }
   },
   {
     "model": "workflows.abstractinput",
     "fields": {
       "name": "Labels",
-      "short_name": "lbs",
-      "description": "Labels are a 1D numpy array with features. If you used the Export dataset widget it is y.npy.",
-      "variable": "y_path",
-      "widget": "b4a64279-a528-489a-b245-64a44477350e",
+      "short_name": "lab",
+      "description": "Labels",
+      "variable": "labels",
+      "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
       "required": true,
-      "parameter": true,
+      "parameter": false,
       "multi": false,
       "default": "",
-      "parameter_type": "file",
+      "parameter_type": null,
       "order": 1,
-      "uid": "79918612-12da-4ec2-874b-445118fcd084"
+      "uid": "840e4f16-497f-4257-ae40-c950f29ca5ed"
     }
   },
   {
@@ -64,11 +64,11 @@
     "fields": {
       "name": "Dataset",
       "short_name": "ds",
-      "description": "Dataset with embeddings and labels",
+      "description": "Dataset",
       "variable": "dataset",
-      "widget": "b4a64279-a528-489a-b245-64a44477350e",
+      "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
       "order": 1,
-      "uid": "cb89388e-7a38-4ae2-85b5-0ead01b76ce8"
+      "uid": "b1a6d40b-2683-469f-88f0-e87779d04719"
     }
   }
 ]
