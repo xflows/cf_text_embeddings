@@ -1,6 +1,6 @@
 from .base import io, tokenizers
 from .base.common import load_numpy_array, map_checkbox_value, to_float, to_int
-from .base.embeddings_model import (EmbeddingsModelBert,
+from .base.embeddings_model import (TFIDF, EmbeddingsModelBert,
                                     EmbeddingsModelDoc2Vec,
                                     EmbeddingsModelElmo,
                                     EmbeddingsModelFastText,
@@ -46,13 +46,22 @@ def cf_text_embeddings_token_filtering(input_dict):
     return input_dict
 
 
+def cf_text_embeddings_tfidf(input_dict):
+    assert 'texts' in input_dict, 'Text is missing'
+
+    tfidf = TFIDF()
+    tfidf.train(input_dict['texts'])
+    return {'tfidf': tfidf}
+
+
 def cf_text_embeddings_base(klass, input_dict):
     lang = input_dict.get('lang_selector') or input_dict.get('lang')
     embeddings_model = klass(lang)
 
     aggregation_method = input_dict.get('aggregation_method')
+    tfidf = input_dict.get('tfidf')
     texts = input_dict['texts']
-    embeddings = embeddings_model.apply(texts, aggregation_method)
+    embeddings = embeddings_model.apply(texts, aggregation_method, tfidf=tfidf)
     return {'embeddings': embeddings}
 
 
@@ -80,7 +89,7 @@ def cf_text_embeddings_lsi(input_dict):
     decay = to_float(input_dict['decay'], 1.0)
 
     embeddings_model = EmbeddingsModelLSI(num_topics, decay)
-    embeddings = embeddings_model.apply(texts, None, None)
+    embeddings = embeddings_model.apply(texts)
     return {'embeddings': embeddings}
 
 
