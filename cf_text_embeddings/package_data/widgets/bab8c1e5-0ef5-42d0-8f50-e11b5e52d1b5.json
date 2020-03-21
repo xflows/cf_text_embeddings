@@ -7,7 +7,7 @@
       "wsdl": "",
       "wsdl_method": "",
       "description": "A fast truncated SVD (Singular Value Decomposition). The SVD decomposition can be updated with new observations at any time, for an online, incremental, memory-efficient training.",
-      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "category": "64066a04-05fe-4d9a-b380-f2627846a232",
       "visualization_view": "",
       "streaming_visualization_view": "",
       "interactive": false,
@@ -23,23 +23,6 @@
       "package": "cf_text_embeddings",
       "always_save_results": false,
       "windows_queue": false
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
-      "name": "TF-IDF",
-      "short_name": "tdf",
-      "description": "Term Frequency Inverse Document Frequency model",
-      "variable": "tfidf",
-      "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
-      "required": false,
-      "parameter": false,
-      "multi": false,
-      "default": "",
-      "parameter_type": null,
-      "order": 2,
-      "uid": "18280941-2b3e-4d3a-bfe0-bb17f8603c8e"
     }
   },
   {

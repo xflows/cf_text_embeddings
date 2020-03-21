@@ -45,23 +45,6 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "TF-IDF",
-      "short_name": "tdf",
-      "description": "Term Frequency Inverse Document Frequency model",
-      "variable": "tfidf",
-      "widget": "d16c1637-e72c-4c26-a298-fc854315bec2",
-      "required": false,
-      "parameter": false,
-      "multi": false,
-      "default": "",
-      "parameter_type": null,
-      "order": 5,
-      "uid": "6fca438a-a442-4aeb-abde-f5268be71ff2"
-    }
-  },
-  {
-    "model": "workflows.abstractinput",
-    "fields": {
       "name": "Sentence tokens",
       "short_name": "sen",
       "description": "Sentence tokens",

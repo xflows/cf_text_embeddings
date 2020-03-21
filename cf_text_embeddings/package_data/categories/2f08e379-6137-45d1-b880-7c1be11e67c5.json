@@ -1,0 +1,9 @@
+{
+  "model": "workflows.category",
+  "fields": {
+    "name": "Weighting",
+    "parent": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+    "order": 1,
+    "uid": "2f08e379-6137-45d1-b880-7c1be11e67c5"
+  }
+}

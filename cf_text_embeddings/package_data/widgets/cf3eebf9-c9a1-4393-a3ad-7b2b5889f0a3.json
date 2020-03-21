@@ -1,0 +1,57 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "TF-IDF",
+      "action": "cf_text_embeddings_tfidf",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "Term Frequency - Inverse Document Frequency Model is used to weight token embeddings by its importance.",
+      "category": "2f08e379-6137-45d1-b880-7c1be11e67c5",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "cf3eebf9-c9a1-4393-a3ad-7b2b5889f0a3",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
+      "variable": "texts",
+      "widget": "cf3eebf9-c9a1-4393-a3ad-7b2b5889f0a3",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 4,
+      "uid": "8be1b9b0-ea84-4322-a09a-36d396c02ba3"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency - Inverse Document Frequency Model",
+      "variable": "tfidf",
+      "widget": "cf3eebf9-c9a1-4393-a3ad-7b2b5889f0a3",
+      "order": 1,
+      "uid": "7223e97f-253e-4b4b-bc1c-dfe050d27cd3"
+    }
+  }
+]

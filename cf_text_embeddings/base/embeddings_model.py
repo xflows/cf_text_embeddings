@@ -9,7 +9,8 @@ import torch
 import transformers
 from elmoformanylangs import Embedder
 from gensim import corpora
-from gensim.models import LsiModel
+from gensim.corpora import Dictionary
+from gensim.models import LsiModel, TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
@@ -69,9 +70,13 @@ class EmbeddingsModelBase:
         return supported_models.get(lang)
 
     @staticmethod
-    def _tokens_to_embeddings(model, documents_tokens, aggregation_method):
+    def _tokens_to_embeddings(model, documents_tokens, aggregation_method, tfidf):
         embeddings = np.zeros((len(documents_tokens), model.vector_size))
         for i, document_tokens in enumerate(documents_tokens):
+            documents_weights = {}
+            if tfidf is not None:
+                documents_weights = tfidf.calculate_document_weights(document_tokens)
+
             n_tokens = 0
             for token in document_tokens:
                 if token not in model.vocab:
@@ -79,20 +84,20 @@ class EmbeddingsModelBase:
                 if aggregation_method in {
                         AggregationMethod.summation.value, AggregationMethod.average.value
                 }:
-                    embeddings[i] += model[token]
+                    # token vector is multiplied by TFIDF weigth if available
+                    embeddings[i] += model[token] * documents_weights.get(token, 1)
                     n_tokens += 1
             if aggregation_method == AggregationMethod.average.value and n_tokens > 0:
                 embeddings[i] /= n_tokens
         return embeddings
 
-    def apply(self, texts, aggregation_method=AggregationMethod.average.value,
-              weighting_method=None):
+    def apply(self, texts, aggregation_method=AggregationMethod.average.value, tfidf=None):
         try:
             self._model = self._load_model()
         except FileNotFoundError:
             raise FileNotFoundError('Cannot find the model. Download it, if available.')
         embeddings = self._tokens_to_embeddings(self._model, texts,
-                                                aggregation_method=aggregation_method)
+                                                aggregation_method=aggregation_method, tfidf=tfidf)
         return embeddings
 
     def __getstate__(self):
@@ -184,7 +189,7 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
     def _load_model(self):
         return Doc2Vec.load(self._path, mmap='r')
 
-    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
         document_embeddings = np.zeros((len(documents_tokens), model.vector_size))
         for i, document_tokens in enumerate(documents_tokens):
             if not document_tokens:
@@ -230,7 +235,7 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
         tf_embeddings = model(document_tokens)
         return tf_embeddings
 
-    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
         embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
         for i, document_tokens in enumerate(documents_tokens):
             if not document_tokens:
@@ -270,7 +275,7 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
     def _load_model(self):
         return Embedder(self._path)
 
-    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
         model.model.eval()
         embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
         for i, document_tokens in enumerate(documents_tokens):
@@ -308,7 +313,7 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
         padded_text = cls.pad_text(tokenized_text, max_seq)
         return torch.tensor(padded_text)
 
-    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method):
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
         embeddings = np.zeros((len(documents_tokens), self._vector_size))
         for i, document_tokens in enumerate(documents_tokens):
             input_ids = self.tokenize_and_pad_text(self._tokenizer, [document_tokens],
@@ -334,10 +339,33 @@ class EmbeddingsModelLSI(EmbeddingsModelBase):
         self.num_topics = num_topics
         self.decay = decay
 
-    def apply(self, texts, aggregation_method, weighting_method):
+    def apply(self, texts, aggregation_method=AggregationMethod.average.value, tfidf=None):
         dct = corpora.Dictionary(texts)
         corpus = [dct.doc2bow(line) for line in texts]
         self._model = LsiModel(corpus=corpus, id2word=dct, num_topics=self.num_topics,
                                decay=self.decay)
         embeddings = np.array([[el[1] for el in self._model[document]] for document in corpus])
         return embeddings
+
+
+class TFIDF:
+    def __init__(self):
+        self.model = None
+        self.dictionary = None
+        self.id2token = {}
+
+    def train(self, documents_tokens):
+        self.dictionary = Dictionary(documents_tokens)  # fit dictionary
+        # id2token is lazy initialized in gensim
+        self.id2token = {v: k for k, v in self.dictionary.token2id.items()}
+        corpus = [self.dictionary.doc2bow(document_tokens) for document_tokens in documents_tokens]
+        self.model = TfidfModel(corpus)
+        return self.model
+
+    def calculate_document_weights(self, document_tokens):
+        token_weights = {}
+        document_bow = self.dictionary.doc2bow(document_tokens)
+        for token_id, weigth in self.model[document_bow]:
+            token_name = self.id2token.get(token_id, '')
+            token_weights[token_name] = weigth
+        return token_weights
