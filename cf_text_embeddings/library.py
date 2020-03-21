@@ -38,6 +38,14 @@ def cf_text_embeddings_punkt_tokenizer(input_dict):
     return input_dict
 
 
+def cf_text_embeddings_token_filtering(input_dict):
+    assert 'texts' in input_dict, 'Text is missing'
+
+    input_dict['texts'] = tokenizers.token_filtering(input_dict['texts'],
+                                                     filter_tokens=input_dict['filter_tokens'])
+    return input_dict
+
+
 def cf_text_embeddings_base(klass, input_dict):
     lang = input_dict.get('lang_selector') or input_dict.get('lang')
     embeddings_model = klass(lang)

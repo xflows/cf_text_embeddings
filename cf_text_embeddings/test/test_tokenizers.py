@@ -1,6 +1,7 @@
 import unittest
 
-from ..base.tokenizers import punkt_tokenizer, toktok_tokenizer
+from ..base.tokenizers import (punkt_tokenizer, token_filtering,
+                               toktok_tokenizer)
 
 
 class TestTokenizers(unittest.TestCase):
@@ -29,6 +30,53 @@ class TestTokenizers(unittest.TestCase):
         texts_tokenized = punkt_tokenizer(texts, language='english')
         self.assertEqual(1, len(texts_tokenized))
         self.assertEqual(0, len(texts_tokenized[0]))
+
+
+class TestTokenFiltering(unittest.TestCase):
+    def test_token_filtering(self):
+        documents_tokens = [['this', 'is', 'some', 'text'], ['this', 'is', 'other', 'text']]
+        documents_tokens_filtered = token_filtering(documents_tokens, filter_tokens=None)
+
+        for i, _ in enumerate(documents_tokens):
+            for j, _ in enumerate(documents_tokens[i]):
+                self.assertEqual(documents_tokens[i][j], documents_tokens_filtered[i][j])
+
+    def test_token_filtering_with_tokens_to_remove(self):
+        documents_tokens = [['this', 'is', ',', 'some', 'text', '.']]
+        documents_tokens_expected = [['this', 'is', 'some', 'text']]
+        documents_tokens_actual = token_filtering(documents_tokens, filter_tokens=None)
+
+        for i, _ in enumerate(documents_tokens_expected):
+            for j, _ in enumerate(documents_tokens_expected[i]):
+                self.assertEqual(documents_tokens_expected[i][j], documents_tokens_actual[i][j])
+
+    def test_token_filtering_filter_token_empyty_string(self):
+        documents_tokens = [['this', 'is', ',', 'some', 'text', '.']]
+        documents_tokens_expected = [['this', 'is', 'some', 'text']]
+        documents_tokens_actual = token_filtering(documents_tokens, filter_tokens='')
+
+        for i, _ in enumerate(documents_tokens_expected):
+            for j, _ in enumerate(documents_tokens_expected[i]):
+                self.assertEqual(documents_tokens_expected[i][j], documents_tokens_actual[i][j])
+
+    def test_token_filtering_with_custom_filter(self):
+        documents_tokens = [['<SOS>', 'this', 'is', 'some', 'text', '<EOS>']]
+        documents_tokens_expected = [['this', 'is', 'some', 'text']]
+        documents_tokens_actual = token_filtering(documents_tokens, filter_tokens='<SOS>\n<EOS>')
+
+        for i, _ in enumerate(documents_tokens_expected):
+            for j, _ in enumerate(documents_tokens_expected[i]):
+                self.assertEqual(documents_tokens_expected[i][j], documents_tokens_actual[i][j])
+
+    def test_token_filtering_all_tokens_filtered(self):
+        documents_tokens = [['.', ',', ')']]
+        documents_tokens_expected = [[]]
+        documents_tokens_actual = token_filtering(documents_tokens, filter_tokens=None)
+
+        for i, _ in enumerate(documents_tokens_expected):
+            for j, _ in enumerate(documents_tokens_expected[i]):
+                self.assertEqual(documents_tokens_expected[i][j], documents_tokens_actual[i][j])
+
 
 if __name__ == '__main__':
     unittest.main()

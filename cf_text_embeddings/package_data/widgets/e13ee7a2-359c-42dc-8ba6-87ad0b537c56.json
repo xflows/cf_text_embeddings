@@ -1,0 +1,74 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Token Filtering",
+      "action": "cf_text_embeddings_token_filtering",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "e13ee7a2-359c-42dc-8ba6-87ad0b537c56",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Filter",
+      "short_name": "fil",
+      "description": "Tokens to filter separated by a new line. Leave empty for default filter: !, \", #, $, %, &, \"\", (, ), *, +, ,', -, ., /, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, :, ;, <, =, >, ?, @, [, \\, ], ^, _, {, |, }.",
+      "variable": "filter_tokens",
+      "widget": "e13ee7a2-359c-42dc-8ba6-87ad0b537c56",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "",
+      "parameter_type": "textarea",
+      "order": 1,
+      "uid": "1f6ab26b-a49f-4050-8c21-015616f03344"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Documents text tokenized to words",
+      "variable": "texts",
+      "widget": "e13ee7a2-359c-42dc-8ba6-87ad0b537c56",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "a5f4567a-f8eb-49d0-b36a-2acd67fbd957"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Documents text tokenized to words",
+      "variable": "texts",
+      "widget": "e13ee7a2-359c-42dc-8ba6-87ad0b537c56",
+      "order": 1,
+      "uid": "dbc77e48-08aa-4155-bf36-d71476d84aa9"
+    }
+  }
+]
