@@ -25,7 +25,7 @@ def sentence_tokens():
             ['This is sentence1 of doc3']]
 
 
-def document_tokens():
+def doc_tokens():
     return [
         'Nintendo has announced that two of its Switch games will be updated.',
         'Although there’s a fierce rivalry between smartphone manufacturers.'
@@ -59,7 +59,7 @@ class EmbeddingsModelTest(unittest.TestCase):
                 'Test test_bert_model not executed, because you need to download model first')
             return
 
-        text = document_tokens()
+        documents_tokens = doc_tokens()
         model_class = transformers.BertModel
         tokenizer_class = transformers.BertTokenizer
         pretrained_weights = 'bert-base-uncased'
@@ -71,7 +71,7 @@ class EmbeddingsModelTest(unittest.TestCase):
             vector_size=768,
             max_seq=100,
         )
-        embeddings = embeddings_model.apply(text,
+        embeddings = embeddings_model.apply(documents_tokens,
                                             aggregation_method=AggregationMethod.average.value,
                                             weighting_method=None)
         actual_X = embeddings[:, :2]
