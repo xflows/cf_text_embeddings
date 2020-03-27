@@ -2,7 +2,7 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "Create dataset",
+      "name": "Create Dataset",
       "action": "cf_text_embeddings_create_dataset",
       "wsdl": "",
       "wsdl_method": "",
@@ -62,8 +62,8 @@
   {
     "model": "workflows.abstractoutput",
     "fields": {
-      "name": "Dataset",
-      "short_name": "ds",
+      "name": "Orange Data Table",
+      "short_name": "odt",
       "description": "Dataset",
       "variable": "dataset",
       "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
