@@ -3,9 +3,10 @@
 ![Text Embeddings ClowdFlows Workflow](clowdflows_workflow.png)
 
 This is a [ClowdFlows 3.0](https://github.com/xflows/clowdflows-backend) package which contains widgets for word, sentence and document embeddings.
+See [Widgets](https://github.com/xflows/cf_text_embeddings/wiki/Widgets) to learn more about the included embeddings models.
 
 ## Installation
-Download this repository and run `python setup.py install` to install the package.
+Install this package by running: `pip install cf_text_embeddings`.
 To enable it in the ClowdFlows Backend, edit the `local_settings.py` file like shown below:
 ```
 PACKAGE_TREE = [
@@ -18,7 +19,7 @@ PACKAGE_TREE = [
 ```
 Then run ` ./manage.py import_package cf_text_embeddings` from the ClowdFlows Backend directory to import widgets into the platform.
 
-After installation, you need to download the models.
+After package installation, you need to download the models.
 
 ## Download the models
 The Text Embeddings package supports models for multiple languages. 
