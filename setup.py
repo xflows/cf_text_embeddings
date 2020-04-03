@@ -3,8 +3,6 @@ import re
 
 from setuptools import setup
 
-import nltk
-
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
     # remove multiple spaces because of pypi requirement
@@ -18,7 +16,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='cf_text_embeddings',
-    version='0.1.11',
+    version='0.1.12',
     packages=['cf_text_embeddings'],
     include_package_data=True,
     license='MIT License',
@@ -30,4 +28,14 @@ setup(
     install_requires=requirements,
 )
 
-nltk.download('punkt')
+
+def download_nltk_requirements():
+    import nltk  # NLTK should be imported after it is installed
+    nltk.download('punkt')
+
+
+def post_install():
+    download_nltk_requirements()
+
+
+post_install()
