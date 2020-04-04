@@ -278,9 +278,15 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
     def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
         model.model.eval()
         embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
-        for i, document_tokens in enumerate(documents_tokens):
-            document_embeddings = model.sents2elmo([document_tokens])[0]
-            embeddings[i] = aggregate_document_embeddings(document_embeddings, aggregation_method)
+        batch_size = 100
+
+        doc_index = 0
+        for i in range(0, len(documents_tokens), batch_size):
+            documents_embeddings = model.sents2elmo(documents_tokens[i:i + batch_size])
+            for document_embeddings in documents_embeddings:
+                embeddings[doc_index] = aggregate_document_embeddings(document_embeddings,
+                                                                      aggregation_method)
+                doc_index += 1
         return embeddings
 
 
