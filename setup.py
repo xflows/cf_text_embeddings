@@ -26,12 +26,17 @@ setup(
     author='Roman Orac',
     author_email='orac.roman@gmail.com',
     install_requires=requirements,
+    setup_requires=['nltk'],
 )
 
 
 def download_nltk_requirements():
-    import nltk  # NLTK should be imported after it is installed
-    nltk.download('punkt')
+    try:
+        import nltk  # NLTK should be imported after it is installed
+        nltk.download('punkt')
+    except Exception:
+        print(('Warning: NLTK punkt languages weren\'t downloaded,'
+               'run: python -m nltk.downloader punkt'))
 
 
 def post_install():
