@@ -16,7 +16,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='cf_text_embeddings',
-    version='0.1.13',
+    version='0.1.14',
     packages=['cf_text_embeddings'],
     include_package_data=True,
     license='MIT License',

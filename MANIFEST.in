@@ -1,2 +1,5 @@
 include requirements.txt
 include LICENSE
+
+recursive-include cf_text_embeddings *
+global-exclude *.pyc
