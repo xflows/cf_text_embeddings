@@ -10,6 +10,7 @@ from ..base.common import PROJECT_DATA_DIR
 from ..base.embeddings_model import (TFIDF, AggregationMethod,
                                      EmbeddingsModelBert, EmbeddingsModelElmo,
                                      EmbeddingsModelLSI,
+                                     EmbeddingsModelUniversalSentenceEncoder,
                                      EmbeddingsModelWord2Vec)
 
 
@@ -100,6 +101,22 @@ class EmbeddingsModelTest(unittest.TestCase):
         actual_X = embeddings[:, :2]
         expected_X = np.array([[-0.13834494, -0.26584834]])
         self.assertEqual(True, np.allclose(expected_X, actual_X[0, :], atol=1e-03))
+        self.assertEqual(3, actual_X.shape[0])
+
+    def test_use_model(self):
+        use_en = path.join(PROJECT_DATA_DIR, 'models', 'en', 'universal_sentence_encoder_english')
+        if not path.exists(use_en):
+            warnings.warn(
+                'Test test_use_model not executed, because you need to download english use model')
+            return
+        sentences = sentence_tokens()
+        model = EmbeddingsModelUniversalSentenceEncoder('en')
+        embeddings = model.apply(sentences, aggregation_method=AggregationMethod.average.value)
+
+        actual_X = embeddings[:, :2]
+        expected_X = np.array([[0.06223562, -0.00187974], [0.06143629, -0.00408216],
+                               [0.03041881, 0.04794494]])
+        self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
         self.assertEqual(3, actual_X.shape[0])
 
 
