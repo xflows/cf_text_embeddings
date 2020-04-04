@@ -198,23 +198,7 @@ class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
         return document_embeddings
 
 
-class EmbeddingsModelTensorFlow(EmbeddingsModelBase):
-    def _load_model(self):
-        # To make tf 2.0 compatible with tf1.0 code, we disable the tf2.0 functionalities
-        tf.disable_eager_execution()
-        path_ = cf_text_embeddings_model_path(self._lang, self._model_name)
-        return hub.Module(path_)
-
-    @staticmethod
-    def _extract_embeddings(tf_embeddings):
-        with tf.Session() as sess:
-            sess.run(tf.global_variables_initializer())
-            sess.run(tf.tables_initializer())
-            embeddings = sess.run(tf_embeddings)
-        return embeddings
-
-
-class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
+class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelBase):
     def __init__(self, lang):
         super().__init__(lang)
         self.embeddings_size = 512
@@ -230,18 +214,30 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelTensorFlow):
             'es': 'universal_sentence_encoder_spanish',
         }
 
-    @staticmethod
-    def _extract_tensors(model, document_tokens):
-        tf_embeddings = model(document_tokens)
-        return tf_embeddings
+    def apply(self, texts, aggregation_method=AggregationMethod.average.value, tfidf=None):
+        # To make tf 2.0 compatible with tf1.0 code, we disable the tf2.0 functionalities
+        tf.disable_eager_execution()
+        path_ = cf_text_embeddings_model_path(self._lang, self._model_name)
 
-    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
-        embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
-        for i, document_tokens in enumerate(documents_tokens):
+        # Create graph and finalize (finalizing optional but recommended).
+        g = tf.Graph()
+        with g.as_default():
+            # We will be feeding 1D tensors of text into the graph.
+            text_input = tf.placeholder(dtype=tf.string, shape=[None])
+            model = hub.Module(path_)
+            embedded_text = model(text_input)
+            init_op = tf.group([tf.global_variables_initializer(), tf.tables_initializer()])
+        g.finalize()
+
+        # Create session and initialize.
+        session = tf.Session(graph=g)
+        session.run(init_op)
+
+        embeddings = np.zeros((len(texts), self.embeddings_size))
+        for i, document_tokens in enumerate(texts):
             if not document_tokens:
-                document_tokens.append('')
-            tf_embeddings = self._extract_tensors(model, document_tokens)
-            document_embedding = self._extract_embeddings(tf_embeddings)
+                continue
+            document_embedding = session.run(embedded_text, feed_dict={text_input: document_tokens})
             embeddings[i] = aggregate_document_embeddings(document_embedding, aggregation_method)
         return embeddings
 
@@ -278,9 +274,15 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
     def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
         model.model.eval()
         embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
-        for i, document_tokens in enumerate(documents_tokens):
-            document_embeddings = model.sents2elmo([document_tokens])[0]
-            embeddings[i] = aggregate_document_embeddings(document_embeddings, aggregation_method)
+        batch_size = 100
+
+        doc_index = 0
+        for i in range(0, len(documents_tokens), batch_size):
+            documents_embeddings = model.sents2elmo(documents_tokens[i:i + batch_size])
+            for document_embeddings in documents_embeddings:
+                embeddings[doc_index] = aggregate_document_embeddings(document_embeddings,
+                                                                      aggregation_method)
+                doc_index += 1
         return embeddings
 
 

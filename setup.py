@@ -16,7 +16,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='cf_text_embeddings',
-    version='0.1.12',
+    version='0.1.13',
     packages=['cf_text_embeddings'],
     include_package_data=True,
     license='MIT License',
@@ -30,8 +30,12 @@ setup(
 
 
 def download_nltk_requirements():
-    import nltk  # NLTK should be imported after it is installed
-    nltk.download('punkt')
+    try:
+        import nltk  # NLTK should be imported after it is installed
+        nltk.download('punkt')
+    except Exception:
+        print(('Warning: NLTK punkt languages weren\'t downloaded,'
+               'run: python -m nltk.downloader punkt'))
 
 
 def post_install():

@@ -7,7 +7,7 @@ import gitlab
 import requests
 import transformers
 
-from .common import PROJECT_DATA_DIR, ensure_dir
+from .base.common import PROJECT_DATA_DIR, ensure_dir
 
 GITLAB_URL = 'https://repo.ijs.si/'
 GITLAB_PROJECT = 'vpodpecan/cf_text_embeddings_models'
