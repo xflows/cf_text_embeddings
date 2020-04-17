@@ -3,6 +3,15 @@ import re
 
 from setuptools import setup
 
+with open('cf_text_embeddings/version.py', "rt") as f:
+    version_content = f.read()
+    VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
+    mo = re.search(VSRE, version_content, re.M)
+    if mo:
+        version_string = mo.group(1)
+    else:
+        raise RuntimeError("Unable to find version string")
+
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
     # remove multiple spaces because of pypi requirement
@@ -16,7 +25,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='cf_text_embeddings',
-    version='0.1.14',
+    version=version_string,
     packages=['cf_text_embeddings'],
     include_package_data=True,
     license='MIT License',
