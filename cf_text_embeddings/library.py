@@ -26,7 +26,9 @@ def cf_text_embeddings_parse_csv(input_dict):
 def cf_text_embeddings_tok_tok_tokenizer(input_dict):
     assert 'texts' in input_dict, 'Text is missing'
 
-    input_dict['texts'] = tokenizers.toktok_tokenizer(input_dict['texts'])
+    to_lowercase = input_dict['to_lowercase'] == 'true'
+    input_dict['texts'] = tokenizers.toktok_tokenizer(input_dict['texts'],
+                                                      to_lowercase=to_lowercase)
     return input_dict
 
 

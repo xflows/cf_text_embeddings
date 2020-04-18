@@ -2,10 +2,12 @@ from nltk.data import load
 from nltk.tokenize import ToktokTokenizer
 
 
-def toktok_tokenizer(documents):
+def toktok_tokenizer(documents, to_lowercase=True):
     tokenizer = ToktokTokenizer()
     documents_tokens = []
     for document in documents:
+        if to_lowercase:
+            document = document.lower()
         document_tokens = tokenizer.tokenize(document)
         documents_tokens.append(document_tokens)
     return documents_tokens

@@ -43,6 +43,23 @@
     }
   },
   {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Text to lowercase",
+      "short_name": "tlc",
+      "description": "Transform text to lowercase",
+      "variable": "to_lowercase",
+      "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "true",
+      "parameter_type": "checkbox",
+      "order": 1,
+      "uid": "a18c10d1-9bc3-4641-91c4-53d0c3078331"
+    }
+  },
+  {
     "model": "workflows.abstractoutput",
     "fields": {
       "name": "Word tokens",
