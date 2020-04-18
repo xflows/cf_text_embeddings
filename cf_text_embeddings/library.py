@@ -89,8 +89,9 @@ def cf_text_embeddings_lsi(input_dict):
     num_topics = to_int(input_dict['num_topics'], num_topics_default)
     num_topics = num_topics_default if num_topics < 1 else num_topics
     decay = to_float(input_dict['decay'], 1.0)
+    train_on_tfidf = map_checkbox_value(input_dict['train_on_tfidf'])
 
-    embeddings_model = EmbeddingsModelLSI(num_topics, decay)
+    embeddings_model = EmbeddingsModelLSI(num_topics, decay, train_on_tfidf)
     embeddings = embeddings_model.apply(texts)
     return {'embeddings': embeddings}
 
