@@ -62,6 +62,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Train on TF-IDF",
+      "short_name": "tdf",
+      "description": "TF-IDF vectors are constructed from Bag of Words. If unchecked LSI is trained on BOW",
+      "variable": "train_on_tfidf",
+      "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "true",
+      "parameter_type": "checkbox",
+      "order": 5,
+      "uid": "dd40fe7b-fac2-43c4-9d95-4e6e46832dc9"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Decay",
       "short_name": "dcy",
       "description": "Weight of existing observations relatively to new ones.",

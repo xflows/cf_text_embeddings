@@ -25,14 +25,12 @@ class TestLibrary(unittest.TestCase):
         self.assertEqual(True, len(output_dict['labels']) == 4)
 
     def test_toktok_tokenizer(self):
-        input_dict = {'texts': ['this is doc1'], 'labels': [0]}
+        input_dict = {'texts': ['this is doc1'], 'to_lowercase': 'false'}
         output_dict = cf_text_embeddings_tok_tok_tokenizer(input_dict)
         self.assertEqual(True, 'texts' in output_dict)
-        self.assertEqual(True, 'labels' in output_dict)
-        self.assertEqual(True, len(output_dict) == 2)
+        self.assertEqual(True, len(output_dict) == 1)
         self.assertEqual(True, len(output_dict['texts']) == 1)
         self.assertEqual(True, len(output_dict['texts'][0]) == 3)
-        self.assertEqual(True, len(output_dict['labels']) == 1)
 
     def test_word2vec_model(self):
         input_dict = {
