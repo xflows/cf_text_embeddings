@@ -62,6 +62,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Filter extemes",
+      "short_name": "fe",
+      "description": "Filter out tokens in the dictionary by their frequency. \r\nLess frequent than no_below documents (absolute number, e.g. 5) or\r\nMore frequent than no_above documents (fraction of the total corpus size, e.g. 0.3).\r\nAfter (1) and (2), keep only the first keep_n most frequent tokens (or keep all if keep_n=None).",
+      "variable": "filter_extremes",
+      "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "true",
+      "parameter_type": "checkbox",
+      "order": 6,
+      "uid": "dc55aefc-7f3d-49bb-a149-919842a75edb"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Train on TF-IDF",
       "short_name": "tdf",
       "description": "TF-IDF vectors are constructed from Bag of Words. If unchecked LSI is trained on BOW",

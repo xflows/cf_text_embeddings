@@ -337,13 +337,16 @@ class EmbeddingsModelBert(EmbeddingsModelHuggingface):
 
 
 class EmbeddingsModelLSI(EmbeddingsModelBase):
-    def __init__(self, num_topics, decay, train_on_tfidf):
+    def __init__(self, num_topics, decay, train_on_tfidf, filter_extremes):
         self.num_topics = num_topics
         self.decay = decay
         self.train_on_tfidf = train_on_tfidf
+        self.filter_extremes = filter_extremes
 
     def apply(self, texts, aggregation_method=AggregationMethod.average.value, tfidf=None):
         dct = corpora.Dictionary(texts)
+        if self.filter_extremes:
+            dct.filter_extremes()
         corpus = [dct.doc2bow(line) for line in texts]
         if self.train_on_tfidf:
             tfidf_model = TfidfModel(corpus)

@@ -54,7 +54,7 @@ class EmbeddingsModelTest(unittest.TestCase):
     def test_lsi_model_bow(self):
         np.random.seed(42)
         text = word_tokens()
-        embeddings_model = EmbeddingsModelLSI(2, 1, train_on_tfidf=False)
+        embeddings_model = EmbeddingsModelLSI(2, 1, train_on_tfidf=False, filter_extremes=False)
         actual_X = embeddings_model.apply(text, AggregationMethod.average.value, None)
         expected_X = np.array([[3.464], [2.828]])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
@@ -62,7 +62,7 @@ class EmbeddingsModelTest(unittest.TestCase):
     def test_lsi_model_tfidf(self):
         np.random.seed(42)
         text = word_tokens()
-        embeddings_model = EmbeddingsModelLSI(2, 1, train_on_tfidf=True)
+        embeddings_model = EmbeddingsModelLSI(2, 1, train_on_tfidf=True, filter_extremes=False)
         actual_X = embeddings_model.apply(text, AggregationMethod.average.value, None)
         expected_X = np.array([[1.], [1.]])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
