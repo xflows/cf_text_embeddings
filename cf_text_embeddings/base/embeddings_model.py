@@ -2,6 +2,8 @@ import logging
 from enum import Enum
 from os import path
 
+import numpy as np
+
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
@@ -14,8 +16,6 @@ from gensim.models import LsiModel, TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
-
-import numpy as np
 
 from .common import PROJECT_DATA_DIR, cf_text_embeddings_package_path
 
@@ -347,6 +347,8 @@ class EmbeddingsModelLSI(EmbeddingsModelBase):
         dct = corpora.Dictionary(texts)
         if self.filter_extremes:
             dct.filter_extremes()
+            if len(dct) == 0:
+                raise Exception('Disable filter extremes as it removes all tokens')
         corpus = [dct.doc2bow(line) for line in texts]
         if self.train_on_tfidf:
             tfidf_model = TfidfModel(corpus)
