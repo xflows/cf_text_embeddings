@@ -1,0 +1,57 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Concatenate embeddings",
+      "action": "cf_text_embeddings_concatenate_embeddings",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "7ba55e94-d1af-4708-9b93-f7fd92424fae",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Embedding",
+      "short_name": "emb",
+      "description": "Embedding (numpy matrix of dimensions n_docs X n_features)",
+      "variable": "embedding",
+      "widget": "7ba55e94-d1af-4708-9b93-f7fd92424fae",
+      "required": true,
+      "parameter": false,
+      "multi": true,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "c8fe07be-cfa3-458b-944a-21318f6600d4"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embedding",
+      "short_name": "emb",
+      "description": "Concatenated embeddings (numpy matrix of dimensions n_docs X SUM(n_features)",
+      "variable": "concat_embeddings",
+      "widget": "7ba55e94-d1af-4708-9b93-f7fd92424fae",
+      "order": 1,
+      "uid": "25aad6e5-860b-4e4e-9122-cba6fb277c7b"
+    }
+  }
+]

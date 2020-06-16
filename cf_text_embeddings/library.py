@@ -1,3 +1,5 @@
+import numpy as np
+
 from .base import io, tokenizers
 from .base.common import load_numpy_array, map_checkbox_value, to_float, to_int
 from .base.embeddings_model import (TFIDF, EmbeddingsModelBert,
@@ -142,3 +144,8 @@ def cf_text_embeddings_create_dataset(input_dict):
 
 def cf_text_embeddings_export_dataset(input_dict):
     return input_dict
+
+
+def cf_text_embeddings_concatenate_embeddings(input_dict):
+    arrays = input_dict['embedding']
+    return {'concat_embeddings': np.concatenate(arrays, axis=1)}

@@ -29,7 +29,7 @@
     "model": "workflows.abstractinput",
     "fields": {
       "name": "Dataset",
-      "short_name": "ds",
+      "short_name": "odt",
       "description": "Dataset with embeddings and labels",
       "variable": "dataset",
       "widget": "93be5a58-73c4-4601-9b49-cc74db4aef82",

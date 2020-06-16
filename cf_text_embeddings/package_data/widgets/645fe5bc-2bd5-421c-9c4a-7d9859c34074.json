@@ -50,7 +50,7 @@
       "description": "Labels",
       "variable": "labels",
       "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
-      "required": true,
+      "required": false,
       "parameter": false,
       "multi": false,
       "default": "",
