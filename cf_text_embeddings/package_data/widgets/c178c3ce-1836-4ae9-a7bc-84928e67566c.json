@@ -1,0 +1,74 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Create scikit bunch",
+      "action": "cf_text_embeddings_make_scikit_bunch",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "Creates a scikit bunch. \r\nImportant: this is a temporary solution because scikit bunch is deprecated as of 0.22!",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Data",
+      "short_name": "X",
+      "description": "Data (numpy matrix)",
+      "variable": "X",
+      "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "1c663fa0-e602-455d-835c-22fe4f7ce588"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Target",
+      "short_name": "y",
+      "description": "Target (numpy matrix)",
+      "variable": "y",
+      "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "8a70aad8-d56e-4362-93d7-584ae990c2ba"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Scikit bunch",
+      "short_name": "dts",
+      "description": "Scikit bunch",
+      "variable": "dataset",
+      "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
+      "order": 1,
+      "uid": "2e728c43-3e8e-4b45-add1-a12a11124449"
+    }
+  }
+]

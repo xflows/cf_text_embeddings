@@ -149,3 +149,10 @@ def cf_text_embeddings_export_dataset(input_dict):
 def cf_text_embeddings_concatenate_embeddings(input_dict):
     arrays = input_dict['embedding']
     return {'concat_embeddings': np.concatenate(arrays, axis=1)}
+
+
+def cf_text_embeddings_make_scikit_bunch(input_dict):
+    from sklearn.datasets import base as ds
+    dataset = ds.Bunch(data=input_dict['X'],
+                       target=input_dict['y'])
+    return {'dataset': dataset}
