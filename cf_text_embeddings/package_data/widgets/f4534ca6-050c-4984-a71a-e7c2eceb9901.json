@@ -2,7 +2,7 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "Load Corpus",
+      "name": "Load Corpus from CSV",
       "action": "cf_text_embeddings_parse_csv",
       "wsdl": "",
       "wsdl_method": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Text column index",
       "short_name": "txt",
-      "description": "Index of the text column in text file (required).",
+      "description": "Index of the text column in text file (required). 1-indexed.",
       "variable": "text_index",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "required": true,
@@ -98,7 +98,7 @@
     "fields": {
       "name": "Label column index",
       "short_name": "lab",
-      "description": "Index of the label column in the text file (required for classification).",
+      "description": "Index of the label column in the text file (required for classification). 1-indexed.",
       "variable": "label_index",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "required": true,

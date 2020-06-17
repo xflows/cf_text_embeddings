@@ -28,6 +28,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "Feature names",
+      "short_name": "nam",
+      "description": "Feature names (iterable)",
+      "variable": "feature_names",
+      "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "0fab8160-c84b-4b10-bcfb-fe5b46bb949c"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Data",
       "short_name": "X",
       "description": "Data (numpy matrix)",
@@ -57,6 +74,23 @@
       "parameter_type": null,
       "order": 1,
       "uid": "8a70aad8-d56e-4362-93d7-584ae990c2ba"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Description",
+      "short_name": "dsc",
+      "description": "Dataset description",
+      "variable": "description",
+      "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
+      "required": false,
+      "parameter": true,
+      "multi": false,
+      "default": "",
+      "parameter_type": "textarea",
+      "order": 1,
+      "uid": "e6745f38-87a9-4c32-971c-a20f4e4fcf9a"
     }
   },
   {

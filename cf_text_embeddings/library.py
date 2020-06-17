@@ -154,5 +154,7 @@ def cf_text_embeddings_concatenate_embeddings(input_dict):
 def cf_text_embeddings_make_scikit_bunch(input_dict):
     from sklearn.datasets import base as ds
     dataset = ds.Bunch(data=input_dict['X'],
-                       target=input_dict['y'])
+                       target=input_dict['y'],
+                       feature_names=input_dict['feature_names'],
+                       DESCR=input_dict['description'])
     return {'dataset': dataset}
