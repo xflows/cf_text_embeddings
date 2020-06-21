@@ -6,6 +6,9 @@ from .base.embeddings_model import (TFIDF, EmbeddingsModelBert,
                                     EmbeddingsModelDoc2Vec,
                                     EmbeddingsModelElmo,
                                     EmbeddingsModelFastText,
+                                    EmbeddingsModelFastTextEmbedia,
+                                    EmbeddingsModelFastTextHr,
+                                    EmbeddingsModelFastTextSl,
                                     EmbeddingsModelGloVe, EmbeddingsModelLSI,
                                     EmbeddingsModelUniversalSentenceEncoder,
                                     EmbeddingsModelWord2Vec)
@@ -81,6 +84,20 @@ def cf_text_embeddings_fasttext(input_dict):
     return cf_text_embeddings_base(EmbeddingsModelFastText, input_dict)
 
 
+def cf_text_embeddings_fasttext_sl(input_dict):
+    input_dict['lang'] = 'sl'
+    return cf_text_embeddings_base(EmbeddingsModelFastTextSl, input_dict)
+
+
+def cf_text_embeddings_fasttext_embeddia(input_dict):
+    return cf_text_embeddings_base(EmbeddingsModelFastTextEmbedia, input_dict)
+
+
+def cf_text_embeddings_fasttext_hr(input_dict):
+    input_dict['lang'] = 'hr'
+    return cf_text_embeddings_base(EmbeddingsModelFastTextHr, input_dict)
+
+
 def cf_text_embeddings_elmo(input_dict):
     return cf_text_embeddings_base(EmbeddingsModelElmo, input_dict)
 
@@ -153,8 +170,6 @@ def cf_text_embeddings_concatenate_embeddings(input_dict):
 
 def cf_text_embeddings_make_scikit_bunch(input_dict):
     from sklearn.datasets import base as ds
-    dataset = ds.Bunch(data=input_dict['X'],
-                       target=input_dict['y'],
-                       feature_names=input_dict['feature_names'],
-                       DESCR=input_dict['description'])
+    dataset = ds.Bunch(data=input_dict['X'], target=input_dict['y'],
+                       feature_names=input_dict['feature_names'], DESCR=input_dict['description'])
     return {'dataset': dataset}

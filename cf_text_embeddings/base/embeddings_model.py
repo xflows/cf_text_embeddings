@@ -2,8 +2,6 @@ import logging
 from enum import Enum
 from os import path
 
-import numpy as np
-
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
@@ -16,6 +14,8 @@ from gensim.models import LsiModel, TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
+
+import numpy as np
 
 from .common import PROJECT_DATA_DIR, cf_text_embeddings_package_path
 
@@ -176,6 +176,33 @@ class EmbeddingsModelFastText(EmbeddingsModelBase):
 
     def _load_model(self):
         return FastTextKeyedVectors.load(self._path, mmap='r')
+
+
+class EmbeddingsModelFastTextHr(EmbeddingsModelFastText):
+    @staticmethod
+    def supported_models():
+        # https://www.clarin.si/repository/xmlui/handle/11356/1205
+        return {
+            'hr': 'embed.hr-token.ft.sg.vec.wv',
+        }
+
+
+class EmbeddingsModelFastTextSl(EmbeddingsModelFastText):
+    @staticmethod
+    def supported_models():
+        # https://www.clarin.si/repository/xmlui/handle/11356/1204
+        return {
+            'sl': 'embed.sl-token.ft.sg.wv',
+        }
+
+
+class EmbeddingsModelFastTextEmbedia(EmbeddingsModelFastText):
+    @staticmethod
+    def supported_models():
+        # https://kt-cloud.ijs.si/index.php/apps/files/?dir=/embeddia/Data/embeddings_models/fastText&fileid=156407
+        return {
+            'sl': 'sl-embs300.vec.wv',
+        }
 
 
 class EmbeddingsModelDoc2Vec(EmbeddingsModelBase):
