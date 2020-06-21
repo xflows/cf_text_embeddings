@@ -1,0 +1,152 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "fastText Embeddia",
+      "action": "cf_text_embeddings_fasttext_embeddia",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "FastText Embeddia project",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
+      "variable": "texts",
+      "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "3a74883e-7ed2-444a-ad6b-2fe7c8a7ec94"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "variable": "lang_selector",
+      "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 6,
+      "uid": "3e7b0561-f29e-4214-a7e3-f13b38a000b8"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model",
+      "variable": "lang",
+      "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "sl",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "3ee8a1c8-6956-480c-a95f-d5c6fa5e8b39"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
+      "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 2,
+      "uid": "7fb56e3e-2324-4df8-84c0-033cc02bfaa4"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation.",
+      "variable": "aggregation_method",
+      "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 2,
+      "uid": "d375fd7a-5ea8-4765-923d-5b5fa8b394ab"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
+      "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
+      "order": 1,
+      "uid": "aa538e1d-54cd-4ebe-a00c-377d90f1b753"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d375fd7a-5ea8-4765-923d-5b5fa8b394ab",
+      "name": "Average",
+      "value": "average",
+      "uid": "3fd1a064-28c7-4667-b413-4db1ecf9223c"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d375fd7a-5ea8-4765-923d-5b5fa8b394ab",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "7843b068-b9ad-4b16-b8e0-b75de870f4ff"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "3ee8a1c8-6956-480c-a95f-d5c6fa5e8b39",
+      "name": "Slovenian",
+      "value": "sl",
+      "uid": "dc1a8aa7-abf1-4f28-a3d2-960274abcb88"
+    }
+  }
+]

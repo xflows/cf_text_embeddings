@@ -1,0 +1,109 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "fastText Croatian",
+      "action": "cf_text_embeddings_fasttext_hr",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "CLARIN.SI-embed.hr contains word embeddings induced from a large collection of Croatian texts composed of the Croatian web corpus hrWaC and a 400-million-token-heavy collection of newspaper texts. The embeddings are based on the skip-gram model of fastText trained on 1,852,631,924 tokens of running text for (1) 1,742,837 lowercased surface forms (e.g., \"hrvatske\") and (2).",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
+      "widget": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 2,
+      "uid": "62a09ec0-7f24-4aeb-8079-6fd408d88786"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation.",
+      "variable": "aggregation_method",
+      "widget": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 2,
+      "uid": "8642eaa2-bf6c-4b8c-8056-5b1e2a25c911"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
+      "variable": "texts",
+      "widget": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "c02124e9-3930-47ea-a1fb-5956ec274474"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
+      "widget": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
+      "order": 1,
+      "uid": "698b3d90-2dad-4bea-9960-76506a5c18ce"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "8642eaa2-bf6c-4b8c-8056-5b1e2a25c911",
+      "name": "Average",
+      "value": "average",
+      "uid": "0a63e099-bbb5-47fd-a96f-b2e628f647a9"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "8642eaa2-bf6c-4b8c-8056-5b1e2a25c911",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "24064e54-b967-4b5c-9273-b27bde7d229d"
+    }
+  }
+]

@@ -1,0 +1,109 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "fastText Slovenian",
+      "action": "cf_text_embeddings_fasttext_sl",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "CLARIN.SI-embed.sl contains word embeddings induced from a large collection of Slovene texts composed of existing corpora of Slovene, e.g GigaFida, Janes, KAS, slWaC etc. The embeddings are based on the skip-gram model of fastText trained on 3,557,125,771 tokens of running text for (1) 2,466,596 lowercased surface forms (e.g., \"slovenije\").",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation.",
+      "variable": "aggregation_method",
+      "widget": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 2,
+      "uid": "7a92303d-18ef-40e3-966e-d7716da8bbd3"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Word tokens",
+      "variable": "texts",
+      "widget": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "86070fbf-ca79-4da7-9faf-541f880f72e0"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "TF-IDF",
+      "short_name": "tdf",
+      "description": "Term Frequency Inverse Document Frequency model",
+      "variable": "tfidf",
+      "widget": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 2,
+      "uid": "d2c5d9fa-ade1-40f1-b7d1-e7ddcf6a8f3c"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
+      "widget": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
+      "order": 1,
+      "uid": "366ef506-ec9e-4a6d-9260-2d483497b8f6"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "7a92303d-18ef-40e3-966e-d7716da8bbd3",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "a7413330-94a1-4047-8e0d-93c8d47c66cf"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "7a92303d-18ef-40e3-966e-d7716da8bbd3",
+      "name": "Average",
+      "value": "average",
+      "uid": "d9c52fe3-84d0-46f6-b618-24b65b436fb8"
+    }
+  }
+]
