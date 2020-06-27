@@ -4,8 +4,9 @@ import zipfile
 from os import path, remove, rename
 
 import gitlab
-import requests
 import transformers
+
+import requests
 
 from .base.common import PROJECT_DATA_DIR, ensure_dir
 
@@ -30,8 +31,14 @@ def download_model(gitlab_path, local_filename):
 def download_bert_model():
     print('Downloading Bert Model')
     model_class = transformers.BertModel
-    pretrained_weights = 'bert-base-uncased'
-    model_class.from_pretrained(pretrained_weights)
+    pretrained_weights_list = [
+        'bert-base-uncased',
+        'bert-base-multilingual-uncased',
+        'distilbert-base-multilingual-cased',
+    ]
+    for pretrained_weights in pretrained_weights_list:
+        print('Downloading', pretrained_weights)
+        model_class.from_pretrained(pretrained_weights)
 
 
 def unzip_file(zip_filepath):
@@ -117,7 +124,8 @@ def main():
                 process_models_for_language(project, models_dir, language)
         else:
             process_models_for_language(project, models_dir, language)
-        download_bert_model()
+        if language == 'multi':
+            download_bert_model()
     else:
         parser.print_help()
 

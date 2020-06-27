@@ -5,8 +5,6 @@ from os import path
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
-import torch
-import transformers
 from elmoformanylangs import Embedder
 from gensim import corpora
 from gensim.corpora import Dictionary
@@ -14,6 +12,9 @@ from gensim.models import LsiModel, TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
+from transformers import BertModel, pipeline
+
+import numpy as np
 
 import numpy as np
 
@@ -314,41 +315,21 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
 
 
 class EmbeddingsModelHuggingface(EmbeddingsModelBase):
-    def __init__(self, model_class, tokenizer_class, pretrained_weights, vector_size, max_seq):
-        self.model_class = model_class
-        self.tokenizer_class = tokenizer_class
-        self.pretrained_weights = pretrained_weights
-        self._max_seq = max_seq
-        self._vector_size = vector_size
+    def __init__(self, model_name, tokenizer, vector_size):
+        self.model_name = model_name
+        self.tokenizer = tokenizer
+        self.vector_size = vector_size
         self._model = None
-        self._tokenizer = None
 
     def _load_model(self):
-        self._tokenizer = self.tokenizer_class.from_pretrained(self.pretrained_weights)
-        self._model = self.model_class.from_pretrained(self.pretrained_weights)
+        self._model = pipeline('feature-extraction', model=self.model_name,
+                               tokenizer=self.tokenizer)
         return self._model
 
-    @staticmethod
-    def tokenize_text(tokenizer, texts, max_seq):
-        return [tokenizer.encode(text, add_special_tokens=True)[:max_seq] for text in texts]
-
-    @staticmethod
-    def pad_text(tokenized_text, max_seq):
-        return np.array([el + [0] * (max_seq - len(el)) for el in tokenized_text])
-
-    @classmethod
-    def tokenize_and_pad_text(cls, tokenizer, texts, max_seq):
-        tokenized_text = cls.tokenize_text(tokenizer, texts, max_seq)
-        padded_text = cls.pad_text(tokenized_text, max_seq)
-        return torch.tensor(padded_text)
-
     def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
-        embeddings = np.zeros((len(documents_tokens), self._vector_size))
+        embeddings = np.zeros((len(documents_tokens), self.vector_size))
         for i, document_tokens in enumerate(documents_tokens):
-            input_ids = self.tokenize_and_pad_text(self._tokenizer, [document_tokens],
-                                                   self._max_seq)
-            results = model(input_ids)[0]
-            document_embedding = results.cpu().detach().numpy().squeeze(axis=0)
+            document_embedding = np.array(self._model(document_tokens)[0])
             if document_embedding.size > 0:
                 embeddings[i] = aggregate_document_embeddings(document_embedding,
                                                               aggregation_method)
@@ -356,11 +337,56 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
 
 
 class EmbeddingsModelBert(EmbeddingsModelHuggingface):
-    def __init__(self, model_class=transformers.BertModel,
-                 tokenizer_class=transformers.BertTokenizer, pretrained_weights='bert-base-uncased',
-                 vector_size=768, max_seq=100):
-        # Model source: https://tfhub.dev/google/bert_multi_cased_L-12_H-768_A-12/1
-        super().__init__(model_class, tokenizer_class, pretrained_weights, vector_size, max_seq)
+    def __init__(self, model):
+        supported_models = self.supported_models()
+        model_conf = supported_models[model]
+        self.model_name = model_conf['model_name']
+        self.tokenizer = model_conf['tokenizer']
+        self.vector_size = model_conf['vector_size']
+        super().__init__(self.model_name, self.tokenizer, self.vector_size)
+
+    @staticmethod
+    def supported_models():
+        return {
+            # model source: https://huggingface.co/transformers/pretrained_models.html
+            'bert-base-uncased': {
+                'model_name': 'bert-base-uncased',
+                'tokenizer': 'bert-base-uncased',
+                'vector_size': 768,
+            },
+            'bert-base-multilingual-uncased': {
+                'model_name': 'bert-base-multilingual-uncased',
+                'tokenizer': 'bert-base-multilingual-uncased',
+                'vector_size': 768,
+            },
+            'distilbert-base-multilingual-cased': {
+                'model_name': 'distilbert-base-multilingual-cased',
+                'tokenizer': 'distilbert-base-multilingual-cased',
+                'vector_size': 768,
+            },
+        }
+
+
+class EmbeddingsModelBertEmbeddia(EmbeddingsModelBert):
+    def __init__(self, model):
+        super().__init__(model=model)
+
+    def _load_model(self):
+        model_path = cf_text_embeddings_model_path('multi', self.model_name)
+        model = BertModel.from_pretrained(model_path)
+        self._model = pipeline('feature-extraction', model=model, tokenizer=self.tokenizer)
+        return self._model
+
+    @staticmethod
+    def supported_models():
+        return {
+            # https://www.clarin.si/repository/xmlui/handle/11356/1317
+            'CroSloEngualBert': {
+                'model_name': 'CroSloEngualBert',
+                'tokenizer': 'bert-base-uncased',
+                'vector_size': 768,
+            }
+        }
 
 
 class EmbeddingsModelLSI(EmbeddingsModelBase):

@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_bert",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "Bidirectional Encoder Representations from Transformers (BERT) is a technique for NLP (Natural Language Processing) pre-training developed by Google. BERT was created and published in 2018 by Jacob Devlin and his colleagues from Google. Google is leveraging BERT to better understand user searches.",
       "category": "64066a04-05fe-4d9a-b380-f2627846a232",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -43,6 +43,23 @@
     }
   },
   {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Model Selection",
+      "short_name": "mod",
+      "description": "bert-base-multilingual-uncased - 12-layer, 768-hidden, 12-heads, 110M parameters.\r\nTrained on lower-cased text in the top 102 languages with the largest Wikipedias\r\n\r\nbert-base-uncased - 12-layer, 768-hidden, 12-heads, 110M parameters.\r\nTrained on lower-cased English text.\r\n\r\ndistilbert-base-multilingual-cased - Distil* is a class of compressed models that started with DistilBERT. DistilBERT stands for Distillated-BERT. DistilBERT is a small, fast, cheap and light Transformer model based on Bert architecture.",
+      "variable": "model_selection",
+      "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "bert-base-multilingual-uncased",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "d1da6a36-c372-4045-8ef1-f95168e2bbef"
+    }
+  },
+  {
     "model": "workflows.abstractoutput",
     "fields": {
       "name": "Embeddings",
@@ -52,6 +69,33 @@
       "widget": "43827ef5-f7ad-4d92-9c93-17b54d127540",
       "order": 1,
       "uid": "8b2a6f5c-3ecb-4830-b327-c4b130126a03"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d1da6a36-c372-4045-8ef1-f95168e2bbef",
+      "name": "bert-base-multilingual-uncased",
+      "value": "bert-base-multilingual-uncased",
+      "uid": "26d92f53-93b5-49bf-8f43-2c496dfedc68"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d1da6a36-c372-4045-8ef1-f95168e2bbef",
+      "name": "bert-base-uncased",
+      "value": "bert-base-uncased",
+      "uid": "738e5eeb-f9da-47c8-b6af-a8e3fb2f579a"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "d1da6a36-c372-4045-8ef1-f95168e2bbef",
+      "name": "distilbert-base-multilingual-cased",
+      "value": "distilbert-base-multilingual-cased",
+      "uid": "86a6b6b7-3b6c-4e63-a51c-547f3f8a4bee"
     }
   }
 ]

@@ -1,0 +1,83 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "BERT Embeddia",
+      "action": "cf_text_embeddings_bert_embeddia",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "BERT model trained for Embeddia project.",
+      "category": "64066a04-05fe-4d9a-b380-f2627846a232",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "4aa9c792-0aff-4ba3-8834-7b87269b95d8",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Model Selection",
+      "short_name": "mod",
+      "description": "CroSloEngualBert - Trilingual BERT (Bidirectional Encoder Representations from Transformers) model, trained on Croatian, Slovenian, and English data. State of the art tool representing words/tokens as contextually dependent word embeddings, used for various NLP classification tasks by finetuning the model end-to-end. CroSloEngual BERT are neural network weights and configuration files in pytorch format (ie. to be used with pytorch library).",
+      "variable": "model_selection",
+      "widget": "4aa9c792-0aff-4ba3-8834-7b87269b95d8",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "CroSloEngualBert",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "90e4f271-79ad-400b-b9ad-c974a217c2c8"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Document tokens",
+      "short_name": "txt",
+      "description": "Document tokens",
+      "variable": "texts",
+      "widget": "4aa9c792-0aff-4ba3-8834-7b87269b95d8",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "c3c6adf5-4f10-4fd3-b9c5-514b8de57cd1"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embeddings",
+      "variable": "embeddings",
+      "widget": "4aa9c792-0aff-4ba3-8834-7b87269b95d8",
+      "order": 1,
+      "uid": "b18ef5fb-1fe1-4846-b4b5-dcd97557860f"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "90e4f271-79ad-400b-b9ad-c974a217c2c8",
+      "name": "CroSloEngualBert",
+      "value": "CroSloEngualBert",
+      "uid": "6731ad0f-b9a4-4a93-b734-b5e5ca532996"
+    }
+  }
+]

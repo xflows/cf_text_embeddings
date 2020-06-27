@@ -2,8 +2,6 @@ import unittest
 import warnings
 from os import path
 
-import transformers
-
 import numpy as np
 
 from ..base.common import PROJECT_DATA_DIR
@@ -75,22 +73,12 @@ class EmbeddingsModelTest(unittest.TestCase):
             return
 
         documents_tokens = doc_tokens()
-        model_class = transformers.BertModel
-        tokenizer_class = transformers.BertTokenizer
-        pretrained_weights = 'bert-base-uncased'
-
-        embeddings_model = EmbeddingsModelBert(
-            model_class=model_class,
-            tokenizer_class=tokenizer_class,
-            pretrained_weights=pretrained_weights,
-            vector_size=768,
-            max_seq=100,
-        )
+        embeddings_model = EmbeddingsModelBert('bert-base-uncased')
         embeddings = embeddings_model.apply(documents_tokens,
                                             aggregation_method=AggregationMethod.average.value)
         actual_X = embeddings[:, :2]
 
-        expected_X = np.array([[0.13997224, -0.12020198], [0.27512622, 0.04447067]])
+        expected_X = np.array([[-0.22724754, -0.42256614], [0.28956912, -0.16998145]])
         self.assertEqual(True, np.allclose(expected_X, actual_X, atol=1e-03))
 
     def test_elmo_model(self):

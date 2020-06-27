@@ -3,6 +3,7 @@ import numpy as np
 from .base import io, tokenizers
 from .base.common import load_numpy_array, map_checkbox_value, to_float, to_int
 from .base.embeddings_model import (TFIDF, EmbeddingsModelBert,
+                                    EmbeddingsModelBertEmbeddia,
                                     EmbeddingsModelDoc2Vec,
                                     EmbeddingsModelElmo,
                                     EmbeddingsModelFastText,
@@ -120,7 +121,17 @@ def cf_text_embeddings_lsi(input_dict):
 def cf_text_embeddings_bert(input_dict):
     texts = input_dict['texts']
 
-    embeddings_model = EmbeddingsModelBert()
+    model = input_dict['model_selection']
+    embeddings_model = EmbeddingsModelBert(model)
+    embeddings = embeddings_model.apply(texts)
+    return {'embeddings': embeddings}
+
+
+def cf_text_embeddings_bert_embeddia(input_dict):
+    texts = input_dict['texts']
+
+    model = input_dict['model_selection']
+    embeddings_model = EmbeddingsModelBertEmbeddia(model)
     embeddings = embeddings_model.apply(texts)
     return {'embeddings': embeddings}
 
