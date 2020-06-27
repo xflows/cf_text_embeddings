@@ -34,11 +34,13 @@ def download_bert_model():
     pretrained_weights_list = [
         'bert-base-uncased',
         'bert-base-multilingual-uncased',
-        'distilbert-base-multilingual-cased',
     ]
     for pretrained_weights in pretrained_weights_list:
         print('Downloading', pretrained_weights)
         model_class.from_pretrained(pretrained_weights)
+
+    model_class = transformers.DistilBertModel
+    model_class.from_pretrained('distilbert-base-multilingual-cased')
 
 
 def unzip_file(zip_filepath):
