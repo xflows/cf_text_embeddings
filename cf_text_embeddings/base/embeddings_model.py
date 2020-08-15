@@ -16,8 +16,6 @@ from transformers import BertModel, pipeline
 
 import numpy as np
 
-import numpy as np
-
 from .common import PROJECT_DATA_DIR, cf_text_embeddings_package_path
 
 # disable logs because they are output as messages in clowdflows
@@ -418,8 +416,10 @@ class TFIDF:
         self.dictionary = None
         self.id2token = {}
 
-    def train(self, documents_tokens):
+    def train(self, documents_tokens, filter_extremes, no_below, no_above):
         self.dictionary = Dictionary(documents_tokens)  # fit dictionary
+        if filter_extremes:
+            self.dictionary.filter_extremes(no_below=no_below, no_above=no_above)
         # id2token is lazy initialized in gensim
         self.id2token = {v: k for k, v in self.dictionary.token2id.items()}
         corpus = [self.dictionary.doc2bow(document_tokens) for document_tokens in documents_tokens]

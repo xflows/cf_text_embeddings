@@ -28,6 +28,40 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "no_above",
+      "short_name": "noa",
+      "description": "Keep tokens which are contained in no more than no_above documents (fraction of total corpus size, not an absolute number).",
+      "variable": "no_above",
+      "widget": "cf3eebf9-c9a1-4393-a3ad-7b2b5889f0a3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "0.5",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "35e8641b-f368-4bc8-9c46-19ce4f7286a2"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Filter extremes",
+      "short_name": "fex",
+      "description": "Filter out tokens in the dictionary by their frequency.",
+      "variable": "filter_extremes",
+      "widget": "cf3eebf9-c9a1-4393-a3ad-7b2b5889f0a3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "true",
+      "parameter_type": "checkbox",
+      "order": 1,
+      "uid": "49a10ec4-5306-492b-8325-ad4c4bba7a9d"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "Word tokens",
       "short_name": "tok",
       "description": "Word tokens",
@@ -40,6 +74,23 @@
       "parameter_type": null,
       "order": 4,
       "uid": "8be1b9b0-ea84-4322-a09a-36d396c02ba3"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "no_below",
+      "short_name": "nob",
+      "description": "Keep tokens which are contained in at least no_below documents.",
+      "variable": "no_below",
+      "widget": "cf3eebf9-c9a1-4393-a3ad-7b2b5889f0a3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "5",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "9711d550-831f-40be-baa6-465b0643a4b1"
     }
   },
   {

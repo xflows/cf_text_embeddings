@@ -56,9 +56,16 @@ def cf_text_embeddings_token_filtering(input_dict):
 
 def cf_text_embeddings_tfidf(input_dict):
     assert 'texts' in input_dict, 'Text is missing'
+    assert 'filter_extremes' in input_dict, 'filter_extremes is missing'
+    assert 'no_below' in input_dict, 'no_below is missing'
+    assert 'no_above' in input_dict, 'no_above is missing'
+
+    filter_extremes = map_checkbox_value(input_dict['filter_extremes'])
+    no_below = to_int(input_dict['no_below'], 5)
+    no_above = to_float(input_dict['no_above'], 0.5)
 
     tfidf = TFIDF()
-    tfidf.train(input_dict['texts'])
+    tfidf.train(input_dict['texts'], filter_extremes, no_below, no_above)
     return {'tfidf': tfidf}
 
 
