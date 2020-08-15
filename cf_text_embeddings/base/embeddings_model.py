@@ -416,10 +416,12 @@ class TFIDF:
         self.dictionary = None
         self.id2token = {}
 
-    def train(self, documents_tokens, filter_extremes, no_below, no_above):
+    def train(self, documents_tokens, filter_extremes=True, no_below=5, no_above=0.5):
         self.dictionary = Dictionary(documents_tokens)  # fit dictionary
         if filter_extremes:
             self.dictionary.filter_extremes(no_below=no_below, no_above=no_above)
+            if len(self.dictionary) == 0:
+                raise Exception('Disable filter extremes as it removes all tokens')
         # id2token is lazy initialized in gensim
         self.id2token = {v: k for k, v in self.dictionary.token2id.items()}
         corpus = [self.dictionary.doc2bow(document_tokens) for document_tokens in documents_tokens]

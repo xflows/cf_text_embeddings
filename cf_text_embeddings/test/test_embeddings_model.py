@@ -120,7 +120,7 @@ class TFIDFTest(unittest.TestCase):
     def test_word2vec_model_with_tfidf(self):
         documents_tokens = word_tokens()
         tfidf_model = TFIDF()
-        tfidf_model.train(documents_tokens)
+        tfidf_model.train(documents_tokens, filter_extremes=False)
 
         embeddings_model = EmbeddingsModelWord2Vec('test')
         actual_X = embeddings_model.apply(documents_tokens, AggregationMethod.average.value,
@@ -132,7 +132,7 @@ class TFIDFTest(unittest.TestCase):
     def test_tfidf_model_calculate_document_weights(self):
         documents_tokens = word_tokens_repeated_words()
         tfidf_model = TFIDF()
-        tfidf_model.train(documents_tokens)
+        tfidf_model.train(documents_tokens, filter_extremes=False)
         documents_weights_expected = {
             'Nintendo': 0.4472135954999579,
             'games': 0.4472135954999579,
