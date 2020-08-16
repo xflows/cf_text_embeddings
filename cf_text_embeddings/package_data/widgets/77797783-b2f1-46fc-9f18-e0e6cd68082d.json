@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_tok_tok_tokenizer",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "The tok-tok tokenizer is a simple, general tokenizer, where the input has one\r\nsentence per line; thus only final period is tokenized.\r\n\r\nTok-tok has been tested on, and gives reasonably good results for English,\r\nPersian, Russian, Czech, French, German, Vietnamese, Tajik, and a few others.\r\nThe input should be in UTF-8 encoding.\r\n\r\nReference:\r\nJon Dehdari. 2014. A Neurophysiologically-Inspired Statistical Language\r\nModel (Doctoral dissertation). Columbus, OH, USA: The Ohio State University.",
       "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -28,9 +28,9 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Text",
+      "name": "Document tokens",
       "short_name": "txt",
-      "description": "Documents texts",
+      "description": "Documents [list of str].",
       "variable": "texts",
       "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
       "required": true,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Documents text tokenized to words",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "77797783-b2f1-46fc-9f18-e0e6cd68082d",
       "order": 1,

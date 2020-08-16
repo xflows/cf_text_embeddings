@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_fasttext_sl",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "CLARIN.SI-embed.sl contains word embeddings induced from a large collection of Slovene texts composed of existing corpora of Slovene, e.g GigaFida, Janes, KAS, slWaC etc. The embeddings are based on the skip-gram model of fastText trained on 3,557,125,771 tokens of running text for (1) 2,466,596 lowercased surface forms (e.g., \"slovenije\").",
+      "description": "CLARIN.SI-embed.sl contains word embeddings induced from a large collection of Slovene texts composed of existing corpora of Slovene, e.g GigaFida, Janes, KAS, slWaC etc. The embeddings are based on the skip-gram model of fastText trained on 3,557,125,771 tokens of running text for (1) 2,466,596 lowercased surface forms (e.g., \"slovenije\").\r\n\r\nhttps://www.clarin.si/repository/xmlui/handle/11356/1204",
       "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Word tokens",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
       "required": true,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "TF-IDF",
       "short_name": "tdf",
-      "description": "Term Frequency Inverse Document Frequency model",
+      "description": "Term Frequency Inverse Document Frequency model [TFIDF instance]",
       "variable": "tfidf",
       "widget": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
       "required": false,
@@ -81,7 +81,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats].",
       "variable": "embeddings",
       "widget": "c79ef8ba-fdb3-4423-9a24-cf71c41f8980",
       "order": 1,

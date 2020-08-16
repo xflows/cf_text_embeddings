@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_glove",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "GloVe is an unsupervised learning algorithm for obtaining vector representations for words[3]. Training is performed on aggregated global word-word co-occurrence statistics from a corpus, and the resulting representations showcase interesting linear substructures of the word vector space.",
       "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Word tokens",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "f400f371-3a40-4238-b839-d371febaafca",
       "required": true,
@@ -47,7 +47,7 @@
     "fields": {
       "name": "TF-IDF",
       "short_name": "tdf",
-      "description": "Term Frequency Inverse Document Frequency model",
+      "description": "Term Frequency Inverse Document Frequency model [TFIDF instance]",
       "variable": "tfidf",
       "widget": "f400f371-3a40-4238-b839-d371febaafca",
       "required": false,
@@ -98,7 +98,7 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "description": "Language of the embeddings model. It overrides the one in the widget [str].",
       "variable": "lang_selector",
       "widget": "f400f371-3a40-4238-b839-d371febaafca",
       "required": false,
@@ -115,7 +115,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats].",
       "variable": "embeddings",
       "widget": "f400f371-3a40-4238-b839-d371febaafca",
       "order": 1,

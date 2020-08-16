@@ -64,7 +64,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Word tokens",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "cf3eebf9-c9a1-4393-a3ad-7b2b5889f0a3",
       "required": true,

@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_doc2vec",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "Doc2vec is an unsupervised algorithm to generate vectors for sentence/paragraphs/documents. The algorithm is an adaptation of Word2Vec which can generate vectors for words.",
       "category": "64066a04-05fe-4d9a-b380-f2627846a232",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Word tokens",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
       "required": true,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "description": "Language of the embeddings model. It overrides the one in the widget [str].",
       "variable": "lang_selector",
       "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
       "required": false,
@@ -81,7 +81,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats].",
       "variable": "embeddings",
       "widget": "9e7db261-a733-4764-bc76-5ea0badc4ebb",
       "order": 1,

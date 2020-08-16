@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_universal_sentence_encoder",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "The Universal Sentence Encoder encodes text into high dimensional vectors that can be used for text classification, semantic similarity, clustering and other natural language tasks[6]. The model is trained and optimized for greater-than-word length text, such as sentences, phrases or short paragraphs. It is trained on a variety of data sources and a variety of tasks with the aim of dynamically accommodating a wide variety of natural language understanding tasks.",
       "category": "c15657c5-4927-4ea6-b48f-e6a26c011a7c",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Sentence tokens",
       "short_name": "sen",
-      "description": "Sentence tokens",
+      "description": "Documents tokenized to sentences [list of lists with str].",
       "variable": "texts",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "required": true,
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "description": "Language of the embeddings model. It overrides the one in the widget [str].",
       "variable": "lang_selector",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "required": false,
@@ -98,7 +98,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats].",
       "variable": "embeddings",
       "widget": "6e75e115-aeda-4868-a473-9eb5cce36090",
       "order": 1,

@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_bert_embeddia",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "BERT model trained for Embeddia project.",
+      "description": "Trilingual BERT (Bidirectional Encoder Representations from Transformers) model, trained on Croatian, Slovenian, and English data. State of the art tool representing words/tokens as contextually dependent word embeddings, used for various NLP classification tasks by finetuning the model end-to-end. CroSloEngual BERT are neural network weights and configuration files in pytorch format (ie. to be used with pytorch library).\r\n\r\nReference:\r\nhttps://www.clarin.si/repository/xmlui/handle/11356/1317",
       "category": "64066a04-05fe-4d9a-b380-f2627846a232",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Document tokens",
       "short_name": "txt",
-      "description": "Document tokens",
+      "description": "Documents [list of str]",
       "variable": "texts",
       "widget": "4aa9c792-0aff-4ba3-8834-7b87269b95d8",
       "required": true,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats]",
       "variable": "embeddings",
       "widget": "4aa9c792-0aff-4ba3-8834-7b87269b95d8",
       "order": 1,

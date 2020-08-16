@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_punkt_tokenizer",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "This tokenizer divides a text into a list of sentences\r\nby using an unsupervised algorithm to build a model for abbreviation\r\nwords, collocations, and words that start sentences.  It must be\r\ntrained on a large collection of plaintext in the target language\r\nbefore it can be used.",
       "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -45,9 +45,9 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Text",
+      "name": "Document tokens",
       "short_name": "txt",
-      "description": "Documents texts",
+      "description": "Documents [list of str].",
       "variable": "texts",
       "widget": "a29d5623-6079-47b4-bb10-eced801d38e1",
       "required": true,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Sentence tokens",
       "short_name": "sen",
-      "description": "Documents text tokenized to sentences",
+      "description": "Documents tokenized to sentences [list of lists with str].",
       "variable": "texts",
       "widget": "a29d5623-6079-47b4-bb10-eced801d38e1",
       "order": 1,

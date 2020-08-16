@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_fasttext_embeddia",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "FastText Embeddia project",
+      "description": "FastText Embeddia project\r\n\r\nhttps://kt-cloud.ijs.si/index.php/apps/files/?dir=/embeddia/Data/embeddings_models/fastText&fileid=156407",
       "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Word tokens",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
       "required": true,
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "Language of the embeddings model. It overrides the one in the widget.",
+      "description": "Language of the embeddings model. It overrides the one in the widget [str].",
       "variable": "lang_selector",
       "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
       "required": false,
@@ -81,7 +81,7 @@
     "fields": {
       "name": "TF-IDF",
       "short_name": "tdf",
-      "description": "Term Frequency Inverse Document Frequency model",
+      "description": "Term Frequency Inverse Document Frequency model [TFIDF instance]",
       "variable": "tfidf",
       "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
       "required": false,
@@ -115,7 +115,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats].",
       "variable": "embeddings",
       "widget": "5e483f0a-1110-4978-81e5-8a06ee7719ee",
       "order": 1,

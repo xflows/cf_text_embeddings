@@ -30,7 +30,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Word tokens",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
       "required": true,
@@ -115,7 +115,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats].",
       "variable": "embeddings",
       "widget": "bab8c1e5-0ef5-42d0-8f50-e11b5e52d1b5",
       "order": 1,

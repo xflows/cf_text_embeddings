@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_fasttext_hr",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "CLARIN.SI-embed.hr contains word embeddings induced from a large collection of Croatian texts composed of the Croatian web corpus hrWaC and a 400-million-token-heavy collection of newspaper texts. The embeddings are based on the skip-gram model of fastText trained on 1,852,631,924 tokens of running text for (1) 1,742,837 lowercased surface forms (e.g., \"hrvatske\") and (2).",
+      "description": "CLARIN.SI-embed.hr contains word embeddings induced from a large collection of Croatian texts composed of the Croatian web corpus hrWaC and a 400-million-token-heavy collection of newspaper texts. The embeddings are based on the skip-gram model of fastText trained on 1,852,631,924 tokens of running text for (1) 1,742,837 lowercased surface forms (e.g., \"hrvatske\") and (2) 1,404,515 lowercased lemmas with added part-of-speech information (e.g., \"hrvatska#Np\").\r\n\r\nhttps://www.clarin.si/repository/xmlui/handle/11356/1205",
       "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "TF-IDF",
       "short_name": "tdf",
-      "description": "Term Frequency Inverse Document Frequency model",
+      "description": "Term Frequency Inverse Document Frequency model [TFIDF instance]",
       "variable": "tfidf",
       "widget": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
       "required": false,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Word tokens",
       "short_name": "tok",
-      "description": "Word tokens",
+      "description": "Documents tokenized to words [list of lists with str].",
       "variable": "texts",
       "widget": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
       "required": true,
@@ -81,7 +81,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embeddings [N x K NumPy matrix of floats].",
       "variable": "embeddings",
       "widget": "dd1a48bd-36d5-4270-95a5-723ffaab5123",
       "order": 1,
