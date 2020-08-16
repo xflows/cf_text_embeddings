@@ -30,7 +30,7 @@
     "fields": {
       "name": "Embedding",
       "short_name": "emb",
-      "description": "Embedding (numpy matrix of dimensions n_docs X n_features)",
+      "description": "Embedding [numpy matrix of dimensions n_docs X n_features]",
       "variable": "embedding",
       "widget": "7ba55e94-d1af-4708-9b93-f7fd92424fae",
       "required": true,
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Embedding",
       "short_name": "emb",
-      "description": "Concatenated embeddings (numpy matrix of dimensions n_docs X SUM(n_features)",
+      "description": "Concatenated embeddings [numpy matrix of dimensions n_docs X SUM(n_features)]",
       "variable": "concat_embeddings",
       "widget": "7ba55e94-d1af-4708-9b93-f7fd92424fae",
       "order": 1,

@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_export_dataset",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "Export embeddings to a file",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
       "visualization_view": "cf_text_embeddings_export_dataset",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Dataset",
       "short_name": "odt",
-      "description": "Dataset with embeddings and labels",
+      "description": "Dataset with embeddings and labels [Orange Data Table]",
       "variable": "dataset",
       "widget": "93be5a58-73c4-4601-9b49-cc74db4aef82",
       "required": true,

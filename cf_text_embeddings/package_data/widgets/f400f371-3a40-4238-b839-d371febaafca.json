@@ -115,7 +115,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings [N x K NumPy matrix of floats].",
+      "description": "Embedding [numpy matrix of dimensions n_docs X n_features]",
       "variable": "embeddings",
       "widget": "f400f371-3a40-4238-b839-d371febaafca",
       "order": 1,

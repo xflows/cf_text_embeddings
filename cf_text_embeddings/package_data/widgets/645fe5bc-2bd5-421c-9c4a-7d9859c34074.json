@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_create_dataset",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "Combine embeddings and labels to a Dataset [Orange Data Table].",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings",
+      "description": "Embedding [numpy matrix of dimensions n_docs X n_features]",
       "variable": "embeddings",
       "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
       "required": true,
@@ -45,9 +45,9 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
-      "name": "Labels",
+      "name": "Document Labels",
       "short_name": "lab",
-      "description": "Labels",
+      "description": "Document Labels [list of str]",
       "variable": "labels",
       "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
       "required": false,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Orange Data Table",
       "short_name": "odt",
-      "description": "Dataset",
+      "description": "Dataset [Orange Data Table]",
       "variable": "dataset",
       "widget": "645fe5bc-2bd5-421c-9c4a-7d9859c34074",
       "order": 1,

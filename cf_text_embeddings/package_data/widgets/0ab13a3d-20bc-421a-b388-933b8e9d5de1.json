@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_language",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "This widget can be used to set a language to multiple Text Embeddings widgets.",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Language",
       "short_name": "lan",
-      "description": "Language of the embeddings model",
+      "description": "Language of the embeddings model [str].",
       "variable": "lang_selector",
       "widget": "0ab13a3d-20bc-421a-b388-933b8e9d5de1",
       "order": 1,

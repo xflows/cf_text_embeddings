@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_import_dataset",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "Import dataset from a NumPy matrix of embeddings and NumPy matrix of labels.",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
       "visualization_view": "",
       "streaming_visualization_view": "",
@@ -30,7 +30,7 @@
     "fields": {
       "name": "Embeddings",
       "short_name": "emb",
-      "description": "Embeddings are a 2D Numpy array. If you used the Export dataset widget it is x.npy.",
+      "description": "Embeddings are a 2D Numpy array. If you used the Export dataset widget it is x.npy [file]",
       "variable": "x_path",
       "widget": "b4a64279-a528-489a-b245-64a44477350e",
       "required": true,
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Labels",
       "short_name": "lbs",
-      "description": "Labels are a 1D numpy array with features. If you used the Export dataset widget it is y.npy.",
+      "description": "Labels are a 1D numpy array with features. If you used the Export dataset widget it is y.npy [file]",
       "variable": "y_path",
       "widget": "b4a64279-a528-489a-b245-64a44477350e",
       "required": true,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Dataset",
       "short_name": "ds",
-      "description": "Dataset with embeddings and labels",
+      "description": "Dataset with embeddings and labels [Orange Data Table]",
       "variable": "dataset",
       "widget": "b4a64279-a528-489a-b245-64a44477350e",
       "order": 1,

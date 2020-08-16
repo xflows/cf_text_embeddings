@@ -30,7 +30,7 @@
     "fields": {
       "name": "Feature names",
       "short_name": "nam",
-      "description": "Feature names (iterable)",
+      "description": "Feature names [iterable]",
       "variable": "feature_names",
       "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
       "required": false,
@@ -47,7 +47,7 @@
     "fields": {
       "name": "Data",
       "short_name": "X",
-      "description": "Data (numpy matrix)",
+      "description": "Data [numpy matrix]",
       "variable": "X",
       "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
       "required": true,
@@ -64,7 +64,7 @@
     "fields": {
       "name": "Target",
       "short_name": "y",
-      "description": "Target (numpy matrix)",
+      "description": "Target [numpy matrix]",
       "variable": "y",
       "widget": "c178c3ce-1836-4ae9-a7bc-84928e67566c",
       "required": false,

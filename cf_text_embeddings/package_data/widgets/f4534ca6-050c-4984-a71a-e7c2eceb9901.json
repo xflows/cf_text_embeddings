@@ -81,7 +81,7 @@
     "fields": {
       "name": "Input",
       "short_name": "inp",
-      "description": "Input can be a file.",
+      "description": "Input can be a file [file].",
       "variable": "input",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "required": true,
@@ -115,7 +115,7 @@
     "fields": {
       "name": "Label",
       "short_name": "lab",
-      "description": "Documents labels",
+      "description": "Documents labels [list of str].",
       "variable": "labels",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "order": 2,
@@ -127,7 +127,7 @@
     "fields": {
       "name": "Text",
       "short_name": "txt",
-      "description": "Documents texts",
+      "description": "Documents texts [list of str].",
       "variable": "texts",
       "widget": "f4534ca6-050c-4984-a71a-e7c2eceb9901",
       "order": 1,
