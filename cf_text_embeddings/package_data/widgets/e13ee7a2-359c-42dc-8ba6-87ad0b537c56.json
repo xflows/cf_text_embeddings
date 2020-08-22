@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_token_filtering",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "Token Filtering widget filters uninformative characters. The default filter filters: !, \", #, $, %, &, \"\", (, ), *, +, ,', -, ., /, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, :, ;, <, =, >, ?, @, [, \\, ], ^, _, {, |, }.\r\nYou can specify custom tokens to filter, which need to be separated by a new line. Custom tokens override the default filter.",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
       "visualization_view": "",
       "streaming_visualization_view": "",
