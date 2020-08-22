@@ -2,6 +2,7 @@ import logging
 from enum import Enum
 from os import path
 
+import numpy as np
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
@@ -13,8 +14,6 @@ from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
 from transformers import BertModel, pipeline
-
-import numpy as np
 
 from .common import PROJECT_DATA_DIR, cf_text_embeddings_package_path
 
@@ -295,20 +294,15 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
         }
 
     def _load_model(self):
-        return Embedder(self._path)
+        return Embedder(self._path, batch_size=64)
 
     def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
         model.model.eval()
         embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
-        batch_size = 100
 
-        doc_index = 0
-        for i in range(0, len(documents_tokens), batch_size):
-            documents_embeddings = model.sents2elmo(documents_tokens[i:i + batch_size])
-            for document_embeddings in documents_embeddings:
-                embeddings[doc_index] = aggregate_document_embeddings(document_embeddings,
-                                                                      aggregation_method)
-                doc_index += 1
+        documents_embeddings = model.sents2elmo(documents_tokens)
+        for i, document_embeddings in enumerate(documents_embeddings):
+            embeddings[i] = aggregate_document_embeddings(document_embeddings, aggregation_method)
         return embeddings
 
 
