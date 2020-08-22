@@ -1,0 +1,74 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Regex Word Tokenizer",
+      "action": "cf_text_embeddings_regex_word_tokenizer",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "The regex word tokenizer is a simple tokenizer that tokenizes a document with '\\w+' regex to words. It can also transform document text to lowercase.",
+      "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "1b7bd212-9465-46ce-be5d-ec5ae4342f8a",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Text to lowercase",
+      "short_name": "tlc",
+      "description": "Transform text to lowercase",
+      "variable": "to_lowercase",
+      "widget": "1b7bd212-9465-46ce-be5d-ec5ae4342f8a",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "true",
+      "parameter_type": "checkbox",
+      "order": 1,
+      "uid": "ef3d0a10-65f0-4e42-a32a-66d6531cbb07"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Document tokens",
+      "short_name": "txt",
+      "description": "Documents [list of str].",
+      "variable": "texts",
+      "widget": "1b7bd212-9465-46ce-be5d-ec5ae4342f8a",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "fd85bb01-0ed4-4ad1-ae3b-412f1957fee2"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Documents tokenized to words [list of lists with str].",
+      "variable": "texts",
+      "widget": "1b7bd212-9465-46ce-be5d-ec5ae4342f8a",
+      "order": 1,
+      "uid": "39136122-4953-477f-82a6-ecc56d98c7da"
+    }
+  }
+]

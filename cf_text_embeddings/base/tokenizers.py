@@ -1,5 +1,18 @@
+import re
+
 from nltk.data import load
 from nltk.tokenize import ToktokTokenizer
+
+
+def regex_word_tokenizer(documents, to_lowercase=True):
+    documents_tokens = []
+    rgx = re.compile("\w+", flags=re.UNICODE)
+    for document in documents:
+        if to_lowercase:
+            document = document.lower()
+        document_tokens = rgx.findall(document)
+        documents_tokens.append(document_tokens)
+    return documents_tokens
 
 
 def toktok_tokenizer(documents, to_lowercase=True):
