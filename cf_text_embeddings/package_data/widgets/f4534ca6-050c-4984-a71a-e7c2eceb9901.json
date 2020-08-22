@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_parse_csv",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "Load Corpus from CSV loads a file and extracts the document texts and labels into two lists.\r\n\r\nYou can specify to skip the first header row and specify the delimiter. In the case of tab-separated file, use \\t as a delimiter.  \r\n\r\nYou can also define the text and label columns (counting columns starts with 1).",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
       "visualization_view": "",
       "streaming_visualization_view": "",

@@ -1,13 +1,21 @@
 import unittest
 
-from ..base.tokenizers import (punkt_tokenizer, token_filtering,
-                               toktok_tokenizer)
+from ..base.tokenizers import (punkt_tokenizer, regex_word_tokenizer,
+                               token_filtering, toktok_tokenizer)
 
 
 class TestTokenizers(unittest.TestCase):
     def test_toktok_tokenizer(self):
         texts = ['this is some text', 'this is some other text']
         texts_tokenized = toktok_tokenizer(texts)
+        for i, text in enumerate(texts):
+            tokens = text.split(' ')
+            for j, token in enumerate(tokens):
+                self.assertEqual(token, texts_tokenized[i][j])
+
+    def test_regex_word_tokenizer(self):
+        texts = ['this is some text', 'this is some other text']
+        texts_tokenized = regex_word_tokenizer(texts)
         for i, text in enumerate(texts):
             tokens = text.split(' ')
             for j, token in enumerate(tokens):
