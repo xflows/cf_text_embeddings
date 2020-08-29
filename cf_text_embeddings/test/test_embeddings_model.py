@@ -7,6 +7,7 @@ import numpy as np
 from ..base.common import PROJECT_DATA_DIR
 from ..base.embeddings_model import (TFIDF, AggregationMethod,
                                      EmbeddingsModelBert, EmbeddingsModelElmo,
+                                     EmbeddingsModelElmoAllen,
                                      EmbeddingsModelLSI,
                                      EmbeddingsModelUniversalSentenceEncoder,
                                      EmbeddingsModelWord2Vec)
@@ -98,6 +99,23 @@ class EmbeddingsModelTest(unittest.TestCase):
         expected_X = np.array([[-0.13834494, -0.26584834]])
         self.assertEqual(True, np.allclose(expected_X, actual_X[0, :], atol=1e-03))
         self.assertEqual(3, actual_X.shape[0])
+
+    def test_elmo_allen_model(self):
+        slovenian_elmo = path.join(PROJECT_DATA_DIR, 'models', 'sl', 'slovenian-elmo-embedia')
+        if not path.exists(slovenian_elmo):
+            warnings.warn(
+                'Test test_elmo_allen_model not executed, you need to download slovenian elmo model'
+            )
+            return
+
+        words = word_tokens()
+        model = EmbeddingsModelElmoAllen('sl')
+        embeddings = model.apply(words, aggregation_method=AggregationMethod.average.value)
+
+        actual_X = embeddings[:, :2]
+        expected_X = np.array([[-1.19756973, -0.62998658]])
+        self.assertEqual(True, np.allclose(expected_X, actual_X[0, :], atol=1e-03))
+        self.assertEqual(2, actual_X.shape[0])
 
     def test_use_model(self):
         use_en = path.join(PROJECT_DATA_DIR, 'models', 'en', 'universal_sentence_encoder_english')

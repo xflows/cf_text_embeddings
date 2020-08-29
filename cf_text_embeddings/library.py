@@ -6,6 +6,7 @@ from .base.embeddings_model import (TFIDF, EmbeddingsModelBert,
                                     EmbeddingsModelBertEmbeddia,
                                     EmbeddingsModelDoc2Vec,
                                     EmbeddingsModelElmo,
+                                    EmbeddingsModelElmoAllen,
                                     EmbeddingsModelFastText,
                                     EmbeddingsModelFastTextEmbedia,
                                     EmbeddingsModelFastTextHr,
@@ -117,6 +118,10 @@ def cf_text_embeddings_fasttext_hr(input_dict):
 
 def cf_text_embeddings_elmo(input_dict):
     return cf_text_embeddings_base(EmbeddingsModelElmo, input_dict)
+
+
+def cf_text_embeddings_elmo_embedia(input_dict):
+    return cf_text_embeddings_base(EmbeddingsModelElmoAllen, input_dict)
 
 
 def cf_text_embeddings_lsi(input_dict):

@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
 import tf_sentencepiece  # NOQA # pylint: disable=unused-import
+from allennlp.commands.elmo import ElmoEmbedder
 from elmoformanylangs import Embedder
 from gensim import corpora
 from gensim.corpora import Dictionary
@@ -264,6 +265,43 @@ class EmbeddingsModelUniversalSentenceEncoder(EmbeddingsModelBase):
                 continue
             document_embedding = session.run(embedded_text, feed_dict={text_input: document_tokens})
             embeddings[i] = aggregate_document_embeddings(document_embedding, aggregation_method)
+        return embeddings
+
+
+class EmbeddingsModelElmoAllen(EmbeddingsModelBase):
+    def __init__(self, lang):
+        super().__init__(lang)
+        self.embeddings_size = 1024
+        self._options_path = path.join(self._path, 'options.json')
+        self._weights_path = path.join(self._path, lang + '-elmo-weights.hdf5')
+
+    @staticmethod
+    def supported_models():
+        # All models are from: https://www.clarin.si/repository/xmlui/handle/11356/1277
+        return {
+            'fi': 'finnish-elmo-embedia',
+            'sl': 'slovenian-elmo-embedia',
+            'hr': 'croatian-elmo-embedia',
+            'lt': 'lithuanian-elmo-embedia',
+            'lv': 'latvian-elmo-embedia',
+            'es': 'estonian-elmo-embedia',
+            'se': 'swedish-elmo-embedia',
+        }
+
+    def _load_model(self):
+        return ElmoEmbedder(weight_file=self._weights_path, options_file=self._options_path)
+
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf,
+                              layers_aggregation=AggregationMethod.summation.value):
+        embeddings = np.zeros((len(documents_tokens), self.embeddings_size))
+
+        documents_embeddings = model.embed_sentences(documents_tokens)
+        for i, document_embeddings_layers in enumerate(documents_embeddings):
+            # aggregate layers of document embeddings
+            document_embeddings = aggregate_document_embeddings(document_embeddings_layers,
+                                                                layers_aggregation)
+            # combine document words to embedding
+            embeddings[i] = aggregate_document_embeddings(document_embeddings, aggregation_method)
         return embeddings
 
 
