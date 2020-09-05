@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_fasttext_embeddia",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "FastText Embeddia project\r\n\r\nhttps://kt-cloud.ijs.si/index.php/apps/files/?dir=/embeddia/Data/embeddings_models/fastText&fileid=156407",
+      "description": "fastText embeddings trained on Slovenian Gigafida 2.0 corpus. A skipgram model was trained with default hyperparameters on 8 threads, except for the following two changes: dim parameter was set to 300 and minCount parameter was set to 20. That is, we calculated 300-dimensional word vectors of every word that appears at least 20 times in the corpus.\r\n\r\nEach line in the .vec file consists of the word, followed by the 300 dimensional vector, all fields are space separated. The first line (642655 300) tells, there are 642655 word vectors of 300 dimensions.\r\n\r\nhttps://kt-cloud.ijs.si/index.php/apps/files/?dir=/embeddia/Data/embeddings_models/fastText&fileid=156407",
       "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
       "visualization_view": "",
       "streaming_visualization_view": "",
