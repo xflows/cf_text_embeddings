@@ -284,7 +284,7 @@ class EmbeddingsModelElmoAllen(EmbeddingsModelBase):
             'hr': 'croatian-elmo-embedia',
             'lt': 'lithuanian-elmo-embedia',
             'lv': 'latvian-elmo-embedia',
-            'es': 'estonian-elmo-embedia',
+            'ee': 'estonian-elmo-embedia',
             'se': 'swedish-elmo-embedia',
         }
 
