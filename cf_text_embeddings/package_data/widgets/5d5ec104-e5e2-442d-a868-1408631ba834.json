@@ -1,0 +1,189 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "ELMo Embedia",
+      "action": "cf_text_embeddings_elmo_embedia",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "ELMo language model (https://github.com/allenai/bilm-tf) used to produce contextual word embeddings, trained on large monolingual corpora for 7 languages: Slovenian, Croatian, Finnish, Estonian, Latvian, Lithuanian and Swedish.\r\nEach language's model was trained for approximately 10 epochs. Corpora sizes used in training range from over 270 M tokens in Latvian to almost 2 B tokens in Croatian. About 1 million most common tokens were provided as vocabulary during the training for each language model. The model can also infer OOV words, since the neural network input is on the character level.",
+      "category": "c15657c5-4927-4ea6-b48f-e6a26c011a7c",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "5d5ec104-e5e2-442d-a868-1408631ba834",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model. It overrides the one in the widget [str].",
+      "variable": "lang_selector",
+      "widget": "5d5ec104-e5e2-442d-a868-1408631ba834",
+      "required": false,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 6,
+      "uid": "4306ce75-537b-4805-abdd-0484a47b6c23"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Word tokens",
+      "short_name": "tok",
+      "description": "Documents tokenized to words [list of lists with str].",
+      "variable": "texts",
+      "widget": "5d5ec104-e5e2-442d-a868-1408631ba834",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 4,
+      "uid": "46d58cf2-a201-4ca0-8b25-7c251146bfd4"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Language",
+      "short_name": "lan",
+      "description": "Language of the embeddings model",
+      "variable": "lang",
+      "widget": "5d5ec104-e5e2-442d-a868-1408631ba834",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "fi",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "55be5d5e-1655-4b45-86b8-263f58805993"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Combine token embeddings to a single vector by averaging or summation.",
+      "variable": "aggregation_method",
+      "widget": "5d5ec104-e5e2-442d-a868-1408631ba834",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "5fbd73f1-3109-407f-86f0-325de9ba11a3"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embeddings",
+      "short_name": "emb",
+      "description": "Embedding [numpy matrix of dimensions n_docs X n_features]",
+      "variable": "embeddings",
+      "widget": "5d5ec104-e5e2-442d-a868-1408631ba834",
+      "order": 1,
+      "uid": "2a94e63f-4519-4f58-90fa-e04707c9a910"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "5fbd73f1-3109-407f-86f0-325de9ba11a3",
+      "name": "Average",
+      "value": "average",
+      "uid": "00921eb7-ac26-4013-93da-0b1123202cec"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "5fbd73f1-3109-407f-86f0-325de9ba11a3",
+      "name": "Summation",
+      "value": "summation",
+      "uid": "1b629515-a501-40ae-8f6d-1f302b251e7d"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "55be5d5e-1655-4b45-86b8-263f58805993",
+      "name": "Lithuanian",
+      "value": "lt",
+      "uid": "706e103b-7f33-41fe-9874-36a8d009fe51"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "55be5d5e-1655-4b45-86b8-263f58805993",
+      "name": "Swedish",
+      "value": "se",
+      "uid": "7bd10bce-038a-4852-9c4d-9a11709870f0"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "55be5d5e-1655-4b45-86b8-263f58805993",
+      "name": "Slovenian",
+      "value": "sl",
+      "uid": "88751f16-1d9f-48f5-b56e-137687e56e02"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "55be5d5e-1655-4b45-86b8-263f58805993",
+      "name": "Finish",
+      "value": "fi",
+      "uid": "c700fc7e-8d10-4f35-a90e-169dcadb3d39"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "55be5d5e-1655-4b45-86b8-263f58805993",
+      "name": "Croatian",
+      "value": "hr",
+      "uid": "c8468b59-b07b-4de5-96e5-da6c521c1120"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "55be5d5e-1655-4b45-86b8-263f58805993",
+      "name": "Estonian",
+      "value": "ee",
+      "uid": "ea1c169c-3f2f-434f-bd1a-cb8fada343a5"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "55be5d5e-1655-4b45-86b8-263f58805993",
+      "name": "Latvian",
+      "value": "lv",
+      "uid": "f7b4c971-205a-443d-8de8-ed598ed8109f"
+    }
+  }
+]
