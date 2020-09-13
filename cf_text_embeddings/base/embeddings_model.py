@@ -14,7 +14,9 @@ from gensim.models import LsiModel, TfidfModel
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.keyedvectors import (FastTextKeyedVectors,
                                         Word2VecKeyedVectors)
-from transformers import BertModel, pipeline
+from torch import tensor
+from transformers import (BertModel, BertTokenizer, DistilBertModel,
+                          DistilBertTokenizer, pipeline)
 
 from .common import PROJECT_DATA_DIR, cf_text_embeddings_package_path
 
@@ -344,7 +346,7 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
         return embeddings
 
 
-class EmbeddingsModelHuggingface(EmbeddingsModelBase):
+class EmbeddingsModelHuggingfacePipeline(EmbeddingsModelBase):
     def __init__(self, model_name, tokenizer, vector_size):
         self.model_name = model_name
         self.tokenizer = tokenizer
@@ -360,6 +362,38 @@ class EmbeddingsModelHuggingface(EmbeddingsModelBase):
         embeddings = np.zeros((len(documents_tokens), self.vector_size))
         for i, document_tokens in enumerate(documents_tokens):
             document_embedding = np.array(self._model(document_tokens)[0])
+            if document_embedding.size > 0:
+                embeddings[i] = aggregate_document_embeddings(document_embedding,
+                                                              aggregation_method)
+        return embeddings
+
+
+class EmbeddingsModelHuggingface(EmbeddingsModelBase):
+    def __init__(self, model_name, tokenizer, vector_size):
+        self.model_name = model_name
+        self.tokenizer_name = tokenizer
+        self.vector_size = vector_size
+        self._tokenizer = None
+        self._model = None
+
+    def _load_model(self):
+        if 'distil' in self.model_name:
+            self._tokenizer = DistilBertTokenizer.from_pretrained(self.tokenizer_name)
+            self._model = DistilBertModel.from_pretrained(self.model_name)
+        else:
+            self._tokenizer = BertTokenizer.from_pretrained(self.tokenizer_name)
+            self._model = BertModel.from_pretrained(self.model_name)
+        return self._model
+
+    def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
+        embeddings = np.zeros((len(documents_tokens), self.vector_size))
+        for i, document_tokens in enumerate(documents_tokens):
+            token_ids = tensor([
+                self._tokenizer.encode_plus(document_tokens, padding=True,
+                                            truncation=True)['input_ids']
+            ])
+            results = self._model(token_ids)[0]
+            document_embedding = results.cpu().detach().numpy().squeeze(axis=0)
             if document_embedding.size > 0:
                 embeddings[i] = aggregate_document_embeddings(document_embedding,
                                                               aggregation_method)
@@ -402,9 +436,9 @@ class EmbeddingsModelBertEmbeddia(EmbeddingsModelBert):
         super().__init__(model=model)
 
     def _load_model(self):
+        self._tokenizer = BertTokenizer.from_pretrained(self.tokenizer_name)
         model_path = cf_text_embeddings_model_path('multi', self.model_name)
-        model = BertModel.from_pretrained(model_path)
-        self._model = pipeline('feature-extraction', model=model, tokenizer=self.tokenizer)
+        self._model = BertModel.from_pretrained(model_path)
         return self._model
 
     @staticmethod
