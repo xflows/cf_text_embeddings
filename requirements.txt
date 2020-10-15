@@ -4,7 +4,7 @@ tensorflow<=2.0.0
 tensorflow-hub
 tf-sentencepiece
 sentencepiece
-elmoformanylangs
+elmoformanylangs==0.0.3
 python-gitlab
 transformers
 Orange3
