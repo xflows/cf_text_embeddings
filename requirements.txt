@@ -6,7 +6,7 @@ tf-sentencepiece
 sentencepiece
 elmoformanylangs==0.0.3
 python-gitlab
-transformers
+transformers==3.1.0
 Orange3==3.26.0
 nltk
 allennlp==0.9
