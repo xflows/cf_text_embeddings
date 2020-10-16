@@ -7,6 +7,6 @@ sentencepiece
 elmoformanylangs==0.0.3
 python-gitlab
 transformers
-Orange3
+Orange3==3.26.0
 nltk
 allennlp==0.9
