@@ -5,7 +5,6 @@ from os import path
 import numpy as np
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
-import tf_sentencepiece  # NOQA # pylint: disable=unused-import
 from allennlp.commands.elmo import ElmoEmbedder
 from elmoformanylangs import Embedder
 from gensim import corpora
