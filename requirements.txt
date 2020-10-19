@@ -1,10 +1,9 @@
 gensim
 numpy
-tensorflow<=2.0.0
+tensorflow
 tensorflow-hub
-tf-sentencepiece
 sentencepiece
-elmoformanylangs==0.0.3
+elmoformanylangs
 python-gitlab
 transformers
 Orange3
