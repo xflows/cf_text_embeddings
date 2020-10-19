@@ -2,7 +2,8 @@ import numpy as np
 
 from .base import io, tokenizers
 from .base.common import load_numpy_array, map_checkbox_value, to_float, to_int
-from .base.embeddings_model import (TFIDF, EmbeddingsModelBert,
+from .base.embeddings_model import (cf_text_embeddings_model_path,
+                                    TFIDF, EmbeddingsModelBert,
                                     EmbeddingsModelBertEmbeddia,
                                     EmbeddingsModelDoc2Vec,
                                     EmbeddingsModelElmo,
@@ -155,6 +156,29 @@ def cf_text_embeddings_bert_embeddia(input_dict):
     embeddings_model = EmbeddingsModelBertEmbeddia(model)
     embeddings = embeddings_model.apply(texts)
     return {'embeddings': embeddings}
+
+
+def cf_text_embeddings_bert_hate_speech(input_dict):
+    import torch
+    import transformers as tr
+
+    tokenizer = tr.BertTokenizer.from_pretrained('bert-base-uncased')
+    model_path = cf_text_embeddings_model_path('multi', 'ml_bert_hate_speech')
+    model = tr.BertForSequenceClassification.from_pretrained(model_path)
+
+    labels = []
+    probabilities = []
+    for doc in input_dict['texts']:
+        tokenized = tokenizer.encode_plus(doc, return_tensors='pt', add_special_tokens=True, max_length=256, truncation=True)
+        result = model(input_ids=tokenized['input_ids'], attention_mask=tokenized['attention_mask'])
+        probs = torch.nn.functional.softmax(result.logits, dim=1)[0].tolist()
+        if probs[0] > probs[1]:
+            labels.append('HATE')
+            probabilities.append(probs[0])
+        else:
+            labels.append('NORMAL')
+            probabilities.append(probs[1])
+    return {'labels': labels, 'probabilities': probabilities}
 
 
 def cf_text_embeddings_universal_sentence_encoder(input_dict):
