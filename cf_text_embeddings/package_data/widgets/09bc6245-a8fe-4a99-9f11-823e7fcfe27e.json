@@ -1,0 +1,69 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "ML BERT for hate speech",
+      "action": "cf_text_embeddings_bert_hate_speech",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This is a multilingual BERT for hate speech classification. The model was trained by Adra\u017e Pelicon.",
+      "category": "64066a04-05fe-4d9a-b380-f2627846a232",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "09bc6245-a8fe-4a99-9f11-823e7fcfe27e",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Document tokens",
+      "short_name": "txt",
+      "description": "Documents [list of str]",
+      "variable": "texts",
+      "widget": "09bc6245-a8fe-4a99-9f11-823e7fcfe27e",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "551aa1f3-d9dd-453c-ac3c-17bcc5663b3d"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Probabilities",
+      "short_name": "prb",
+      "description": "Probabilities [list of float]",
+      "variable": "probabilities",
+      "widget": "09bc6245-a8fe-4a99-9f11-823e7fcfe27e",
+      "order": 1,
+      "uid": "07f78cb8-7674-4325-bdef-1b43c6d6ae4e"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Labels",
+      "short_name": "lab",
+      "description": "Labels [list of str]",
+      "variable": "labels",
+      "widget": "09bc6245-a8fe-4a99-9f11-823e7fcfe27e",
+      "order": 1,
+      "uid": "407b4c96-4b90-44a1-8e6b-67700157a138"
+    }
+  }
+]
