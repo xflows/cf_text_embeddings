@@ -5,7 +5,7 @@ tensorflow-hub
 sentencepiece
 elmoformanylangs
 python-gitlab
-transformers==3.1.0
-Orange3==3.26.0
+transformers
+Orange3
 nltk
 allennlp==0.9
