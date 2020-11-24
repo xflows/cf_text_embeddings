@@ -1,3 +1,4 @@
+import os
 import numpy as np
 
 from .base import io, tokenizers
@@ -166,18 +167,37 @@ def cf_text_embeddings_bert_hate_speech(input_dict):
     model_path = cf_text_embeddings_model_path('multi', 'ml_bert_hate_speech')
     model = tr.BertForSequenceClassification.from_pretrained(model_path)
 
+    idx2label = {0: 'hate', 1: 'normal'}
     labels = []
     probabilities = []
     for doc in input_dict['texts']:
         tokenized = tokenizer.encode_plus(doc, return_tensors='pt', add_special_tokens=True, max_length=256, truncation=True)
-        result = model(input_ids=tokenized['input_ids'], attention_mask=tokenized['attention_mask'])
-        probs = torch.nn.functional.softmax(result.logits, dim=1)[0].tolist()
-        if probs[0] > probs[1]:
-            labels.append('HATE')
-            probabilities.append(probs[0])
-        else:
-            labels.append('NORMAL')
-            probabilities.append(probs[1])
+        result = model(input_ids=tokenized['input_ids'], attention_mask=tokenized['attention_mask'], return_dict=True)
+        probs = torch.nn.functional.softmax(result['logits'], dim=1)[0].tolist()
+        probabilities.append(probs)
+        labels.append(idx2label[np.argmax(probs)])
+    return {'labels': labels, 'probabilities': probabilities}
+
+
+def cf_text_embeddings_bert_sentiment(input_dict):
+    import torch
+    import transformers as tr
+
+    # This is how Andraz defined labels... (negative 0, neutral 1, positive 2)
+    idx2label = {i: x for i, x in enumerate(sorted(['positive', 'negative', 'neutral']))}
+    tokenizer = tr.BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+    model_path = cf_text_embeddings_model_path('multi', 'ml_bert_sentiment')
+    config = tr.BertConfig.from_pretrained(os.path.join(model_path, 'config.json'), num_labels=len(idx2label))
+    model = tr.BertForSequenceClassification.from_pretrained(model_path, config=config)
+
+    labels = []
+    probabilities = []
+    for doc in input_dict['texts']:
+        tokenized = tokenizer.encode_plus(doc, return_tensors='pt', add_special_tokens=True, max_length=512, truncation=True)
+        result = model(input_ids=tokenized['input_ids'], attention_mask=tokenized['attention_mask'], return_dict=True)
+        probs = torch.nn.functional.softmax(result['logits'], dim=1)[0].tolist()
+        probabilities.append(probs)
+        labels.append(idx2label[np.argmax(probs)])
     return {'labels': labels, 'probabilities': probabilities}
 
 
