@@ -33,3 +33,19 @@ def cf_text_embeddings_export_dataset(request, input_dict, output_dict, widget):
         'input_dict': input_dict,
         'output_dict': output_dict
     })
+
+
+def cf_text_embeddings_dataframe2csv(request, input_dict, output_dict, widget):
+    fname = path.join(str(request.user.id), str(uuid.uuid4()) + '.csv')
+    archive_local_filepath = path.join(get_media_root(), fname)
+    ensure_dir(archive_local_filepath)
+
+    df = input_dict['df']
+    df.to_csv(archive_local_filepath, index=False)
+
+    output_dict['filename'] = fname
+    return render(request, 'visualizations/string_to_file.html', {
+        'widget': widget,
+        'input_dict': input_dict,
+        'output_dict': output_dict
+    })

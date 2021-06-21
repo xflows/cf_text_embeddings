@@ -1,0 +1,69 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Detect language",
+      "action": "cf_text_embeddings_detect_language",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget detects the language of the corpus. It returns the most frequent language as well as the list of all other detected languages.",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "12d2cde2-6d98-49b0-ba58-f7550c22600b",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Corpus",
+      "short_name": "txt",
+      "description": "A list of documents [list of str]",
+      "variable": "corpus",
+      "widget": "12d2cde2-6d98-49b0-ba58-f7550c22600b",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "3f2354c7-5109-4458-ba9d-1ac277601248"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Most frequent language",
+      "short_name": "lan",
+      "description": "Language of the document (ISO 639-1 code)",
+      "variable": "main_lang",
+      "widget": "12d2cde2-6d98-49b0-ba58-f7550c22600b",
+      "order": 1,
+      "uid": "13e52441-a222-4731-9830-e3114e868fad"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Other languages",
+      "short_name": "otr",
+      "description": "Other detected languages [list of ISO 639-1 codes]",
+      "variable": "other_langs",
+      "widget": "12d2cde2-6d98-49b0-ba58-f7550c22600b",
+      "order": 1,
+      "uid": "417cb5dd-efa0-448d-bfc8-e14443ee6387"
+    }
+  }
+]

@@ -1,0 +1,108 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "fastText neighbouring words",
+      "action": "cf_text_embeddings_neighbouring_words",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget takes a fastText model and returns top k neighbouring words for each input word. Filtering of the neighbour list by edit distance is also available.",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "2704cbbe-1d39-45e9-be4f-d7c713c19dcc",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Words",
+      "short_name": "lst",
+      "description": "A list of input words [list of str]",
+      "variable": "words",
+      "widget": "2704cbbe-1d39-45e9-be4f-d7c713c19dcc",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "2a1772d1-117b-4d3d-bd35-9cb20115533a"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "num neighbours",
+      "short_name": "k",
+      "description": "Number of neighbours",
+      "variable": "k",
+      "widget": "2704cbbe-1d39-45e9-be4f-d7c713c19dcc",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "5",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "79117c33-890d-4401-bb8e-9f8b664d2f79"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Model",
+      "short_name": "mod",
+      "description": "A fastText model (model file as bytes compressed with zlib)",
+      "variable": "model",
+      "widget": "2704cbbe-1d39-45e9-be4f-d7c713c19dcc",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "b3c22f8e-4d1f-42f6-a437-622d00116a3c"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Threshold",
+      "short_name": "thr",
+      "description": "Edit distance threshold (1-no filtering, 0-very strict)",
+      "variable": "threshold",
+      "widget": "2704cbbe-1d39-45e9-be4f-d7c713c19dcc",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "1.0",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "f4859879-61ad-4eb1-8631-987672f9e033"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Neighbours",
+      "short_name": "lst",
+      "description": "A corpus of words and their neighbours [list of list of str]",
+      "variable": "neighbours",
+      "widget": "2704cbbe-1d39-45e9-be4f-d7c713c19dcc",
+      "order": 1,
+      "uid": "17bc079b-b7ef-45c4-974a-19a74c664afb"
+    }
+  }
+]

@@ -2,7 +2,7 @@
   {
     "model": "workflows.abstractwidget",
     "fields": {
-      "name": "Import dataset",
+      "name": "Import embeddings",
       "action": "cf_text_embeddings_import_dataset",
       "wsdl": "",
       "wsdl_method": "",

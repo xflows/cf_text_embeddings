@@ -1,0 +1,45 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "DataFrame to CSV",
+      "action": "cf_text_embeddings_dataframe2csv",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget writes a DataFrame to a CSV string.",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "cf_text_embeddings_dataframe2csv",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "ae6bddc7-3d42-4b39-b24d-268893217f67",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "DataFrame",
+      "short_name": "df",
+      "description": "Input DataFrame",
+      "variable": "df",
+      "widget": "ae6bddc7-3d42-4b39-b24d-268893217f67",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "67877ee7-ddba-4d4b-af3e-a98ff78471f7"
+    }
+  }
+]

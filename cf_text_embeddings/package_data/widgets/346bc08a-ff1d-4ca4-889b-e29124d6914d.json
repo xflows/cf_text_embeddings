@@ -1,0 +1,57 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "detokenize",
+      "action": "cf_text_embeddings_detokenize",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget joins lists of tokens into strings.",
+      "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "346bc08a-ff1d-4ca4-889b-e29124d6914d",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Tokenized documents",
+      "short_name": "tok",
+      "description": "Tokenized documents [list of list of str]",
+      "variable": "tokenized_docs",
+      "widget": "346bc08a-ff1d-4ca4-889b-e29124d6914d",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "a6745a77-ee85-4d7e-a258-fb0981d4a0a0"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Documents",
+      "short_name": "txt",
+      "description": "Documents [list of str]",
+      "variable": "doctexts",
+      "widget": "346bc08a-ff1d-4ca4-889b-e29124d6914d",
+      "order": 1,
+      "uid": "fdca36f6-331d-4d97-8444-5e9d4c99aa40"
+    }
+  }
+]

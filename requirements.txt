@@ -1,4 +1,4 @@
-gensim
+gensim==3.8.*
 numpy
 tensorflow
 tensorflow-hub
@@ -9,3 +9,7 @@ transformers
 Orange3==3.26.0
 nltk
 allennlp==0.9
+lemmagen3
+langdetect
+pandas
+editdistance

@@ -104,7 +104,7 @@
       "required": true,
       "parameter": true,
       "multi": false,
-      "default": "2",
+      "default": "",
       "parameter_type": "text",
       "order": 3,
       "uid": "e94be394-0e97-4a77-9aa6-6460717be19a"

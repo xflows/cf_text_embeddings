@@ -1,0 +1,143 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "train fastText",
+      "action": "cf_text_embeddings_train_fasttext",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget trains a fastText model. The input can be a raw corpus, sentence-split corpus or tokenized corpus.",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "package": "cf_text_embeddings",
+      "always_save_results": true,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "min_count",
+      "short_name": "min",
+      "description": "Minimal number of word occurences",
+      "variable": "minCount",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "5",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "41b57461-9ad6-4edb-b642-b6e268f2c22e"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "model",
+      "short_name": "mod",
+      "description": "Unsupervised fastText model",
+      "variable": "model",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "skipgram",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "457e4590-3721-4be6-be1d-c6330de4e598"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Corpus",
+      "short_name": "txt",
+      "description": "A list of documents [list of str]",
+      "variable": "corpus",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "6bc56ebd-2293-40e0-ad85-2158343f7393"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "window",
+      "short_name": "win",
+      "description": "Size of the context window",
+      "variable": "window",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "5",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "af4c0a45-8add-4b43-b899-7ace8561f1de"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "dimension",
+      "short_name": "dim",
+      "description": "Size of word vectors",
+      "variable": "dimension",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "50",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "ec4dbebc-8f35-4b05-902f-bd35d2304359"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Model",
+      "short_name": "mod",
+      "description": "A trained fastText model",
+      "variable": "model",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "order": 1,
+      "uid": "f8f44d9f-8612-4f64-a505-d7ecb7250390"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "457e4590-3721-4be6-be1d-c6330de4e598",
+      "name": "skipgram",
+      "value": "skipgram",
+      "uid": "6e037d81-d3a3-499a-805f-1b99bb5b09e7"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "457e4590-3721-4be6-be1d-c6330de4e598",
+      "name": "cbow",
+      "value": "cbow",
+      "uid": "ffb546cb-bcee-47c7-b03b-fc890a84aeb8"
+    }
+  }
+]

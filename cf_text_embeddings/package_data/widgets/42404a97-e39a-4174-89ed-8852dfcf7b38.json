@@ -1,0 +1,57 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Token frequency",
+      "action": "cf_text_embeddings_token_frequency",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget computes token frequencies on the input corpus",
+      "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "42404a97-e39a-4174-89ed-8852dfcf7b38",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Corpus",
+      "short_name": "tok",
+      "description": "A corpus [list of list of str]",
+      "variable": "corpus",
+      "widget": "42404a97-e39a-4174-89ed-8852dfcf7b38",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "bc0a5f81-1b48-4401-8a13-d303a6d5522c"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Frequencies",
+      "short_name": "frq",
+      "description": "Counts of all unique tokens",
+      "variable": "freqs",
+      "widget": "42404a97-e39a-4174-89ed-8852dfcf7b38",
+      "order": 1,
+      "uid": "d8c41348-e50e-410b-a167-7386c342d954"
+    }
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Lemmagen lemmatizer",
+      "action": "cf_text_embeddings_lemmatize_lemmagen",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget lemmatizes input tokens. It is based on the Lemmagen lemmatizer and suports 19 languages: bg, cs, de, en, es, et, fa, fr, hr, hu, it, mk, pl, ro, ru, sk, sl, sr, uk",
+      "category": "cb7fc8c2-0f8a-4bd6-a625-ed1a7ebe03a7",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "ae585405-04d2-4247-ad0e-eaba4a945b0d",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "language",
+      "short_name": "lan",
+      "description": "Language: bg, cs, de, en, es, et, fa, fr, hr, hu, it, mk, pl, ro, ru, sk, sl, sr, uk",
+      "variable": "language",
+      "widget": "ae585405-04d2-4247-ad0e-eaba4a945b0d",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "3b12c30b-249a-4a29-82f1-093b80749ee5"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Document tokens",
+      "short_name": "tok",
+      "description": "Tokenized documents [list of list of str]",
+      "variable": "tokenized_docs",
+      "widget": "ae585405-04d2-4247-ad0e-eaba4a945b0d",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "e0b06778-5f84-49c0-b0b4-7a77f730da8a"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Lemmatized document tokens",
+      "short_name": "tok",
+      "description": "Lemmatized documents [list of list of str]",
+      "variable": "lemmatized_docs",
+      "widget": "ae585405-04d2-4247-ad0e-eaba4a945b0d",
+      "order": 1,
+      "uid": "99865230-e3ed-43e3-b00a-08302cdca480"
+    }
+  }
+]

@@ -1,5 +1,15 @@
 import os
+import tempfile
+import zlib
 import numpy as np
+import pandas as pd
+import fasttext
+# from gensim.test.utils import datapath
+# from gensim.models.fasttext import load_facebook_model
+
+from lemmagen3 import Lemmatizer
+import langdetect
+import editdistance
 
 from .base import io, tokenizers
 from .base.common import load_numpy_array, map_checkbox_value, to_float, to_int
@@ -249,3 +259,122 @@ def cf_text_embeddings_make_scikit_bunch(input_dict):
     dataset = ds.Bunch(data=input_dict['X'], target=input_dict['y'],
                        feature_names=input_dict['feature_names'], DESCR=input_dict['description'])
     return {'dataset': dataset}
+
+
+def cf_text_embeddings_detokenize(input_dict):
+    return {'doctexts': [' '.join(doctokens) for doctokens in input_dict['tokenized_docs']]}
+
+
+def cf_text_embeddings_lemmatize_lemmagen(input_dict):
+    supported = ['bg', 'cs', 'de', 'en', 'es', 'et', 'fa', 'fr', 'hr', 'hu', 'it', 'mk', 'pl', 'ro', 'ru', 'sk', 'sl', 'sr', 'uk']
+    lang = input_dict['language']
+    if lang not in supported:
+        raise('Language {} is not supported in Lemmagen'.format(lang))
+    lem = Lemmatizer(input_dict['language'])
+    return{'lemmatized_docs': [[lem.lemmatize(token) for token in doctokens] for doctokens in input_dict['tokenized_docs']]}
+
+
+def cf_text_embeddings_detect_language(input_dict):
+    from collections import Counter
+    counts = Counter([langdetect.detect(doctext) for doctext in input_dict['corpus']]).most_common()
+    return {'main_lang': counts[0][0], 'other_langs': [x[0] for x in counts[1:]]}
+
+
+def cf_text_embeddings_train_fasttext(input_dict):
+    # from collections import Counter
+
+    corpus = input_dict['corpus']
+    if isinstance(corpus[0], str):
+        text = '\n'.join(corpus)
+    elif isinstance(corpus[0], list):
+        text = '\n'.join([' '.join(doctokens) for doctokens in corpus])
+    else:
+        raise ValueError('Invalid corpus data.')
+
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        corpuspath = os.path.join(tmpdirname, 'corpus.txt')
+        with open(corpuspath, 'w') as fp:
+            fp.write(text)
+        model = fasttext.train_unsupervised(corpuspath,
+                                            model=input_dict['model'],
+                                            dim=int(input_dict['dimension']),
+                                            minCount=int(input_dict['minCount']),
+                                            ws=int(input_dict['window']))
+        modelpath = os.path.join(tmpdirname, 'model.bin')
+        model.save_model(modelpath)
+        data = open(modelpath, 'rb').read()
+        cdata = zlib.compress(data, level=1)
+    return {'model': cdata}
+
+    # if input_dict['lemmatize']:
+    #     counts = Counter([langdetect.detect(doctext) for doctext in input_dict['corpus']]).most_common()
+    #     lang = counts[0][0]
+    #     lemmatizer = Lemmatizer(lang)
+    #     lem_corpus = ['\n'.join([' '.join([lemmatizer.lemmatize(token) for token in block.split()]) for block in doctext.split('\n')]) for doctext in input_dict['corpus']]
+    #     corpus = lem_corpus
+    # else:
+    #     corpus = input_dict['corpus']
+    #
+    # with tempfile.TemporaryDirectory() as tmpdirname:
+    #     corpuspath = os.path.join(tmpdirname, 'corpus.txt')
+    #     with open(corpuspath, 'w') as fp:
+    #         fp.write('\n'.join(corpus))
+    #     model = fasttext.train_unsupervised(corpuspath,
+    #                                         model=input_dict['model'],
+    #                                         dim=int(input_dict['dimension']),
+    #                                         minCount=int(input_dict['minCount']),
+    #                                         ws=int(input_dict['window']))
+    #     modelpath = os.path.join(tmpdirname, 'model')
+    #     model.save_model(modelpath)
+    #     fb_model = load_facebook_model(modelpath)
+    # return {'model': fb_model}
+
+
+def cf_text_embeddings_neighbouring_words(input_dict):
+
+    def filter_too_similar_by_editdistance(wordlist, compare_word, threshold=0.2):
+        return [w for w in wordlist if (1 - (float(editdistance.eval(w, compare_word)) / max(len(w), len(compare_word)))) <= threshold]
+
+    cdata = input_dict['model']
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        modelpath = os.path.join(tmpdirname, 'model.bin')
+        with open(modelpath, 'wb') as fp:
+            fp.write(zlib.decompress(cdata))
+        model = fasttext.load_model(modelpath)
+
+    k = int(input_dict['k'])
+    threshold = float(input_dict['threshold'])
+    result = []
+    for word in input_dict['words']:
+        if len(word.split()) != 1:
+            raise ValueError('Invalid input: more than one word per line!')
+        closest = [x[1] for x in model.get_nearest_neighbors(word, k*10)]  # rule of thumb: take 10x more neighbours
+        selected = filter_too_similar_by_editdistance(closest, word, threshold)[:k]
+        result.append([word] + selected)
+    return {'neighbours': result}
+
+
+def cf_text_embeddings_token_frequency(input_dict):
+    from collections import Counter
+    corpus = input_dict['corpus']
+    counts = Counter()
+    for doctokens in corpus:
+        counts.update(doctokens)
+    return {'freqs': [list(x) for x in counts.most_common()]}
+
+
+def cf_text_embeddings_corpus2dataframe(input_dict):
+    return {'df': pd.DataFrame().assign(**{'document': input_dict['corpus']})}
+
+
+def cf_text_embeddings_append_column(input_dict):
+    df = input_dict['df']
+    name = input_dict['column_name']
+    if not name:
+        raise ValueError('New column name not set!')
+    data = input_dict['column_data']
+    return {'df': df.assign(**{name: pd.Series(data)})}
+
+
+def cf_text_embeddings_dataframe2csv(input_dict):
+    return input_dict

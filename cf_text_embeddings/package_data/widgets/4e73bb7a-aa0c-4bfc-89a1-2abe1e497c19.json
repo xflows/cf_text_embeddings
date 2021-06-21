@@ -1,0 +1,91 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Append column to DataFrame",
+      "action": "cf_text_embeddings_append_column",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget appends a named column to a given data frame.",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "4e73bb7a-aa0c-4bfc-89a1-2abe1e497c19",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Column name",
+      "short_name": "nam",
+      "description": "",
+      "variable": "column_name",
+      "widget": "4e73bb7a-aa0c-4bfc-89a1-2abe1e497c19",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "5c9ddc44-5262-4c2f-95a5-a6ed5206a06a"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "DataFrame",
+      "short_name": "df",
+      "description": "Input DataFrame",
+      "variable": "df",
+      "widget": "4e73bb7a-aa0c-4bfc-89a1-2abe1e497c19",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "f183e270-6fc0-4893-ab17-c24a532a87f5"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Column data",
+      "short_name": "col",
+      "description": "New column",
+      "variable": "column_data",
+      "widget": "4e73bb7a-aa0c-4bfc-89a1-2abe1e497c19",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "ff52b3ee-a7d0-4119-9cd0-15f753d1c858"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "DataFrame",
+      "short_name": "df",
+      "description": "Output DataFrame",
+      "variable": "df",
+      "widget": "4e73bb7a-aa0c-4bfc-89a1-2abe1e497c19",
+      "order": 1,
+      "uid": "1832a5f8-d0ae-42db-a8b3-be8b31f7d12c"
+    }
+  }
+]
