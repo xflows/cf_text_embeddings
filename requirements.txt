@@ -13,3 +13,5 @@ lemmagen3
 langdetect
 pandas
 editdistance
+fasttext
+
