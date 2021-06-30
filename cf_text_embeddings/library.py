@@ -335,6 +335,16 @@ def cf_text_embeddings_neighbouring_words(input_dict):
     def filter_too_similar_by_editdistance(wordlist, compare_word, threshold=0.2):
         return [w for w in wordlist if (1 - (float(editdistance.eval(w, compare_word)) / max(len(w), len(compare_word)))) <= threshold]
 
+    def check_editdistance(target_word_list, compare_word, treshold=0.2):
+        farEnough = True
+        for w in target_word_list:
+            ed = 1 - (float(editdistance.eval(w, compare_word)) / max(len(w), len(compare_word)))
+            if ed > treshold:
+                farEnough = False
+                break
+        return farEnough
+
+
     cdata = input_dict['model']
     with tempfile.TemporaryDirectory() as tmpdirname:
         modelpath = os.path.join(tmpdirname, 'model.bin')
@@ -348,9 +358,14 @@ def cf_text_embeddings_neighbouring_words(input_dict):
     for word in input_dict['words']:
         if len(word.split()) != 1:
             raise ValueError('Invalid input: more than one word per line!')
-        closest = [x[1] for x in model.get_nearest_neighbors(word, k*10)]  # rule of thumb: take 10x more neighbours
-        selected = filter_too_similar_by_editdistance(closest, word, threshold)[:k]
-        result.append([word] + selected)
+
+        word_neighbours = [word]
+        for d, candidate in model.get_nearest_neighbors(word, k*50):  # rule of thumb
+            if check_editdistance(word_neighbours, candidate, threshold):
+                word_neighbours.append(candidate)
+                if len(word_neighbours) == k + 1:
+                    break
+        result.append(word_neighbours)
     return {'neighbours': result}
 
 
