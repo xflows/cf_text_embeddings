@@ -5,7 +5,6 @@ from os import path
 import numpy as np
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
-from allennlp.commands.elmo import ElmoEmbedder
 from elmoformanylangs import Embedder
 from gensim import corpora
 from gensim.corpora import Dictionary
@@ -290,6 +289,7 @@ class EmbeddingsModelElmoAllen(EmbeddingsModelBase):
         }
 
     def _load_model(self):
+        from allennlp.commands.elmo import ElmoEmbedder
         return ElmoEmbedder(weight_file=self._weights_path, options_file=self._options_path)
 
     def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf,
