@@ -5,7 +5,6 @@ from os import path
 import numpy as np
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
-from elmoformanylangs import Embedder
 from gensim import corpora
 from gensim.corpora import Dictionary
 from gensim.models import LsiModel, TfidfModel
@@ -333,6 +332,7 @@ class EmbeddingsModelElmo(EmbeddingsModelBase):
         }
 
     def _load_model(self):
+        from elmoformanylangs import Embedder
         return Embedder(self._path, batch_size=64)
 
     def _tokens_to_embeddings(self, model, documents_tokens, aggregation_method, tfidf):
