@@ -9,7 +9,6 @@ import fasttext
 
 from lemmagen3 import Lemmatizer
 import langdetect
-import editdistance
 
 from .base import io, tokenizers
 from .base.common import load_numpy_array, map_checkbox_value, to_float, to_int
@@ -276,13 +275,11 @@ def cf_text_embeddings_lemmatize_lemmagen(input_dict):
 
 def cf_text_embeddings_detect_language(input_dict):
     from collections import Counter
-    counts = Counter([langdetect.detect(doctext) for doctext in input_dict['corpus']]).most_common()
+    counts = Counter([langdetect.detect(doctext[:100]) for doctext in input_dict['corpus']]).most_common()
     return {'main_lang': counts[0][0], 'other_langs': [x[0] for x in counts[1:]]}
 
 
 def cf_text_embeddings_train_fasttext(input_dict):
-    # from collections import Counter
-
     corpus = input_dict['corpus']
     if isinstance(corpus[0], str):
         text = '\n'.join(corpus)
@@ -306,51 +303,11 @@ def cf_text_embeddings_train_fasttext(input_dict):
         cdata = zlib.compress(data, level=1)
     return {'model': cdata}
 
-    # if input_dict['lemmatize']:
-    #     counts = Counter([langdetect.detect(doctext) for doctext in input_dict['corpus']]).most_common()
-    #     lang = counts[0][0]
-    #     lemmatizer = Lemmatizer(lang)
-    #     lem_corpus = ['\n'.join([' '.join([lemmatizer.lemmatize(token) for token in block.split()]) for block in doctext.split('\n')]) for doctext in input_dict['corpus']]
-    #     corpus = lem_corpus
-    # else:
-    #     corpus = input_dict['corpus']
-    #
-    # with tempfile.TemporaryDirectory() as tmpdirname:
-    #     corpuspath = os.path.join(tmpdirname, 'corpus.txt')
-    #     with open(corpuspath, 'w') as fp:
-    #         fp.write('\n'.join(corpus))
-    #     model = fasttext.train_unsupervised(corpuspath,
-    #                                         model=input_dict['model'],
-    #                                         dim=int(input_dict['dimension']),
-    #                                         minCount=int(input_dict['minCount']),
-    #                                         ws=int(input_dict['window']))
-    #     modelpath = os.path.join(tmpdirname, 'model')
-    #     model.save_model(modelpath)
-    #     fb_model = load_facebook_model(modelpath)
-    # return {'model': fb_model}
-
 
 def cf_text_embeddings_neighbouring_words(input_dict):
+    from . import fasttext_utils as futils
 
-    def filter_too_similar_by_editdistance(wordlist, compare_word, threshold=0.2):
-        return [w for w in wordlist if (1 - (float(editdistance.eval(w, compare_word)) / max(len(w), len(compare_word)))) <= threshold]
-
-    def check_editdistance(target_word_list, compare_word, treshold=0.2):
-        farEnough = True
-        for w in target_word_list:
-            ed = 1 - (float(editdistance.eval(w, compare_word)) / max(len(w), len(compare_word)))
-            if ed > treshold:
-                farEnough = False
-                break
-        return farEnough
-
-
-    cdata = input_dict['model']
-    with tempfile.TemporaryDirectory() as tmpdirname:
-        modelpath = os.path.join(tmpdirname, 'model.bin')
-        with open(modelpath, 'wb') as fp:
-            fp.write(zlib.decompress(cdata))
-        model = fasttext.load_model(modelpath)
+    model = futils.load_packed_model(input_dict['model'])
 
     k = int(input_dict['k'])
     threshold = float(input_dict['threshold'])
@@ -361,7 +318,7 @@ def cf_text_embeddings_neighbouring_words(input_dict):
 
         word_neighbours = [word]
         for d, candidate in model.get_nearest_neighbors(word, k*50):  # rule of thumb
-            if check_editdistance(word_neighbours, candidate, threshold):
+            if futils.check_editdistance(word_neighbours, candidate, threshold):
                 word_neighbours.append(candidate)
                 if len(word_neighbours) == k + 1:
                     break
@@ -393,3 +350,28 @@ def cf_text_embeddings_append_column(input_dict):
 
 def cf_text_embeddings_dataframe2csv(input_dict):
     return input_dict
+
+
+def cf_text_embeddings_evaluate_word_expressions(input_dict):
+    import copy
+    from . import fasttext_utils as futils
+
+    corpus = input_dict['corpus']
+    model = futils.load_packed_model(input_dict['model'])
+    threshold = float(input_dict['threshold'])
+    k = int(input_dict['k'])
+
+    fullMatrix = futils.get_full_matrix(model, normalize_rows=True)
+    output = []
+    for exp in corpus:
+        words, expression = futils.format_word_expression(exp, modelVarName='model')
+        nwords = len(words)
+        result_vector = eval(expression)
+        exp_results = copy.copy(words)
+        for d, candidate in futils.get_nearest_neighbors_from_vector(model, result_vector, matrix=fullMatrix, k=k*50):  # rule of thumb...
+            if futils.check_editdistance(exp_results, candidate, threshold):
+                exp_results.append(candidate)
+                if len(exp_results) == k + nwords:
+                    break
+        output.append(exp_results[nwords:])
+    return {'results': output}

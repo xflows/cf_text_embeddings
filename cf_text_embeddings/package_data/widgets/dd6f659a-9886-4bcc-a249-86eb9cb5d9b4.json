@@ -1,0 +1,108 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Evaluate word expressions with fastText",
+      "action": "cf_text_embeddings_evaluate_word_expressions",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget evaluates word expressions such as \"king - man + woman\" using the given fastText model. Two operators are currently supported: + and -. The results can be also filtered using the specified threshold for the distance measure.",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "dd6f659a-9886-4bcc-a249-86eb9cb5d9b4",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Expressions",
+      "short_name": "txt",
+      "description": "A list of expressions [list of str]",
+      "variable": "corpus",
+      "widget": "dd6f659a-9886-4bcc-a249-86eb9cb5d9b4",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "344a02cf-b312-474b-b7ae-3fd4605f54c5"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "fastText model",
+      "short_name": "mod",
+      "description": "A fastText model",
+      "variable": "model",
+      "widget": "dd6f659a-9886-4bcc-a249-86eb9cb5d9b4",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "7676502a-fe36-43bf-b6a0-72ff2f91c1c7"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Result size",
+      "short_name": "k",
+      "description": "The size of the resulting list",
+      "variable": "k",
+      "widget": "dd6f659a-9886-4bcc-a249-86eb9cb5d9b4",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "5",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "c92cc34b-ed90-428c-beab-e44a7c163ec4"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Threshold",
+      "short_name": "thr",
+      "description": "Edit distance threshold (1-no filtering, 0-very strict)",
+      "variable": "threshold",
+      "widget": "dd6f659a-9886-4bcc-a249-86eb9cb5d9b4",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "1.0",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "cc495b08-fdd3-4bfe-b900-bdea9b25ce43"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Evaluation results",
+      "short_name": "lst",
+      "description": "A corpus of evaluation results [list of list of str]",
+      "variable": "results",
+      "widget": "dd6f659a-9886-4bcc-a249-86eb9cb5d9b4",
+      "order": 1,
+      "uid": "0a3bc135-6763-4e01-8956-4ab905ec90fe"
+    }
+  }
+]
