@@ -14,4 +14,4 @@ langdetect
 pandas
 editdistance
 fasttext
-
+scikit-learn>=0.23.2
