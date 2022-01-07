@@ -21,7 +21,7 @@
       "order": 1,
       "uid": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
       "package": "cf_text_embeddings",
-      "always_save_results": true,
+      "always_save_results": false,
       "windows_queue": false
     }
   },
