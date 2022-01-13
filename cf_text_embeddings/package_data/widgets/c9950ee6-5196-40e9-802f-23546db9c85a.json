@@ -1,0 +1,109 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "apply trained fastText",
+      "action": "cf_text_embeddings_apply_trained_fasttext",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget applies a trained fastText model to a tokenized corpus and returns a matrix with document embeddings. Token embeddings can be combined by summation or average.",
+      "category": "2da132ad-2c50-4f4f-b79a-cb0579c7b70f",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "c9950ee6-5196-40e9-802f-23546db9c85a",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Corpus",
+      "short_name": "tok",
+      "description": "A tokenized corpus [list of list of str]",
+      "variable": "corpus",
+      "widget": "c9950ee6-5196-40e9-802f-23546db9c85a",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "2f417c6c-7bdf-4eae-966c-66c5efa8f082"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Aggregation method",
+      "short_name": "agg",
+      "description": "Token embeddings aggreation",
+      "variable": "aggregation",
+      "widget": "c9950ee6-5196-40e9-802f-23546db9c85a",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "average",
+      "parameter_type": "select",
+      "order": 1,
+      "uid": "5609d81c-c6c0-441e-981f-4d7a8b99043d"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "Model",
+      "short_name": "mod",
+      "description": "A trained fastText model",
+      "variable": "model",
+      "widget": "c9950ee6-5196-40e9-802f-23546db9c85a",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "72e2367a-0b59-42eb-b6c7-bd7e826db547"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Embedding",
+      "short_name": "emb",
+      "description": "Embedding [numpy matrix of dimensions n_docs X n_features]",
+      "variable": "embedding",
+      "widget": "c9950ee6-5196-40e9-802f-23546db9c85a",
+      "order": 1,
+      "uid": "22565d95-1fe7-455c-9055-4699897a00e5"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "5609d81c-c6c0-441e-981f-4d7a8b99043d",
+      "name": "average",
+      "value": "average",
+      "uid": "3512499f-8cd1-4119-8b86-69fa79550879"
+    }
+  },
+  {
+    "model": "workflows.abstractoption",
+    "fields": {
+      "abstract_input": "5609d81c-c6c0-441e-981f-4d7a8b99043d",
+      "name": "sum",
+      "value": "sum",
+      "uid": "997c7759-dbf3-494f-afa4-6cf29a83e8fb"
+    }
+  }
+]

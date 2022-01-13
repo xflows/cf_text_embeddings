@@ -375,3 +375,21 @@ def cf_text_embeddings_evaluate_word_expressions(input_dict):
                     break
         output.append(exp_results[nwords:])
     return {'results': output}
+
+
+def cf_text_embeddings_apply_trained_fasttext(input_dict):
+    from . import fasttext_utils as futils
+
+    model = futils.load_packed_model(input_dict['model'])
+    corpus = input_dict['corpus']
+    agg = input_dict['aggregation']
+
+    result = []
+    for doc in corpus:
+        tokvecs = np.array([model.get_word_vector(token) for token in doc])
+        if agg == 'sum':
+            docvec = tokvecs.sum(axis=0)
+        elif agg == 'average':
+            docvec = tokvecs.mean(axis=0)
+        result.append(docvec)
+    return {'embedding': np.array(result)}
