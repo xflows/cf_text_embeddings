@@ -296,7 +296,11 @@ def cf_text_embeddings_train_fasttext(input_dict):
                                             model=input_dict['model'],
                                             dim=int(input_dict['dimension']),
                                             minCount=int(input_dict['minCount']),
-                                            ws=int(input_dict['window']))
+                                            ws=int(input_dict['window']),
+                                            lr=float(input_dict['lrate']),
+                                            bucket=int(input_dict['bucket']),
+                                            epoch=int(input_dict['epoch'])
+                                            )
         modelpath = os.path.join(tmpdirname, 'model.bin')
         model.save_model(modelpath)
         data = open(modelpath, 'rb').read()

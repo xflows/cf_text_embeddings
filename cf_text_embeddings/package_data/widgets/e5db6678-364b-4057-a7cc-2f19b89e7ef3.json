@@ -28,6 +28,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "learning_rate",
+      "short_name": "lrt",
+      "description": "Learning rate (increase for small data)",
+      "variable": "lrate",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "0.05",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "0fea10fd-eeb9-4f40-bf31-3de988e8990f"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "min_count",
       "short_name": "min",
       "description": "Minimal number of word occurences",
@@ -79,6 +96,23 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "epoch",
+      "short_name": "epo",
+      "description": "Number of epochs (increase for small data)",
+      "variable": "epoch",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "5",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "8a85fc2b-9ceb-4bc0-a65d-234aa9fbc2ca"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "window",
       "short_name": "win",
       "description": "Size of the context window",
@@ -96,9 +130,26 @@
   {
     "model": "workflows.abstractinput",
     "fields": {
+      "name": "bucket",
+      "short_name": "buc",
+      "description": "Number of buckets (decrease for small data)",
+      "variable": "bucket",
+      "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": "2000000",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "bf00fa99-f271-4e6f-b4ff-5b66e8eb04ad"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
       "name": "dimension",
       "short_name": "dim",
-      "description": "Size of word vectors",
+      "description": "Size of word vectors (decrease for small data)",
       "variable": "dimension",
       "widget": "e5db6678-364b-4057-a7cc-2f19b89e7ef3",
       "required": true,
