@@ -1,0 +1,74 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Load corpus from ZIP",
+      "action": "cf_text_embeddings_read_zip_corpus",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "This widget loads corpus from files from a ZIP archive.",
+      "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "34210a04-af61-4980-b3cc-898880153629",
+      "package": "cf_text_embeddings",
+      "always_save_results": false,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "File types",
+      "short_name": "typ",
+      "description": "Types of files loaded from the ZIP archive (comma separated file endings)",
+      "variable": "ftypes",
+      "widget": "34210a04-af61-4980-b3cc-898880153629",
+      "required": true,
+      "parameter": true,
+      "multi": false,
+      "default": ".txt",
+      "parameter_type": "text",
+      "order": 1,
+      "uid": "001ef2ea-7fa6-46eb-a920-33d7447fa92e"
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "ZIP file",
+      "short_name": "zip",
+      "description": "A ZIP archive",
+      "variable": "archive",
+      "widget": "34210a04-af61-4980-b3cc-898880153629",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "884d68fc-6c26-4785-9c92-3d91d217232f"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Corpus",
+      "short_name": "txt",
+      "description": "Corpus of files form the archive [list of str]",
+      "variable": "corpus",
+      "widget": "34210a04-af61-4980-b3cc-898880153629",
+      "order": 1,
+      "uid": "d7d03520-8da7-4550-8f73-510bd49897a5"
+    }
+  }
+]

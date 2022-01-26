@@ -397,3 +397,17 @@ def cf_text_embeddings_apply_trained_fasttext(input_dict):
             docvec = tokvecs.mean(axis=0)
         result.append(docvec)
     return {'embedding': np.array(result)}
+
+
+def cf_text_embeddings_read_zip_corpus(input_dict):
+    import zipfile
+    fname = input_dict['archive']
+    ftypes = input_dict['ftypes'].replace(',', ' ').split()
+
+    corpus = []
+    with zipfile.ZipFile(fname) as archive:
+        for fname in archive.namelist():
+            if any([fname.endswith(x) for x in ftypes]):
+                with archive.open(fname) as fp:
+                    corpus.append(fp.read().decode('utf-8').strip())
+    return {'corpus': corpus}
