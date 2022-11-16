@@ -6,7 +6,7 @@
       "action": "cf_text_embeddings_concatenate_embeddings",
       "wsdl": "",
       "wsdl_method": "",
-      "description": "",
+      "description": "This widget concatenates multiple embedding matrices into one. It uses np.concatenate function and joins along the column axis (columns are concatenated).",
       "category": "9efeb445-5e78-4a98-af9b-3b1f8120728b",
       "visualization_view": "",
       "streaming_visualization_view": "",
